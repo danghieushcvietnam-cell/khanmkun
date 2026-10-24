@@ -51,71 +51,40 @@
   </script>
   <style>
     body { background-color: #FAF8F5; color: #374151; font-family: 'Be Vietnam Pro', sans-serif; }
-    
-    /* Hiệu ứng trượt & lò xo cho Modal */
     .modal-backdrop {
       background-color: rgba(45, 52, 54, 0.38);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .modal-backdrop.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .modal-backdrop:not(.hidden) {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .modal-backdrop.hidden { opacity: 0; pointer-events: none; }
+    .modal-backdrop:not(.hidden) { opacity: 1; pointer-events: auto; }
     .modal-card {
       transition: all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
       transform: scale(0.94) translateY(12px);
       opacity: 0;
     }
-    .modal-backdrop:not(.hidden) .modal-card {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
-    /* Chip chọn danh mục */
-    .cat-chip {
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    .cat-chip:hover {
-      transform: translateY(-1.5px);
-    }
+    .modal-backdrop:not(.hidden) .modal-card { transform: scale(1) translateY(0); opacity: 1; }
+    .cat-chip { transition: all 0.2s ease; cursor: pointer; }
+    .cat-chip:hover { transform: translateY(-1.5px); }
     .cat-chip.selected {
       background-color: #6C8273 !important;
       color: #FFFFFF !important;
       border-color: #6C8273 !important;
       box-shadow: 0 4px 12px rgba(108, 130, 115, 0.3);
     }
-
-    /* Nút chọn 0.5 & 1 ngày */
     .day-selector-btn.active {
       background-color: #A299C2;
       color: #FFFFFF;
       box-shadow: 0 4px 10px rgba(162, 153, 194, 0.35);
     }
-
-    .nav-btn.active {
-      background-color: #EBF0EC;
-      color: #6C8273;
-      font-weight: 600;
-    }
-
-    /* Toast thông báo nổi */
+    .nav-btn.active { background-color: #EBF0EC; color: #6C8273; font-weight: 600; }
     #toastNotify {
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       transform: translateY(80px);
       opacity: 0;
     }
-    #toastNotify.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
+    #toastNotify.show { transform: translateY(0); opacity: 1; }
     @media print {
       aside, header, .no-print { display: none !important; }
       main { margin: 0 !important; padding: 0 !important; width: 100% !important; }
@@ -160,7 +129,7 @@
           </svg>
         </div>
         <h1 class="text-2xl font-bold text-stone-800">Sổ Thu Chi & Phép Cá Nhân</h1>
-        <p class="text-xs text-pastel-subtext mt-1">Đăng nhập tài khoản cá nhân độc lập</p>
+        <p class="text-xs text-pastel-subtext mt-1">Đồng bộ máy tính & điện thoại trực tuyến</p>
       </div>
 
       <div class="flex border-b border-pastel-border mb-6">
@@ -182,8 +151,8 @@
           <i class="fa-solid fa-circle-exclamation text-rose-400"></i>
           <span>Tên đăng nhập hoặc mật khẩu không chính xác!</span>
         </div>
-        <button type="submit" class="w-full py-3.5 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20 hover:shadow-lg transition-all text-sm mt-2">
-          Đăng Nhập Vào Hệ Thống
+        <button type="submit" id="btnLoginSubmit" class="w-full py-3.5 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20 hover:shadow-lg transition-all text-sm mt-2 flex items-center justify-center gap-2">
+          <span>Đăng Nhập Vào Hệ Thống</span>
         </button>
       </form>
 
@@ -205,8 +174,8 @@
           <i class="fa-solid fa-circle-exclamation text-rose-400"></i>
           <span id="regErrorMsg">Lỗi tạo tài khoản!</span>
         </div>
-        <button type="submit" class="w-full py-3.5 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20 hover:shadow-lg transition-all text-sm mt-2">
-          Tạo Tài Khoản Mới
+        <button type="submit" id="btnRegSubmit" class="w-full py-3.5 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20 hover:shadow-lg transition-all text-sm mt-2 flex items-center justify-center gap-2">
+          <span>Tạo Tài Khoản Mới</span>
         </button>
       </form>
 
@@ -222,7 +191,6 @@
       <!-- Sidebar -->
       <aside class="w-full md:w-64 bg-white border-r border-pastel-border flex flex-col justify-between shrink-0 p-5">
         <div>
-          <!-- Logo & Brand -->
           <div class="flex items-center gap-3 px-2 pb-6 border-b border-pastel-border">
             <div class="w-11 h-11 rounded-2xl overflow-hidden shadow-sm shrink-0 border border-pastel-border">
               <svg viewBox="0 0 500 500" class="w-full h-full">
@@ -235,7 +203,9 @@
             </div>
             <div>
               <h2 class="font-bold text-stone-800 leading-tight">Sổ Quản Lý</h2>
-              <span class="text-xs text-pastel-subtext">Cá nhân & Nghỉ phép</span>
+              <span class="text-xs text-pastel-subtext flex items-center gap-1.5 mt-0.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Đồng bộ Cloud
+              </span>
             </div>
           </div>
 
@@ -289,7 +259,7 @@
       <!-- Main Content Area -->
       <main class="flex-1 p-4 md:p-8 overflow-y-auto max-w-6xl mx-auto w-full">
         
-        <!-- ================= 1. TAB: HÔM NAY ================= -->
+        <!-- 1. TAB: HÔM NAY -->
         <section id="section-dashboard" class="space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -306,7 +276,6 @@
             </div>
           </div>
 
-          <!-- Highlight Card: Chi Tiêu Hôm Nay -->
           <div class="bg-white rounded-3xl p-6 md:p-7 border border-pastel-border shadow-pastel flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4">
               <div class="w-14 h-14 rounded-2xl bg-pastel-roseLight text-pastel-rose flex items-center justify-center text-2xl shadow-inner">
@@ -322,7 +291,6 @@
             </div>
           </div>
 
-          <!-- Danh sách giao dịch hôm nay -->
           <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm">
             <div class="flex items-center justify-between mb-4">
               <h3 class="font-bold text-stone-800 text-sm md:text-base flex items-center gap-2">
@@ -352,7 +320,7 @@
           </div>
         </section>
 
-        <!-- ================= 2. TAB: VÍ & GIAO DỊCH ================= -->
+        <!-- 2. TAB: VÍ & GIAO DỊCH -->
         <section id="section-transactions" class="space-y-6 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -436,7 +404,7 @@
           </div>
         </section>
 
-        <!-- ================= 3. TAB: TIẾT KIỆM & TRẢ GÓP ================= -->
+        <!-- 3. TAB: TIẾT KIỆM & TRẢ GÓP -->
         <section id="section-savings" class="space-y-6 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -486,7 +454,7 @@
           </div>
         </section>
 
-        <!-- ================= 4. TAB: NGHỈ PHÉP ================= -->
+        <!-- 4. TAB: NGHỈ PHÉP -->
         <section id="section-leaves" class="space-y-6 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -563,7 +531,7 @@
           </div>
         </section>
 
-        <!-- ================= 5. TAB: BÁO CÁO TOÀN DIỆN ================= -->
+        <!-- 5. TAB: BÁO CÁO TOÀN DIỆN -->
         <section id="section-reports" class="space-y-6 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -646,9 +614,9 @@
     </footer>
   </div>
 
-  <!-- ================= POPUP MODALS VỚI HIỆU ỨNG SANG TRỌNG ================= -->
+  <!-- ================= POPUP MODALS ================= -->
 
-  <!-- 1. Modal Thêm Giao Dịch (Hỗ trợ chip chọn nhanh danh mục) -->
+  <!-- Modal Thêm Giao Dịch -->
   <div id="modalTxn" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-lg p-6 md:p-8 border border-pastel-border shadow-modal relative">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -668,7 +636,6 @@
 
       <form onsubmit="handleSaveTxn(event)" class="space-y-4 mt-5 text-xs md:text-sm">
         <input type="hidden" id="txnType">
-        
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Số Tiền (VNĐ)</label>
           <div class="relative">
@@ -680,11 +647,7 @@
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Hạng Mục</label>
           <input type="text" id="txnCategory" required placeholder="Nhập hoặc bấm chọn nhanh bên dưới" class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-stone-50/50 mb-2">
-          
-          <!-- Chips chọn nhanh danh mục -->
-          <div id="quickCategoryChips" class="flex flex-wrap gap-1.5">
-            <!-- Dynamic chips -->
-          </div>
+          <div id="quickCategoryChips" class="flex flex-wrap gap-1.5"></div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -714,7 +677,7 @@
     </div>
   </div>
 
-  <!-- 2. Modal Chuyển Tiền Giữa Ví -->
+  <!-- Modal Chuyển Tiền -->
   <div id="modalTransfer" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -767,7 +730,7 @@
     </div>
   </div>
 
-  <!-- 3. Modal Đăng Ký Nghỉ Phép (Có bộ gạt 0.5 ngày tinh xảo) -->
+  <!-- Modal Đăng Ký Nghỉ Phép -->
   <div id="modalLeave" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -823,7 +786,7 @@
     </div>
   </div>
 
-  <!-- 4. Modal Thiết Lập Quỹ Phép -->
+  <!-- Modal Thiết Lập Quỹ Phép -->
   <div id="modalConfigLeave" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -853,7 +816,7 @@
     </div>
   </div>
 
-  <!-- 5. Modal Thêm Tiết Kiệm -->
+  <!-- Modal Thêm Tiết Kiệm -->
   <div id="modalSaving" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -894,7 +857,7 @@
     </div>
   </div>
 
-  <!-- 6. Modal Thêm Trả Góp -->
+  <!-- Modal Thêm Trả Góp -->
   <div id="modalInstallment" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -934,7 +897,7 @@
     </div>
   </div>
 
-  <!-- 7. Modal Thanh Toán Trả Góp -->
+  <!-- Modal Thanh Toán Trả Góp -->
   <div id="modalPayInstallment" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -968,7 +931,7 @@
     </div>
   </div>
 
-  <!-- 8. Modal Đổi Mật Khẩu -->
+  <!-- Modal Đổi Mật Khẩu -->
   <div id="modalChangePass" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
       <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
@@ -1001,10 +964,13 @@
     <span id="toastMsg">Thao tác thành công!</span>
   </div>
 
-  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <!-- ================= JAVASCRIPT KẾT NỐI CLOUD ================= -->
   <script>
+    // ĐÃ GẮN SẴN LINK GOOGLE APPS SCRIPT CỦA SẾP
+    const API_URL = "https://script.google.com/macros/s/AKfycbzJtPVaQ7BE-Kheke73x0_y9ztFr3MuVtw0LrYaJf7A1Yp9819C9BhT1be7_nmIRLiL/exec"; 
+
     const STORAGE_KEY = 'lumina_finance_db_v2';
-    let db = null;
+    let db = { users: {} };
     let currentUser = null;
     let chartIE = null;
     let chartCat = null;
@@ -1013,7 +979,44 @@
     const defaultExpenseCategories = ['Ăn uống', 'Cà phê & Đi chợ', 'Đi lại / Xăng xe', 'Hóa đơn & Tiện ích', 'Mua sắm', 'Y tế & Thuốc'];
     const defaultIncomeCategories = ['Lương cố định', 'Thưởng công việc', 'Thu nhập phụ', 'Lãi tiết kiệm'];
 
-    function loadDB() {
+    // ĐỌC DỮ LIỆU TỪ CLOUD (GOOGLE SHEETS)
+    async function syncFromCloud() {
+      if (!API_URL) {
+        loadLocalDB();
+        return;
+      }
+      try {
+        const res = await fetch(`${API_URL}?action=get`);
+        const data = await res.json();
+        if (data && data.users) {
+          db = data;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+        } else {
+          loadLocalDB();
+        }
+      } catch (err) {
+        console.error("Lỗi đồng bộ Cloud:", err);
+        loadLocalDB();
+      }
+    }
+
+    // LƯU DỮ LIỆU LÊN CLOUD (GOOGLE SHEETS)
+    async function syncToCloud() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+      if (!API_URL) return;
+      try {
+        await fetch(API_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(db)
+        });
+      } catch (err) {
+        console.error("Lỗi lưu lên Cloud:", err);
+      }
+    }
+
+    function loadLocalDB() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         try {
@@ -1024,31 +1027,7 @@
       } else {
         db = { users: {} };
       }
-
       if (!db.users) db.users = {};
-
-      if (Object.keys(db.users).length === 0) {
-        const todayStr = new Date().toISOString().split('T')[0];
-        db.users['demo'] = {
-          username: 'demo',
-          password: '123456',
-          fullname: 'Ốc My',
-          wallets: { bank: 25000000, cash: 3500000 },
-          leaveConfig: { annual: 12, comp: 3, senior: 2 },
-          transactions: [
-            { id: 't1', type: 'income', category: 'Lương cố định', amount: 20000000, wallet: 'bank', date: todayStr, note: 'Lương chuyển khoản' },
-            { id: 't2', type: 'expense', category: 'Cà phê & Đi chợ', amount: 65000, wallet: 'cash', date: todayStr, note: 'Cà phê sáng cùng bạn' }
-          ],
-          savings: [{ id: 's1', title: 'Quỹ Dự Phòng Khẩn Cấp', amount: 15000000 }],
-          installments: [{ id: 'i1', title: 'Máy Tính Bảng iPad', total: 12000000, months: 6, paid: 4000000 }],
-          leaves: [{ id: 'l1', fund: 'annual', days: 1, date: todayStr, reason: 'Nghỉ giải quyết việc riêng' }]
-        };
-        saveDB();
-      }
-    }
-
-    function saveDB() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
     }
 
     function formatVND(num) {
@@ -1093,11 +1072,19 @@
       }
     }
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
       e.preventDefault();
-      loadDB();
+      const btn = document.getElementById('btnLoginSubmit');
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Đang xác thực...</span>`;
+      btn.disabled = true;
+
+      await syncFromCloud();
+
       const u = document.getElementById('loginUser').value.trim();
       const p = document.getElementById('loginPass').value.trim();
+
+      btn.innerHTML = `<span>Đăng Nhập Vào Hệ Thống</span>`;
+      btn.disabled = false;
 
       if (db.users[u] && db.users[u].password === p) {
         currentUser = db.users[u];
@@ -1111,16 +1098,23 @@
       }
     }
 
-    function handleRegister(e) {
+    async function handleRegister(e) {
       e.preventDefault();
-      loadDB();
+      const btn = document.getElementById('btnRegSubmit');
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Đang tạo trên Cloud...</span>`;
+      btn.disabled = true;
+
+      await syncFromCloud();
+
       const name = document.getElementById('regName').value.trim();
       const u = document.getElementById('regUser').value.trim();
       const p = document.getElementById('regPass').value.trim();
 
       if (db.users[u]) {
+        btn.innerHTML = `<span>Tạo Tài Khoản Mới</span>`;
+        btn.disabled = false;
         const err = document.getElementById('regError');
-        document.getElementById('regErrorMsg').innerText = 'Tên đăng nhập này đã tồn tại!';
+        document.getElementById('regErrorMsg').innerText = 'Tên đăng nhập này đã tồn tại trên Cloud!';
         err.classList.remove('hidden');
         return;
       }
@@ -1136,14 +1130,18 @@
         installments: [],
         leaves: []
       };
-      saveDB();
+
+      await syncToCloud();
+
+      btn.innerHTML = `<span>Tạo Tài Khoản Mới</span>`;
+      btn.disabled = false;
 
       currentUser = db.users[u];
       document.getElementById('regError').classList.add('hidden');
       document.getElementById('authScreen').classList.add('hidden');
       document.getElementById('appContainer').classList.remove('hidden');
       loadUserInterface();
-      showToast('Tạo tài khoản thành công!');
+      showToast('Đã tạo tài khoản và đồng bộ Cloud!');
     }
 
     function handleLogout() {
@@ -1163,7 +1161,7 @@
       openModal('modalChangePass');
     }
 
-    function handleChangePassword(e) {
+    async function handleChangePassword(e) {
       e.preventDefault();
       const oldP = document.getElementById('oldPass').value.trim();
       const newP = document.getElementById('newPass').value.trim();
@@ -1177,13 +1175,13 @@
 
       currentUser.password = newP;
       db.users[currentUser.username].password = newP;
-      saveDB();
+      await syncToCloud();
 
       msg.className = 'text-xs p-3 rounded-2xl bg-emerald-50 text-emerald-600 font-medium block border border-emerald-100';
       msg.innerText = 'Đổi mật khẩu thành công!';
       setTimeout(() => {
         closeModal('modalChangePass');
-        showToast('Mật khẩu mới đã được cập nhật');
+        showToast('Mật khẩu mới đã được đồng bộ lên Cloud');
       }, 1000);
     }
 
@@ -1328,14 +1326,14 @@
       }
     }
 
-    function promptEditBalance(walletType) {
+    async function promptEditBalance(walletType) {
       const name = walletType === 'bank' ? 'Ví Ngân Hàng' : 'Ví Tiền Mặt';
       const cur = currentUser.wallets[walletType];
       const val = prompt(`Nhập số dư thực tế mới cho ${name}:`, cur);
       if (val !== null && !isNaN(val) && val.trim() !== '') {
         currentUser.wallets[walletType] = Number(val);
         db.users[currentUser.username].wallets[walletType] = Number(val);
-        saveDB();
+        await syncToCloud();
         renderTransactionsPage();
         showToast('Đã cập nhật số dư ' + name);
       }
@@ -1574,16 +1572,9 @@
       showToast('Đã tải xuống file CSV thành công');
     }
 
-    // ================= MODAL & POPUP INTERACTIONS =================
-    function openModal(id) { 
-      document.getElementById(id).classList.remove('hidden'); 
-    }
-    
-    function closeModal(id) { 
-      document.getElementById(id).classList.add('hidden'); 
-    }
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // Đóng modal khi bấm ra vùng backdrop ngoài
     window.addEventListener('click', function(e) {
       if (e.target.classList.contains('modal-backdrop')) {
         e.target.classList.add('hidden');
@@ -1617,9 +1608,7 @@
       document.getElementById('txnNote').value = '';
       document.getElementById('txnDate').value = new Date().toISOString().split('T')[0];
 
-      // Render danh mục chọn nhanh
       renderQuickCategoryChips(isExp ? defaultExpenseCategories : defaultIncomeCategories);
-
       openModal('modalTxn');
     }
 
@@ -1652,7 +1641,7 @@
       }
     }
 
-    function handleSaveTxn(e) {
+    async function handleSaveTxn(e) {
       e.preventDefault();
       const type = document.getElementById('txnType').value;
       const amount = Number(document.getElementById('txnAmount').value);
@@ -1673,12 +1662,12 @@
       });
 
       db.users[currentUser.username] = currentUser;
-      saveDB();
+      await syncToCloud();
 
       closeModal('modalTxn');
       renderDashboard();
       renderTransactionsPage();
-      showToast('Đã lưu giao dịch thành công!');
+      showToast('Đã lưu và đồng bộ lên Cloud!');
     }
 
     function openModalTransfer() {
@@ -1687,7 +1676,7 @@
       openModal('modalTransfer');
     }
 
-    function handleSaveTransfer(e) {
+    async function handleSaveTransfer(e) {
       e.preventDefault();
       const amount = Number(document.getElementById('trAmount').value);
       const from = document.getElementById('trFrom').value;
@@ -1712,7 +1701,7 @@
       });
 
       db.users[currentUser.username] = currentUser;
-      saveDB();
+      await syncToCloud();
 
       closeModal('modalTransfer');
       renderTransactionsPage();
@@ -1726,7 +1715,7 @@
       openModal('modalLeave');
     }
 
-    function handleSaveLeave(e) {
+    async function handleSaveLeave(e) {
       e.preventDefault();
       const fund = document.getElementById('leaveFundSelect').value;
       const days = Number(document.getElementById('leaveDays').value);
@@ -1740,11 +1729,11 @@
       });
 
       db.users[currentUser.username] = currentUser;
-      saveDB();
+      await syncToCloud();
 
       closeModal('modalLeave');
       renderLeavesPage();
-      showToast('Đã lưu đơn nghỉ phép!');
+      showToast('Đã lưu đơn nghỉ phép lên Cloud!');
     }
 
     function openModalConfigLeave() {
@@ -1755,7 +1744,7 @@
       openModal('modalConfigLeave');
     }
 
-    function handleSaveLeaveConfig(e) {
+    async function handleSaveLeaveConfig(e) {
       e.preventDefault();
       currentUser.leaveConfig = {
         annual: Number(document.getElementById('cfgAnnual').value),
@@ -1764,7 +1753,7 @@
       };
 
       db.users[currentUser.username] = currentUser;
-      saveDB();
+      await syncToCloud();
 
       closeModal('modalConfigLeave');
       renderLeavesPage();
@@ -1777,7 +1766,7 @@
       openModal('modalSaving');
     }
 
-    function handleSaveSaving(e) {
+    async function handleSaveSaving(e) {
       e.preventDefault();
       const title = document.getElementById('savTitle').value.trim();
       const amount = Number(document.getElementById('savAmount').value);
@@ -1797,7 +1786,7 @@
       });
 
       db.users[currentUser.username] = currentUser;
-      saveDB();
+      await syncToCloud();
 
       closeModal('modalSaving');
       renderSavingsPage();
@@ -1812,7 +1801,7 @@
       openModal('modalInstallment');
     }
 
-    function handleSaveInstallment(e) {
+    async function handleSaveInstallment(e) {
       e.preventDefault();
       const title = document.getElementById('insTitle').value.trim();
       const total = Number(document.getElementById('insTotal').value);
@@ -1825,7 +1814,7 @@
       });
 
       db.users[currentUser.username] = currentUser;
-      saveDB();
+      await syncToCloud();
 
       closeModal('modalInstallment');
       renderSavingsPage();
@@ -1839,7 +1828,7 @@
       openModal('modalPayInstallment');
     }
 
-    function handlePayInstallment(e) {
+    async function handlePayInstallment(e) {
       e.preventDefault();
       const id = document.getElementById('payInsId').value;
       const amount = Number(document.getElementById('payInsAmount').value);
@@ -1860,7 +1849,7 @@
         });
 
         db.users[currentUser.username] = currentUser;
-        saveDB();
+        await syncToCloud();
 
         closeModal('modalPayInstallment');
         renderSavingsPage();
@@ -1869,13 +1858,13 @@
       }
     }
 
-    function deleteTransaction(id) {
+    async function deleteTransaction(id) {
       if (confirm('Sếp có chắc chắn muốn xóa giao dịch này?')) {
         const idx = currentUser.transactions.findIndex(t => t.id === id);
         if (idx !== -1) {
           currentUser.transactions.splice(idx, 1);
           db.users[currentUser.username] = currentUser;
-          saveDB();
+          await syncToCloud();
           renderDashboard();
           renderTransactionsPage();
           showToast('Đã xóa giao dịch');
@@ -1883,38 +1872,38 @@
       }
     }
 
-    function deleteSaving(id) {
+    async function deleteSaving(id) {
       if (confirm('Xóa khoản tiết kiệm này?')) {
         currentUser.savings = currentUser.savings.filter(s => s.id !== id);
         db.users[currentUser.username] = currentUser;
-        saveDB();
+        await syncToCloud();
         renderSavingsPage();
         showToast('Đã xóa khoản tiết kiệm');
       }
     }
 
-    function deleteInstallment(id) {
+    async function deleteInstallment(id) {
       if (confirm('Xóa gói trả góp này?')) {
         currentUser.installments = currentUser.installments.filter(i => i.id !== id);
         db.users[currentUser.username] = currentUser;
-        saveDB();
+        await syncToCloud();
         renderSavingsPage();
         showToast('Đã xóa gói trả góp');
       }
     }
 
-    function deleteLeave(id) {
+    async function deleteLeave(id) {
       if (confirm('Hủy ngày nghỉ phép này?')) {
         currentUser.leaves = currentUser.leaves.filter(l => l.id !== id);
         db.users[currentUser.username] = currentUser;
-        saveDB();
+        await syncToCloud();
         renderLeavesPage();
         showToast('Đã hủy ngày nghỉ');
       }
     }
 
     window.onload = function() {
-      loadDB();
+      syncFromCloud();
     };
   </script>
 </body>
