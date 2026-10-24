@@ -2,13 +2,16 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hệ Thống Quản Lý Chi Tiêu & Nghỉ Phép</title>
-  <!-- Icon hiển thị trên tab trình duyệt (Favicon) & Màn hình chính điện thoại (App Icon) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FAF8F5'/%3E%3Cstop offset='100%25' stop-color='%23EBF0EC'/%3E%3C/linearGradient%3E%3ClinearGradient id='leafGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236C8273'/%3E%3Cstop offset='100%25' stop-color='%234F6355'/%3E%3C/linearGradient%3E%3ClinearGradient id='goldGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FDF8F0'/%3E%3Cstop offset='100%25' stop-color='%23DFBA88'/%3E%3C/linearGradient%3E%3Cfilter id='softShadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='0' dy='8' stdDeviation='12' flood-color='%233D4246' flood-opacity='0.12'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='url(%23bgGrad)' stroke='%23F0ECE1' stroke-width='8'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FFFFFF' filter='url(%23softShadow)'/%3E%3Ccircle cx='310' cy='200' r='55' fill='url(%23goldGrad)' stroke='%23FFFFFF' stroke-width='6' filter='url(%23softShadow)'/%3E%3Cpath d='M220 360 C 220 300, 250 250, 310 220 C 310 280, 280 330, 220 360 Z' fill='url(%23leafGrad)'/%3E%3Cpath d='M220 360 C 220 310, 180 270, 140 270 C 140 320, 170 360, 220 360 Z' fill='%238CA193'/%3E%3Ccircle cx='220' cy='360' r='10' fill='%234F6355'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FAF8F5'/%3E%3Cstop offset='100%25' stop-color='%23EBF0EC'/%3E%3C/linearGradient%3E%3ClinearGradient id='leafGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236C8273'/%3E%3Cstop offset='100%25' stop-color='%234F6355'/%3E%3C/linearGradient%3E%3ClinearGradient id='goldGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FDF8F0'/%3E%3Cstop offset='100%25' stop-color='%23DFBA88'/%3E%3C/linearGradient%3E%3Cfilter id='softShadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='0' dy='8' stdDeviation='12' flood-color='%233D4246' flood-opacity='0.12'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='url(%23bgGrad)' stroke='%23F0ECE1' stroke-width='8'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FFFFFF' filter='url(%23softShadow)'/%3E%3Ccircle cx='310' cy='200' r='55' fill='url(%23goldGrad)' stroke='%23FFFFFF' stroke-width='6' filter='url(%23softShadow)'/%3E%3Cpath d='M220 360 C 220 300, 250 250, 310 220 C 310 280, 280 330, 220 360 Z' fill='url(%23leafGrad)'/%3E%3Cpath d='M220 360 C 220 310, 180 270, 140 270 C 140 320, 170 360, 220 360 Z' fill='%238CA193'/%3E%3Ccircle cx='220' cy='360' r='10' fill='%234F6355'/%3E%3C/svg%3E">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sổ Thu Chi & Phép Cá Nhân</title>
+
+  <!-- App Icon & Favicon: Nhân vật cầm dép hoạt hình cute pastel -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Crect width='500' height='500' rx='110' fill='%237DBDB3'/%3E%3Cpath d='M175 390 C 180 440, 200 480, 200 500 L 370 500 C 370 470, 360 420, 340 390 Z' fill='%23FFFFFF' stroke='%23111111' stroke-width='14' stroke-linejoin='round'/%3E%3Cpath d='M330 400 Q 420 410 440 460' fill='none' stroke='%23111111' stroke-width='14' stroke-linecap='round'/%3E%3Cpath d='M175 390 C 130 360, 110 260, 150 260 C 180 260, 195 330, 220 375 Z' fill='%23FFFFFF' stroke='%23111111' stroke-width='14' stroke-linejoin='round'/%3E%3Cellipse cx='305' cy='285' rx='155' ry='145' fill='%23FFFFFF' stroke='%23111111' stroke-width='14'/%3E%3Cg transform='translate(55, 140) rotate(-22)'%3E%3Cpath d='M35 15 C 80 15, 95 65, 90 120 C 85 170, 65 195, 25 190 C -10 185, -5 140, 5 95 C 12 60, 5 15, 35 15 Z' fill='%23F6D27E' stroke='%23111111' stroke-width='12'/%3E%3Cpath d='M15 70 C 40 75, 45 110, 42 165' fill='none' stroke='%235E381E' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M75 75 C 50 80, 42 110, 42 165' fill='none' stroke='%235E381E' stroke-width='12' stroke-linecap='round'/%3E%3Ccircle cx='42' cy='165' r='5' fill='%235E381E'/%3E%3C/g%3E%3Ccircle cx='260' cy='265' r='16' fill='%23111111'/%3E%3Ccircle cx='375' cy='260' r='16' fill='%23111111'/%3E%3Cg fill='%23F18C8E'%3E%3Cellipse cx='215' cy='310' rx='34' ry='20' transform='rotate(-5 215 310)'/%3E%3Cellipse cx='410' cy='300' rx='34' ry='20' transform='rotate(5 410 300)'/%3E%3C/g%3E%3Cg stroke='%23FFFFFF' stroke-width='5' stroke-linecap='round'%3E%3Cline x1='200' y1='302' x2='208' y2='318'/%3E%3Cline x1='213' y1='300' x2='221' y2='320'/%3E%3Cline x1='226' y1='302' x2='233' y2='318'/%3E%3Cline x1='395' y1='292' x2='403' y2='308'/%3E%3Cline x1='408' y1='290' x2='416' y2='310'/%3E%3Cline x1='421' y1='292' x2='428' y2='308'/%3E%3C/g%3E%3Cpath d='M295 325 Q 330 355 365 320' fill='none' stroke='%23111111' stroke-width='13' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Crect width='500' height='500' rx='110' fill='%237DBDB3'/%3E%3Cpath d='M175 390 C 180 440, 200 480, 200 500 L 370 500 C 370 470, 360 420, 340 390 Z' fill='%23FFFFFF' stroke='%23111111' stroke-width='14' stroke-linejoin='round'/%3E%3Cpath d='M330 400 Q 420 410 440 460' fill='none' stroke='%23111111' stroke-width='14' stroke-linecap='round'/%3E%3Cpath d='M175 390 C 130 360, 110 260, 150 260 C 180 260, 195 330, 220 375 Z' fill='%23FFFFFF' stroke='%23111111' stroke-width='14' stroke-linejoin='round'/%3E%3Cellipse cx='305' cy='285' rx='155' ry='145' fill='%23FFFFFF' stroke='%23111111' stroke-width='14'/%3E%3Cg transform='translate(55, 140) rotate(-22)'%3E%3Cpath d='M35 15 C 80 15, 95 65, 90 120 C 85 170, 65 195, 25 190 C -10 185, -5 140, 5 95 C 12 60, 5 15, 35 15 Z' fill='%23F6D27E' stroke='%23111111' stroke-width='12'/%3E%3Cpath d='M15 70 C 40 75, 45 110, 42 165' fill='none' stroke='%235E381E' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M75 75 C 50 80, 42 110, 42 165' fill='none' stroke='%235E381E' stroke-width='12' stroke-linecap='round'/%3E%3Ccircle cx='42' cy='165' r='5' fill='%235E381E'/%3E%3C/g%3E%3Ccircle cx='260' cy='265' r='16' fill='%23111111'/%3E%3Ccircle cx='375' cy='260' r='16' fill='%23111111'/%3E%3Cg fill='%23F18C8E'%3E%3Cellipse cx='215' cy='310' rx='34' ry='20' transform='rotate(-5 215 310)'/%3E%3Cellipse cx='410' cy='300' rx='34' ry='20' transform='rotate(5 410 300)'/%3E%3C/g%3E%3Cg stroke='%23FFFFFF' stroke-width='5' stroke-linecap='round'%3E%3Cline x1='200' y1='302' x2='208' y2='318'/%3E%3Cline x1='213' y1='300' x2='221' y2='320'/%3E%3Cline x1='226' y1='302' x2='233' y2='318'/%3E%3Cline x1='395' y1='292' x2='403' y2='308'/%3E%3Cline x1='408' y1='290' x2='416' y2='310'/%3E%3Cline x1='421' y1='292' x2='428' y2='308'/%3E%3C/g%3E%3Cpath d='M295 325 Q 330 355 365 320' fill='none' stroke='%23111111' stroke-width='13' stroke-linecap='round'/%3E%3C/svg%3E">
   <meta name="apple-mobile-web-app-title" content="Sổ Thu Chi">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#7DBDB3">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,12 +27,12 @@
               cream: '#FAF8F5',
               card: '#FFFFFF',
               border: '#F0ECE1',
-              primary: '#6C8273',      /* Sage green */
+              primary: '#6C8273',
               primaryHover: '#5B6F61',
               primaryLight: '#EBF0EC',
-              rose: '#DFA398',         /* Soft Rose */
+              rose: '#DFA398',
               roseLight: '#FDF3F1',
-              lavender: '#A299C2',     /* Lavender */
+              lavender: '#A299C2',
               lavenderLight: '#F4F2F9',
               gold: '#DFBA88',
               goldLight: '#FDF8F0',
@@ -42,7 +45,7 @@
     }
   </script>
   <style>
-    body { background-color: #FAF8F5; color: #3D4246; }
+    body { background-color: #FAF8F5; color: #3D4246; font-family: 'Be Vietnam Pro', sans-serif; }
     .nav-btn.active {
       background-color: #EBF0EC;
       color: #6C8273;
@@ -61,8 +64,35 @@
   <div id="authScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#FAF8F5] p-4">
     <div class="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl shadow-stone-200/50 border border-pastel-border">
       <div class="text-center mb-6">
-        <div class="w-16 h-16 mx-auto bg-pastel-primaryLight text-pastel-primary rounded-2xl flex items-center justify-center text-2xl mb-3 shadow-inner">
-          <i class="fa-solid fa-leaf"></i>
+        <div class="w-20 h-20 mx-auto rounded-3xl overflow-hidden mb-3 shadow-md border-2 border-white">
+          <svg viewBox="0 0 500 500" class="w-full h-full">
+            <rect width="500" height="500" rx="110" fill="#7DBDB3"/>
+            <path d="M175 390 C 180 440, 200 480, 200 500 L 370 500 C 370 470, 360 420, 340 390 Z" fill="#FFFFFF" stroke="#111111" stroke-width="14" stroke-linejoin="round"/>
+            <path d="M330 400 Q 420 410 440 460" fill="none" stroke="#111111" stroke-width="14" stroke-linecap="round"/>
+            <path d="M175 390 C 130 360, 110 260, 150 260 C 180 260, 195 330, 220 375 Z" fill="#FFFFFF" stroke="#111111" stroke-width="14" stroke-linejoin="round"/>
+            <ellipse cx="305" cy="285" rx="155" ry="145" fill="#FFFFFF" stroke="#111111" stroke-width="14"/>
+            <g transform="translate(55, 140) rotate(-22)">
+              <path d="M35 15 C 80 15, 95 65, 90 120 C 85 170, 65 195, 25 190 C -10 185, -5 140, 5 95 C 12 60, 5 15, 35 15 Z" fill="#F6D27E" stroke="#111111" stroke-width="12"/>
+              <path d="M15 70 C 40 75, 45 110, 42 165" fill="none" stroke="#5E381E" stroke-width="12" stroke-linecap="round"/>
+              <path d="M75 75 C 50 80, 42 110, 42 165" fill="none" stroke="#5E381E" stroke-width="12" stroke-linecap="round"/>
+              <circle cx="42" cy="165" r="5" fill="#5E381E"/>
+            </g>
+            <circle cx="260" cy="265" r="16" fill="#111111"/>
+            <circle cx="375" cy="260" r="16" fill="#111111"/>
+            <g fill="#F18C8E">
+              <ellipse cx="215" cy="310" rx="34" ry="20" transform="rotate(-5 215 310)"/>
+              <ellipse cx="410" cy="300" rx="34" ry="20" transform="rotate(5 410 300)"/>
+            </g>
+            <g stroke="#FFFFFF" stroke-width="5" stroke-linecap="round">
+              <line x1="200" y1="302" x2="208" y2="318"/>
+              <line x1="213" y1="300" x2="221" y2="320"/>
+              <line x1="226" y1="302" x2="233" y2="318"/>
+              <line x1="395" y1="292" x2="403" y2="308"/>
+              <line x1="408" y1="290" x2="416" y2="310"/>
+              <line x1="421" y1="292" x2="428" y2="308"/>
+            </g>
+            <path d="M295 325 Q 330 355 365 320" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round"/>
+          </svg>
         </div>
         <h1 class="text-2xl font-bold text-stone-800">Sổ Thu Chi & Phép Cá Nhân</h1>
         <p class="text-sm text-pastel-subtext mt-1">Đăng nhập tài khoản để quản lý độc lập</p>
@@ -77,7 +107,7 @@
       <form id="formLogin" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-pastel-subtext mb-1">Tên Đăng Nhập</label>
-          <input type="text" id="loginUser" required placeholder="Nhập demo hoặc tài khoản của bạn" class="w-full px-4 py-2.5 rounded-xl border border-pastel-border bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/40 text-sm">
+          <input type="text" id="loginUser" required placeholder="Nhập tên đăng nhập của bạn" class="w-full px-4 py-2.5 rounded-xl border border-pastel-border bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/40 text-sm">
         </div>
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-pastel-subtext mb-1">Mật Khẩu</label>
@@ -90,10 +120,6 @@
         <button type="submit" class="w-full py-3 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-xl font-medium shadow-md transition-all text-sm mt-2">
           Đăng Nhập Vào Hệ Thống
         </button>
-        <div class="mt-4 p-3 bg-pastel-primaryLight/50 rounded-xl border border-pastel-primaryLight text-xs text-stone-600 flex justify-between items-center">
-          <span>Tài khoản mẫu: <strong>demo</strong></span>
-          <span>Mật khẩu: <strong>123456</strong></span>
-        </div>
       </form>
 
       <!-- Form Tạo Tài Khoản -->
@@ -133,8 +159,14 @@
         <div>
           <!-- Logo & Brand -->
           <div class="flex items-center gap-3 px-2 pb-6 border-b border-pastel-border">
-            <div class="w-10 h-10 rounded-xl bg-pastel-primaryLight text-pastel-primary flex items-center justify-center text-lg font-bold">
-              <i class="fa-solid fa-seedling"></i>
+            <div class="w-10 h-10 rounded-xl overflow-hidden shadow-sm shrink-0">
+              <svg viewBox="0 0 500 500" class="w-full h-full">
+                <rect width="500" height="500" fill="#7DBDB3"/>
+                <ellipse cx="305" cy="285" rx="155" ry="145" fill="#FFFFFF"/>
+                <circle cx="260" cy="265" r="16" fill="#111111"/>
+                <circle cx="375" cy="260" r="16" fill="#111111"/>
+                <path d="M295 325 Q 330 355 365 320" fill="none" stroke="#111111" stroke-width="14" stroke-linecap="round"/>
+              </svg>
             </div>
             <div>
               <h2 class="font-bold text-stone-800 leading-tight">Sổ Quản Lý</h2>
@@ -192,7 +224,7 @@
       <!-- Main Content Area -->
       <main class="flex-1 p-4 md:p-8 overflow-y-auto max-w-6xl mx-auto w-full">
         
-        <!-- ================= 1. TAB: HÔM NAY (DASHBOARD) ================= -->
+        <!-- ================= 1. TAB: HÔM NAY ================= -->
         <section id="section-dashboard" class="space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -245,9 +277,7 @@
                     <th class="py-2.5 px-3 text-center">Xóa</th>
                   </tr>
                 </thead>
-                <tbody id="todayTransactionsTable" class="divide-y divide-pastel-border">
-                  <!-- Render dynamic rows -->
-                </tbody>
+                <tbody id="todayTransactionsTable" class="divide-y divide-pastel-border"></tbody>
               </table>
               <div id="noTodayTxn" class="py-8 text-center text-xs text-pastel-subtext">
                 Chưa có giao dịch nào phát sinh trong ngày hôm nay.
@@ -270,9 +300,7 @@
             </div>
           </div>
 
-          <!-- Cards Số Dư Ví -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Ví Ngân Hàng -->
             <div class="bg-white rounded-2xl p-5 border border-pastel-border shadow-sm flex items-center justify-between">
               <div class="flex items-center gap-3.5">
                 <div class="w-12 h-12 rounded-xl bg-pastel-primaryLight text-pastel-primary flex items-center justify-center text-xl">
@@ -288,7 +316,6 @@
               </button>
             </div>
 
-            <!-- Ví Tiền Mặt -->
             <div class="bg-white rounded-2xl p-5 border border-pastel-border shadow-sm flex items-center justify-between">
               <div class="flex items-center gap-3.5">
                 <div class="w-12 h-12 rounded-xl bg-pastel-goldLight text-pastel-gold flex items-center justify-center text-xl">
@@ -305,7 +332,6 @@
             </div>
           </div>
 
-          <!-- Lịch sử toàn bộ giao dịch -->
           <div class="bg-white rounded-2xl border border-pastel-border p-6 shadow-sm">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
               <h3 class="font-bold text-stone-800 text-sm md:text-base">Lịch Sử Giao Dịch</h3>
@@ -335,9 +361,7 @@
                     <th class="py-2.5 px-3 text-center">Xóa</th>
                   </tr>
                 </thead>
-                <tbody id="allTransactionsTable" class="divide-y divide-pastel-border">
-                  <!-- Render dynamic rows -->
-                </tbody>
+                <tbody id="allTransactionsTable" class="divide-y divide-pastel-border"></tbody>
               </table>
               <div id="noAllTxn" class="py-8 text-center text-xs text-pastel-subtext hidden">
                 Không có giao dịch nào khớp với bộ lọc.
@@ -364,7 +388,6 @@
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Khối Tiết Kiệm -->
             <div class="bg-white rounded-2xl border border-pastel-border p-6 shadow-sm flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-4">
@@ -373,16 +396,13 @@
                   </h3>
                   <span class="text-xs font-semibold px-2.5 py-1 bg-pastel-primaryLight text-pastel-primary rounded-lg" id="totalSavedAmount">0 đ</span>
                 </div>
-                <div id="savingsList" class="space-y-3">
-                  <!-- Render dynamic list -->
-                </div>
+                <div id="savingsList" class="space-y-3"></div>
                 <div id="noSavings" class="py-6 text-center text-xs text-pastel-subtext">
                   Chưa có khoản tiết kiệm nào. Bấm nút phía trên để thêm mới.
                 </div>
               </div>
             </div>
 
-            <!-- Khối Trả Góp -->
             <div class="bg-white rounded-2xl border border-pastel-border p-6 shadow-sm flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-4">
@@ -391,9 +411,7 @@
                   </h3>
                   <span class="text-xs font-semibold px-2.5 py-1 bg-pastel-roseLight text-pastel-rose rounded-lg" id="totalInstallmentDebt">Còn nợ: 0 đ</span>
                 </div>
-                <div id="installmentsList" class="space-y-3">
-                  <!-- Render dynamic list -->
-                </div>
+                <div id="installmentsList" class="space-y-3"></div>
                 <div id="noInstallments" class="py-6 text-center text-xs text-pastel-subtext">
                   Chưa có khoản trả góp nào. Bấm nút phía trên để thêm mới.
                 </div>
@@ -419,9 +437,7 @@
             </div>
           </div>
 
-          <!-- 3 Thẻ Quỹ Phép -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <!-- Phép năm -->
             <div class="bg-white rounded-2xl p-5 border border-pastel-border shadow-sm">
               <div class="flex justify-between items-start">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pastel-subtext">Phép Năm</span>
@@ -434,7 +450,6 @@
               <p class="text-[11px] text-pastel-subtext mt-1">Đã dùng: <strong id="leaveAnnualUsed">0</strong> ngày</p>
             </div>
 
-            <!-- Nghỉ bù -->
             <div class="bg-white rounded-2xl p-5 border border-pastel-border shadow-sm">
               <div class="flex justify-between items-start">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pastel-subtext">Nghỉ Bù</span>
@@ -447,7 +462,6 @@
               <p class="text-[11px] text-pastel-subtext mt-1">Đã dùng: <strong id="leaveCompUsed">0</strong> ngày</p>
             </div>
 
-            <!-- Thâm niên -->
             <div class="bg-white rounded-2xl p-5 border border-pastel-border shadow-sm">
               <div class="flex justify-between items-start">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pastel-subtext">Phép Thâm Niên</span>
@@ -461,7 +475,6 @@
             </div>
           </div>
 
-          <!-- Bảng lịch sử nghỉ -->
           <div class="bg-white rounded-2xl border border-pastel-border p-6 shadow-sm">
             <h3 class="font-bold text-stone-800 text-sm md:text-base mb-4">Lịch Sử Nghỉ Phép Đã Đăng Ký</h3>
             <div class="overflow-x-auto">
@@ -475,9 +488,7 @@
                     <th class="py-2.5 px-3 text-center">Hủy</th>
                   </tr>
                 </thead>
-                <tbody id="leavesTable" class="divide-y divide-pastel-border">
-                  <!-- Render dynamic rows -->
-                </tbody>
+                <tbody id="leavesTable" class="divide-y divide-pastel-border"></tbody>
               </table>
               <div id="noLeaves" class="py-8 text-center text-xs text-pastel-subtext">
                 Chưa có đơn nghỉ phép nào được ghi nhận.
@@ -503,7 +514,6 @@
             </div>
           </div>
 
-          <!-- Bộ Lọc Thời Gian -->
           <div class="bg-white rounded-2xl p-4 border border-pastel-border shadow-sm flex flex-wrap items-center gap-3 text-xs md:text-sm no-print">
             <span class="font-semibold text-stone-700">Xem theo:</span>
             <div class="flex items-center gap-1 bg-stone-100 p-1 rounded-xl">
@@ -512,7 +522,6 @@
               <button id="repBtnCustom" onclick="setReportRange('custom')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-pastel-subtext">Khoảng Ngày</button>
             </div>
 
-            <!-- Input bộ lọc -->
             <div id="repMonthPicker" class="flex items-center gap-2">
               <input type="month" id="repMonthInput" onchange="generateReport()" class="px-3 py-1.5 rounded-xl border border-pastel-border bg-stone-50 text-xs">
             </div>
@@ -527,7 +536,6 @@
             </div>
           </div>
 
-          <!-- Thẻ chỉ số tổng kết trong kỳ -->
           <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="bg-white rounded-2xl p-4 border border-pastel-border shadow-sm">
               <span class="text-[11px] font-semibold uppercase tracking-wider text-pastel-subtext">Tổng Thu Nhập</span>
@@ -547,9 +555,7 @@
             </div>
           </div>
 
-          <!-- Biểu đồ -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Biểu đồ cột Thu vs Chi -->
             <div class="bg-white rounded-2xl border border-pastel-border p-5 shadow-sm">
               <h3 class="font-bold text-stone-800 text-sm mb-4">So Sánh Thu Nhập - Chi Tiêu</h3>
               <div class="h-64 flex items-center justify-center">
@@ -557,7 +563,6 @@
               </div>
             </div>
 
-            <!-- Biểu đồ tròn Phân bổ chi tiêu -->
             <div class="bg-white rounded-2xl border border-pastel-border p-5 shadow-sm">
               <h3 class="font-bold text-stone-800 text-sm mb-4">Cơ Cấu Chi Tiêu Theo Danh Mục</h3>
               <div class="h-64 flex items-center justify-center">
@@ -570,7 +575,6 @@
       </main>
     </div>
 
-    <!-- Footer dòng chữ mờ trang nhã -->
     <footer class="py-4 text-center text-xs text-pastel-subtext/60 italic border-t border-pastel-border/60">
       Xây dựng bởi Ốc My
     </footer>
@@ -627,7 +631,7 @@
     </div>
   </div>
 
-  <!-- Modal Chuyển Tiền Giữa Ví -->
+  <!-- Modal Chuyển Tiền -->
   <div id="modalTransfer" class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl w-full max-w-md p-6 border border-pastel-border shadow-2xl">
       <div class="flex items-center justify-between pb-3 border-b border-pastel-border">
@@ -637,7 +641,7 @@
       <form onsubmit="handleSaveTransfer(event)" class="space-y-3.5 mt-4 text-xs md:text-sm">
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1">Số Tiền Muốn Chuyển</label>
-          <input type="number" id="trAmount" required min="1" placeholder="Ví dụ: 500000" class="w-full px-3.5 py-2 rounded-xl border border-pastel-border focus:ring-2 focus:ring-pastel-primary/30 outline-none">
+          <input type="number" id="trAmount" required min="1" placeholder="Ví dụ: 500000" class="w-full px-3.5 py-2 rounded-xl border border-pastel-border outline-none">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
@@ -796,7 +800,7 @@
     </div>
   </div>
 
-  <!-- Modal Đóng Tiền Trả Góp Đợt Này -->
+  <!-- Modal Đóng Tiền Trả Góp -->
   <div id="modalPayInstallment" class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl w-full max-w-md p-6 border border-pastel-border shadow-2xl">
       <div class="flex items-center justify-between pb-3 border-b border-pastel-border">
@@ -853,7 +857,7 @@
     </div>
   </div>
 
-  <!-- ================= LOGIC TOÀN BỘ WEBAPP ================= -->
+  <!-- ================= JAVASCRIPT ================= -->
   <script>
     const STORAGE_KEY = 'lumina_finance_db_v2';
     let db = null;
@@ -862,43 +866,36 @@
     let chartCat = null;
     let reportRangeType = 'month';
 
-    // Khởi tạo Database mẫu chuẩn
-    function ensureInitialData() {
+    function loadDB() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         try {
           db = JSON.parse(stored);
         } catch(e) {
-          db = null;
+          db = { users: {} };
         }
+      } else {
+        db = { users: {} };
       }
-      
-      const todayStr = new Date().toISOString().split('T')[0];
 
-      if (!db || !db.users || !db.users['demo']) {
-        db = {
-          users: {
-            'demo': {
-              username: 'demo',
-              password: '123456',
-              fullname: 'Ốc My',
-              wallets: { bank: 25000000, cash: 3500000 },
-              leaveConfig: { annual: 12, comp: 3, senior: 2 },
-              transactions: [
-                { id: 't1', type: 'income', category: 'Lương hàng tháng', amount: 20000000, wallet: 'bank', date: todayStr, note: 'Lương cơ quan' },
-                { id: 't2', type: 'expense', category: 'Ăn uống', amount: 65000, wallet: 'cash', date: todayStr, note: 'Cà phê sáng & điểm tâm' }
-              ],
-              savings: [
-                { id: 's1', title: 'Quỹ Dự Phòng Khẩn Cấp', amount: 15000000 }
-              ],
-              installments: [
-                { id: 'i1', title: 'Máy Tính Bảng iPad', total: 12000000, months: 6, paid: 4000000 }
-              ],
-              leaves: [
-                { id: 'l1', fund: 'annual', days: 1, date: todayStr, reason: 'Khám sức khỏe định kỳ' }
-              ]
-            }
-          }
+      if (!db.users) db.users = {};
+
+      // Tạo tài khoản demo nếu chưa có bất kỳ user nào
+      if (Object.keys(db.users).length === 0) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        db.users['demo'] = {
+          username: 'demo',
+          password: '123456',
+          fullname: 'Ốc My',
+          wallets: { bank: 25000000, cash: 3500000 },
+          leaveConfig: { annual: 12, comp: 3, senior: 2 },
+          transactions: [
+            { id: 't1', type: 'income', category: 'Lương hàng tháng', amount: 20000000, wallet: 'bank', date: todayStr, note: 'Lương cơ quan' },
+            { id: 't2', type: 'expense', category: 'Ăn uống', amount: 65000, wallet: 'cash', date: todayStr, note: 'Cà phê sáng & điểm tâm' }
+          ],
+          savings: [{ id: 's1', title: 'Quỹ Dự Phòng Khẩn Cấp', amount: 15000000 }],
+          installments: [{ id: 'i1', title: 'Máy Tính Bảng iPad', total: 12000000, months: 6, paid: 4000000 }],
+          leaves: [{ id: 'l1', fund: 'annual', days: 1, date: todayStr, reason: 'Khám sức khỏe định kỳ' }]
         };
         saveDB();
       }
@@ -912,7 +909,6 @@
       return (Number(num) || 0).toLocaleString('vi-VN') + ' đ';
     }
 
-    // AUTH FUNCTIONS
     function switchAuthTab(tab) {
       const tabLogin = document.getElementById('tabLogin');
       const tabReg = document.getElementById('tabRegister');
@@ -936,7 +932,7 @@
 
     function handleLogin(e) {
       e.preventDefault();
-      ensureInitialData(); // Luôn đảm bảo tài khoản demo tồn tại
+      loadDB(); // Luôn đọc dữ liệu mới nhất từ localStorage
       const u = document.getElementById('loginUser').value.trim();
       const p = document.getElementById('loginPass').value.trim();
 
@@ -953,13 +949,14 @@
 
     function handleRegister(e) {
       e.preventDefault();
+      loadDB();
       const name = document.getElementById('regName').value.trim();
       const u = document.getElementById('regUser').value.trim();
       const p = document.getElementById('regPass').value.trim();
 
       if (db.users[u]) {
         const err = document.getElementById('regError');
-        document.getElementById('regErrorMsg').innerText = 'Tên đăng nhập này đã được sử dụng!';
+        document.getElementById('regErrorMsg').innerText = 'Tên đăng nhập này đã tồn tại!';
         err.classList.remove('hidden');
         return;
       }
@@ -976,7 +973,9 @@
         leaves: []
       };
       saveDB();
+
       currentUser = db.users[u];
+      document.getElementById('regError').classList.add('hidden');
       document.getElementById('authScreen').classList.add('hidden');
       document.getElementById('appContainer').classList.remove('hidden');
       loadUserInterface();
@@ -987,6 +986,8 @@
       document.getElementById('authScreen').classList.remove('hidden');
       document.getElementById('appContainer').classList.add('hidden');
       document.getElementById('formLogin').reset();
+      document.getElementById('loginError').classList.add('hidden');
+      switchAuthTab('login');
     }
 
     function openChangePasswordModal() {
@@ -1009,13 +1010,14 @@
       }
 
       currentUser.password = newP;
+      db.users[currentUser.username].password = newP;
       saveDB();
+
       msg.className = 'text-xs p-2.5 rounded-xl bg-emerald-50 text-emerald-600 font-medium block';
       msg.innerText = 'Đổi mật khẩu thành công!';
       setTimeout(() => closeModal('modalChangePass'), 1200);
     }
 
-    // UI & TAB NAVIGATION
     function navigateTo(tabId) {
       ['dashboard', 'transactions', 'savings', 'leaves', 'reports'].forEach(id => {
         document.getElementById(`section-${id}`).classList.add('hidden');
@@ -1039,12 +1041,10 @@
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       document.getElementById('todayDateLabel').innerText = new Date().toLocaleDateString('vi-VN', options);
 
-      // Mặc định nạp tháng hiện tại vào báo cáo
       const now = new Date();
       const mStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2, '0')}`;
       document.getElementById('repMonthInput').value = mStr;
 
-      // Nạp dropdown các năm
       const ySelect = document.getElementById('repYearSelect');
       ySelect.innerHTML = '';
       for (let y = now.getFullYear(); y >= now.getFullYear() - 5; y--) {
@@ -1057,7 +1057,6 @@
       navigateTo('dashboard');
     }
 
-    // 1. DASHBOARD HÔM NAY
     function renderDashboard() {
       const todayStr = new Date().toISOString().split('T')[0];
       const todayTxns = currentUser.transactions.filter(t => t.date === todayStr);
@@ -1106,7 +1105,6 @@
       }
     }
 
-    // 2. VÍ & GIAO DỊCH
     function renderTransactionsPage() {
       document.getElementById('bankBalanceDisplay').innerText = formatVND(currentUser.wallets.bank);
       document.getElementById('cashBalanceDisplay').innerText = formatVND(currentUser.wallets.cash);
@@ -1125,7 +1123,6 @@
         txns = txns.filter(t => t.type === tFilter);
       }
 
-      // Sắp xếp ngày mới nhất lên đầu
       txns.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       const tbody = document.getElementById('allTransactionsTable');
@@ -1168,12 +1165,12 @@
       const val = prompt(`Nhập số dư thực tế mới cho ${name}:`, cur);
       if (val !== null && !isNaN(val) && val.trim() !== '') {
         currentUser.wallets[walletType] = Number(val);
+        db.users[currentUser.username].wallets[walletType] = Number(val);
         saveDB();
         renderTransactionsPage();
       }
     }
 
-    // 3. TIẾT KIỆM & TRẢ GÓP
     function renderSavingsPage() {
       const listS = document.getElementById('savingsList');
       listS.innerHTML = '';
@@ -1183,7 +1180,7 @@
         document.getElementById('noSavings').classList.remove('hidden');
       } else {
         document.getElementById('noSavings').classList.add('hidden');
-        currentUser.savings.forEach((s, idx) => {
+        currentUser.savings.forEach((s) => {
           totalS += Number(s.amount);
           const div = document.createElement('div');
           div.className = 'p-3.5 bg-stone-50 rounded-xl border border-pastel-border flex items-center justify-between';
@@ -1199,7 +1196,6 @@
       }
       document.getElementById('totalSavedAmount').innerText = formatVND(totalS);
 
-      // Trả góp
       const listI = document.getElementById('installmentsList');
       listI.innerHTML = '';
       let totalDebt = 0;
@@ -1240,7 +1236,6 @@
       document.getElementById('totalInstallmentDebt').innerText = `Còn nợ: ${formatVND(totalDebt)}`;
     }
 
-    // 4. QUẢN LÝ NGHỈ PHÉP
     function renderLeavesPage() {
       const cfg = currentUser.leaveConfig || { annual: 12, comp: 0, senior: 0 };
       const leaves = currentUser.leaves || [];
@@ -1286,7 +1281,6 @@
       }
     }
 
-    // 5. BÁO CÁO TOÀN DIỆN
     function setReportRange(type) {
       reportRangeType = type;
       ['Month', 'Year', 'Custom'].forEach(t => {
@@ -1350,7 +1344,6 @@
       document.getElementById('repNetSavings').innerText = formatVND(totInc - totExp);
       document.getElementById('repTotalLeaves').innerText = `${totLeaveDays} ngày`;
 
-      // Vẽ Biểu Đồ
       renderReportCharts(totInc, totExp, catMap);
     }
 
@@ -1410,7 +1403,6 @@
       link.click();
     }
 
-    // MODAL HANDLERS
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
@@ -1433,7 +1425,6 @@
       const date = document.getElementById('txnDate').value;
       const note = document.getElementById('txnNote').value.trim();
 
-      // Cập nhật số dư ví
       if (type === 'expense') {
         currentUser.wallets[wallet] -= amount;
       } else {
@@ -1445,7 +1436,9 @@
         type, amount, category, wallet, date, note
       });
 
+      db.users[currentUser.username] = currentUser;
       saveDB();
+
       closeModal('modalTxn');
       renderDashboard();
       renderTransactionsPage();
@@ -1481,7 +1474,9 @@
         note: `Chuyển từ ${from === 'bank' ? 'Ngân hàng' : 'Tiền mặt'} sang ${to === 'bank' ? 'Ngân hàng' : 'Tiền mặt'}`
       });
 
+      db.users[currentUser.username] = currentUser;
       saveDB();
+
       closeModal('modalTransfer');
       renderTransactionsPage();
     }
@@ -1506,7 +1501,9 @@
         fund, days, date, reason
       });
 
+      db.users[currentUser.username] = currentUser;
       saveDB();
+
       closeModal('modalLeave');
       renderLeavesPage();
     }
@@ -1526,7 +1523,10 @@
         comp: Number(document.getElementById('cfgComp').value),
         senior: Number(document.getElementById('cfgSenior').value)
       };
+
+      db.users[currentUser.username] = currentUser;
       saveDB();
+
       closeModal('modalConfigLeave');
       renderLeavesPage();
     }
@@ -1556,7 +1556,9 @@
         note: 'Trích từ ví vào sổ tiết kiệm'
       });
 
+      db.users[currentUser.username] = currentUser;
       saveDB();
+
       closeModal('modalSaving');
       renderSavingsPage();
       renderTransactionsPage();
@@ -1581,7 +1583,9 @@
         title, total, months, paid: 0
       });
 
+      db.users[currentUser.username] = currentUser;
       saveDB();
+
       closeModal('modalInstallment');
       renderSavingsPage();
     }
@@ -1613,7 +1617,9 @@
           note: 'Đóng tiền trả góp định kỳ'
         });
 
+        db.users[currentUser.username] = currentUser;
         saveDB();
+
         closeModal('modalPayInstallment');
         renderSavingsPage();
         renderTransactionsPage();
@@ -1625,6 +1631,7 @@
         const idx = currentUser.transactions.findIndex(t => t.id === id);
         if (idx !== -1) {
           currentUser.transactions.splice(idx, 1);
+          db.users[currentUser.username] = currentUser;
           saveDB();
           renderDashboard();
           renderTransactionsPage();
@@ -1635,6 +1642,7 @@
     function deleteSaving(id) {
       if (confirm('Xóa khoản tiết kiệm này?')) {
         currentUser.savings = currentUser.savings.filter(s => s.id !== id);
+        db.users[currentUser.username] = currentUser;
         saveDB();
         renderSavingsPage();
       }
@@ -1643,6 +1651,7 @@
     function deleteInstallment(id) {
       if (confirm('Xóa gói trả góp này?')) {
         currentUser.installments = currentUser.installments.filter(i => i.id !== id);
+        db.users[currentUser.username] = currentUser;
         saveDB();
         renderSavingsPage();
       }
@@ -1651,14 +1660,14 @@
     function deleteLeave(id) {
       if (confirm('Hủy ngày nghỉ phép này?')) {
         currentUser.leaves = currentUser.leaves.filter(l => l.id !== id);
+        db.users[currentUser.username] = currentUser;
         saveDB();
         renderLeavesPage();
       }
     }
 
-    // Tự động nạp sẵn dữ liệu khi mở web
     window.onload = function() {
-      ensureInitialData();
+      loadDB();
     };
   </script>
 </body>
