@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Crect width='500' height='500' rx='110' fill='%237DBDB3'/%3E%3Cpath d='M175 390 C 180 440, 200 480, 200 500 L 370 500 C 370 470, 360 420, 340 390 Z' fill='%23FFFFFF' stroke='%23111111' stroke-width='14' stroke-linejoin='round'/%3E%3Cpath d='M330 400 Q 420 410 440 460' fill='none' stroke='%23111111' stroke-width='14' stroke-linecap='round'/%3E%3Cpath d='M175 390 C 130 360, 110 260, 150 260 C 180 260, 195 330, 220 375 Z' fill='%23FFFFFF' stroke='%23111111' stroke-width='14' stroke-linejoin='round'/%3E%3Cellipse cx='305' cy='285' rx='155' ry='145' fill='%23FFFFFF' stroke='%23111111' stroke-width='14'/%3E%3Cg transform='translate(55, 140) rotate(-22)'%3E%3Cpath d='M35 15 C 80 15, 95 65, 90 120 C 85 170, 65 195, 25 190 C -10 185, -5 140, 5 95 C 12 60, 5 15, 35 15 Z' fill='%23F6D27E' stroke='%23111111' stroke-width='12'/%3E%3Cpath d='M15 70 C 40 75, 45 110, 42 165' fill='none' stroke='%235E381E' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M75 75 C 50 80, 42 110, 42 165' fill='none' stroke='%235E381E' stroke-width='12' stroke-linecap='round'/%3E%3Ccircle cx='42' cy='165' r='5' fill='%235E381E'/%3E%3C/g%3E%3Ccircle cx='260' cy='265' r='16' fill='%23111111'/%3E%3Ccircle cx='375' cy='260' r='16' fill='%23111111'/%3E%3Cg fill='%23F18C8E'%3E%3Cellipse cx='215' cy='310' rx='34' ry='20' transform='rotate(-5 215 310)'/%3E%3Cellipse cx='410' cy='300' rx='34' ry='20' transform='rotate(5 410 300)'/%3E%3C/g%3E%3Cg stroke='%23FFFFFF' stroke-width='5' stroke-linecap='round'%3E%3Cline x1='200' y1='302' x2='208' y2='318'/%3E%3Cline x1='213' y1='300' x2='221' y2='320'/%3E%3Cline x1='226' y1='302' x2='233' y2='318'/%3E%3Cline x1='395' y1='292' x2='403' y2='308'/%3E%3Cline x1='408' y1='290' x2='416' y2='310'/%3E%3Cline x1='421' y1='292' x2='428' y2='308'/%3E%3C/g%3E%3Cpath d='M295 325 Q 330 355 365 320' fill='none' stroke='%23111111' stroke-width='13' stroke-linecap='round'/%3E%3C/svg%3E">
   <meta name="apple-mobile-web-app-title" content="Sổ Thu Chi">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#7DBDB3">
+  <meta name="theme-color" content="#E2EFF7">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -25,80 +25,146 @@
           colors: {
             pastel: {
               cream: '#FAF8F5',
+              sky: '#E4F1F9',
+              skyLight: '#F3F9FD',
               card: '#FFFFFF',
-              border: '#EFEAE1',
-              primary: '#6C8273',      /* Sage green */
-              primaryHover: '#5B6F61',
-              primaryLight: '#EBF0EC',
-              rose: '#DFA398',         /* Soft Rose */
-              roseHover: '#D49286',
-              roseLight: '#FDF3F1',
-              lavender: '#A299C2',     /* Lavender */
-              lavenderLight: '#F4F2F9',
-              gold: '#DFBA88',
+              border: '#E8EFF4',
+              primary: '#5B7E76',      /* Sage green sâu */
+              primaryHover: '#4A6A63',
+              primaryLight: '#E8F2EF',
+              rose: '#E5A59B',         /* Soft Rose */
+              roseHover: '#D99489',
+              roseLight: '#FDF4F2',
+              lavender: '#9B92B8',     /* Lavender */
+              lavenderLight: '#F3F1F8',
+              gold: '#E3C18E',
               goldLight: '#FDF8F0',
               text: '#374151',
-              subtext: '#808993'
+              subtext: '#7A8793'
             }
           },
           boxShadow: {
-            'pastel': '0 20px 45px -10px rgba(108, 130, 115, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.04)',
-            'modal': '0 30px 60px -12px rgba(61, 66, 70, 0.22), 0 10px 24px -8px rgba(0, 0, 0, 0.06)'
+            'pastel': '0 20px 45px -10px rgba(91, 126, 118, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.04)',
+            'glass': '0 25px 50px -12px rgba(60, 90, 110, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.8) inset'
           }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #FAF8F5; color: #374151; font-family: 'Be Vietnam Pro', sans-serif; }
+    /* Nền trời pastel 20/11 trong veo */
+    body {
+      background: linear-gradient(180deg, #E2EFF7 0%, #EFF6FB 40%, #FAF8F5 100%);
+      color: #374151;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Lớp mây trôi ngang chậm rãi phía chân trời */
+    .sky-cloud {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.45;
+      animation: floatCloud linear infinite;
+    }
+    @keyframes floatCloud {
+      from { transform: translateX(-220px); }
+      to { transform: translateX(110vw); }
+    }
+
+    /* Canvas chứa icon rơi 20/11 */
+    #fallingCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Backdrop Modal sương mai pastel */
     .modal-backdrop {
-      background-color: rgba(45, 52, 54, 0.38);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: linear-gradient(135deg, rgba(215, 235, 246, 0.55), rgba(245, 230, 235, 0.45));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .modal-backdrop.hidden { opacity: 0; pointer-events: none; }
     .modal-backdrop:not(.hidden) { opacity: 1; pointer-events: auto; }
+    
     .modal-card {
-      transition: all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
-      transform: scale(0.94) translateY(12px);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: scale(0.92) translateY(16px);
       opacity: 0;
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(20px);
     }
-    .modal-backdrop:not(.hidden) .modal-card { transform: scale(1) translateY(0); opacity: 1; }
+    .modal-backdrop:not(.hidden) .modal-card {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    /* Thẻ kính bán trong suốt */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
     .cat-chip { transition: all 0.2s ease; cursor: pointer; }
     .cat-chip:hover { transform: translateY(-1.5px); }
     .cat-chip.selected {
-      background-color: #6C8273 !important;
+      background-color: #5B7E76 !important;
       color: #FFFFFF !important;
-      border-color: #6C8273 !important;
-      box-shadow: 0 4px 12px rgba(108, 130, 115, 0.3);
+      border-color: #5B7E76 !important;
+      box-shadow: 0 4px 12px rgba(91, 126, 118, 0.3);
     }
+
     .day-selector-btn.active {
-      background-color: #A299C2;
+      background-color: #9B92B8;
       color: #FFFFFF;
-      box-shadow: 0 4px 10px rgba(162, 153, 194, 0.35);
+      box-shadow: 0 4px 10px rgba(155, 146, 184, 0.35);
     }
-    .nav-btn.active { background-color: #EBF0EC; color: #6C8273; font-weight: 600; }
+
+    .nav-btn.active {
+      background-color: #E8F2EF;
+      color: #5B7E76;
+      font-weight: 600;
+    }
+
     #toastNotify {
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       transform: translateY(80px);
       opacity: 0;
     }
     #toastNotify.show { transform: translateY(0); opacity: 1; }
+
     @media print {
-      aside, header, .no-print { display: none !important; }
+      aside, header, .no-print, #fallingCanvas, .sky-cloud { display: none !important; }
       main { margin: 0 !important; padding: 0 !important; width: 100% !important; }
-      body { background-color: #ffffff !important; }
+      body { background: #ffffff !important; }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-pastel-primaryLight selection:text-pastel-primary">
+<body class="min-h-screen flex flex-col justify-between selection:bg-pastel-primaryLight selection:text-pastel-primary relative">
+
+  <!-- MÂY TRÔI PASTELL NỀN TRỜI 20/11 -->
+  <div class="sky-cloud w-48 h-16 bg-white/70 rounded-full blur-md top-10" style="animation-duration: 48s; animation-delay: 0s;"></div>
+  <div class="sky-cloud w-64 h-20 bg-white/60 rounded-full blur-lg top-28" style="animation-duration: 65s; animation-delay: -18s;"></div>
+  <div class="sky-cloud w-40 h-14 bg-white/50 rounded-full blur-md top-64" style="animation-duration: 52s; animation-delay: -32s;"></div>
+
+  <!-- CANVAS ICON 20/11 RƠI NHẸ NHÀNG (Mũ cử nhân, Sách, Máy bay, Bút chì, Hoa cúc) -->
+  <canvas id="fallingCanvas"></canvas>
 
   <!-- ================= AUTH SCREEN ================= -->
-  <div id="authScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#FAF8F5] p-4">
-    <div class="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl shadow-stone-200/50 border border-pastel-border">
+  <div id="authScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-md glass-card rounded-3xl p-8 shadow-glass border border-white relative z-10">
       <div class="text-center mb-6">
-        <div class="w-20 h-20 mx-auto rounded-3xl overflow-hidden mb-3 shadow-md border-2 border-white hover:scale-105 transition-transform">
+        <div class="w-20 h-20 mx-auto rounded-3xl overflow-hidden mb-3 shadow-md border-2 border-white hover:scale-105 transition-transform bg-white/80">
           <svg viewBox="0 0 500 500" class="w-full h-full">
             <rect width="500" height="500" rx="110" fill="#7DBDB3"/>
             <path d="M175 390 C 180 440, 200 480, 200 500 L 370 500 C 370 470, 360 420, 340 390 Z" fill="#FFFFFF" stroke="#111111" stroke-width="14" stroke-linejoin="round"/>
@@ -141,13 +207,13 @@
       <form id="formLogin" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-pastel-subtext mb-1.5">Tên Đăng Nhập</label>
-          <input type="text" id="loginUser" required placeholder="Nhập tên đăng nhập của bạn" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
+          <input type="text" id="loginUser" required placeholder="Nhập tên đăng nhập của bạn" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-white/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
         </div>
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-pastel-subtext mb-1.5">Mật Khẩu</label>
-          <input type="password" id="loginPass" required placeholder="Mật khẩu của bạn" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
+          <input type="password" id="loginPass" required placeholder="Mật khẩu của bạn" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-white/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
         </div>
-        <div id="loginError" class="hidden text-xs text-rose-500 font-medium bg-rose-50 p-3 rounded-2xl border border-rose-100 flex items-center gap-2">
+        <div id="loginError" class="hidden text-xs text-rose-500 font-medium bg-rose-50/90 p-3 rounded-2xl border border-rose-100 flex items-center gap-2">
           <i class="fa-solid fa-circle-exclamation text-rose-400"></i>
           <span>Tên đăng nhập hoặc mật khẩu không chính xác!</span>
         </div>
@@ -160,17 +226,17 @@
       <form id="formRegister" onsubmit="handleRegister(event)" class="space-y-4 hidden">
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-pastel-subtext mb-1.5">Họ Và Tên</label>
-          <input type="text" id="regName" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
+          <input type="text" id="regName" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-white/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
         </div>
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-pastel-subtext mb-1.5">Tên Đăng Nhập Mới</label>
-          <input type="text" id="regUser" required placeholder="Viết liền không dấu (vd: ocmy)" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
+          <input type="text" id="regUser" required placeholder="Viết liền không dấu (vd: ocmy)" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-white/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
         </div>
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-pastel-subtext mb-1.5">Mật Khẩu</label>
-          <input type="password" id="regPass" required placeholder="Tối thiểu 4 ký tự" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
+          <input type="password" id="regPass" required placeholder="Tối thiểu 4 ký tự" class="w-full px-4 py-3 rounded-2xl border border-pastel-border bg-white/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 text-sm transition-all">
         </div>
-        <div id="regError" class="hidden text-xs text-rose-500 font-medium bg-rose-50 p-3 rounded-2xl border border-rose-100 flex items-center gap-2">
+        <div id="regError" class="hidden text-xs text-rose-500 font-medium bg-rose-50/90 p-3 rounded-2xl border border-rose-100 flex items-center gap-2">
           <i class="fa-solid fa-circle-exclamation text-rose-400"></i>
           <span id="regErrorMsg">Lỗi tạo tài khoản!</span>
         </div>
@@ -186,13 +252,13 @@
   </div>
 
   <!-- ================= MAIN APP ================= -->
-  <div id="appContainer" class="hidden min-h-screen flex flex-col">
+  <div id="appContainer" class="hidden min-h-screen flex flex-col relative z-10">
     <div class="flex-1 flex flex-col md:flex-row">
       <!-- Sidebar -->
-      <aside class="w-full md:w-64 bg-white border-r border-pastel-border flex flex-col justify-between shrink-0 p-5">
+      <aside class="w-full md:w-64 glass-card border-r border-white/60 flex flex-col justify-between shrink-0 p-5 shadow-sm">
         <div>
-          <div class="flex items-center gap-3 px-2 pb-6 border-b border-pastel-border">
-            <div class="w-11 h-11 rounded-2xl overflow-hidden shadow-sm shrink-0 border border-pastel-border">
+          <div class="flex items-center gap-3 px-2 pb-6 border-b border-pastel-border/70">
+            <div class="w-11 h-11 rounded-2xl overflow-hidden shadow-sm shrink-0 border border-white bg-white/60">
               <svg viewBox="0 0 500 500" class="w-full h-full">
                 <rect width="500" height="500" fill="#7DBDB3"/>
                 <ellipse cx="305" cy="285" rx="155" ry="145" fill="#FFFFFF"/>
@@ -210,9 +276,9 @@
           </div>
 
           <!-- User info badge -->
-          <div class="my-4 px-3.5 py-2.5 bg-stone-50/80 rounded-2xl border border-pastel-border flex items-center justify-between">
+          <div class="my-4 px-3.5 py-2.5 bg-white/70 rounded-2xl border border-white/80 flex items-center justify-between shadow-sm">
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-full bg-pastel-lavender/25 text-pastel-lavender flex items-center justify-center text-xs font-bold" id="userAvatar">U</div>
+              <div class="w-8 h-8 rounded-full bg-pastel-lavender/30 text-pastel-lavender flex items-center justify-center text-xs font-bold" id="userAvatar">U</div>
               <div class="overflow-hidden">
                 <p class="text-xs font-semibold text-stone-800 truncate" id="userFullName">User Name</p>
                 <p class="text-[10px] text-pastel-subtext truncate" id="userAccount">@account</p>
@@ -225,31 +291,31 @@
 
           <!-- Navigation Menu -->
           <nav class="space-y-1.5 mt-2">
-            <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-btn active w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-stone-50">
+            <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-btn active w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-white/80">
               <i class="fa-regular fa-sun w-4 text-center"></i>
               <span>Hôm Nay</span>
             </button>
-            <button onclick="navigateTo('transactions')" id="nav-transactions" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-stone-50">
+            <button onclick="navigateTo('transactions')" id="nav-transactions" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-white/80">
               <i class="fa-solid fa-wallet w-4 text-center"></i>
               <span>Ví & Giao Dịch</span>
             </button>
-            <button onclick="navigateTo('savings')" id="nav-savings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-stone-50">
+            <button onclick="navigateTo('savings')" id="nav-savings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-white/80">
               <i class="fa-solid fa-piggy-bank w-4 text-center"></i>
               <span>Tiết Kiệm & Trả Góp</span>
             </button>
-            <button onclick="navigateTo('leaves')" id="nav-leaves" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-stone-50">
+            <button onclick="navigateTo('leaves')" id="nav-leaves" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-white/80">
               <i class="fa-regular fa-calendar-check w-4 text-center"></i>
               <span>Quản Lý Nghỉ Phép</span>
             </button>
-            <button onclick="navigateTo('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-stone-50">
+            <button onclick="navigateTo('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm transition-all text-stone-600 hover:bg-white/80">
               <i class="fa-solid fa-chart-pie w-4 text-center"></i>
               <span>Báo Cáo & Thống Kê</span>
             </button>
           </nav>
         </div>
 
-        <div class="pt-4 border-t border-pastel-border">
-          <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs text-rose-500 hover:bg-rose-50 transition-all font-medium">
+        <div class="pt-4 border-t border-pastel-border/60">
+          <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs text-rose-500 hover:bg-rose-50/80 transition-all font-medium">
             <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i>
             <span>Đăng Xuất</span>
           </button>
@@ -276,7 +342,7 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-3xl p-6 md:p-7 border border-pastel-border shadow-pastel flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="glass-card rounded-3xl p-6 md:p-7 border border-white/80 shadow-pastel flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4">
               <div class="w-14 h-14 rounded-2xl bg-pastel-roseLight text-pastel-rose flex items-center justify-center text-2xl shadow-inner">
                 <i class="fa-solid fa-receipt"></i>
@@ -286,23 +352,23 @@
                 <h3 class="text-3xl font-bold text-stone-800 mt-1" id="dashTodayExpense">0 đ</h3>
               </div>
             </div>
-            <div class="text-xs text-pastel-subtext bg-stone-50 px-4 py-2.5 rounded-2xl border border-pastel-border">
+            <div class="text-xs text-pastel-subtext bg-white/80 px-4 py-2.5 rounded-2xl border border-white shadow-sm">
               Thu hôm nay: <span class="font-bold text-pastel-primary ml-1" id="dashTodayIncome">0 đ</span>
             </div>
           </div>
 
-          <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm">
+          <div class="glass-card rounded-3xl border border-white/80 p-6 shadow-sm">
             <div class="flex items-center justify-between mb-4">
               <h3 class="font-bold text-stone-800 text-sm md:text-base flex items-center gap-2">
                 <i class="fa-regular fa-clock text-pastel-subtext"></i>
                 Các Giao Dịch Phát Sinh Hôm Nay
               </h3>
-              <span class="text-xs text-pastel-subtext bg-stone-50 px-3 py-1 rounded-full border border-pastel-border" id="todayTxnCount">0 giao dịch</span>
+              <span class="text-xs text-pastel-subtext bg-white/80 px-3 py-1 rounded-full border border-white shadow-sm" id="todayTxnCount">0 giao dịch</span>
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs md:text-sm">
                 <thead>
-                  <tr class="text-pastel-subtext border-b border-pastel-border text-[11px] uppercase tracking-wider">
+                  <tr class="text-pastel-subtext border-b border-pastel-border/70 text-[11px] uppercase tracking-wider">
                     <th class="py-3 px-3">Loại</th>
                     <th class="py-3 px-3">Hạng Mục</th>
                     <th class="py-3 px-3">Trích Ví</th>
@@ -310,7 +376,7 @@
                     <th class="py-3 px-3 text-center">Thao Tác</th>
                   </tr>
                 </thead>
-                <tbody id="todayTransactionsTable" class="divide-y divide-pastel-border"></tbody>
+                <tbody id="todayTransactionsTable" class="divide-y divide-pastel-border/60"></tbody>
               </table>
               <div id="noTodayTxn" class="py-10 text-center text-xs text-pastel-subtext">
                 <i class="fa-regular fa-face-smile text-2xl text-stone-300 block mb-2"></i>
@@ -335,7 +401,7 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-white rounded-3xl p-6 border border-pastel-border shadow-sm flex items-center justify-between">
+            <div class="glass-card rounded-3xl p-6 border border-white/80 shadow-sm flex items-center justify-between">
               <div class="flex items-center gap-4">
                 <div class="w-13 h-13 rounded-2xl bg-pastel-primaryLight text-pastel-primary flex items-center justify-center text-2xl p-3 shadow-inner">
                   <i class="fa-solid fa-building-columns"></i>
@@ -345,12 +411,12 @@
                   <h4 class="text-2xl font-bold text-stone-800 mt-0.5" id="bankBalanceDisplay">0 đ</h4>
                 </div>
               </div>
-              <button onclick="promptEditBalance('bank')" title="Cập nhật số dư thực tế" class="text-pastel-subtext hover:text-stone-700 p-2.5 hover:bg-stone-50 rounded-xl transition-all">
+              <button onclick="promptEditBalance('bank')" title="Cập nhật số dư thực tế" class="text-pastel-subtext hover:text-stone-700 p-2.5 hover:bg-white rounded-xl transition-all shadow-sm">
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 border border-pastel-border shadow-sm flex items-center justify-between">
+            <div class="glass-card rounded-3xl p-6 border border-white/80 shadow-sm flex items-center justify-between">
               <div class="flex items-center gap-4">
                 <div class="w-13 h-13 rounded-2xl bg-pastel-goldLight text-pastel-gold flex items-center justify-center text-2xl p-3 shadow-inner">
                   <i class="fa-solid fa-money-bill-wave"></i>
@@ -360,22 +426,22 @@
                   <h4 class="text-2xl font-bold text-stone-800 mt-0.5" id="cashBalanceDisplay">0 đ</h4>
                 </div>
               </div>
-              <button onclick="promptEditBalance('cash')" title="Cập nhật số dư thực tế" class="text-pastel-subtext hover:text-stone-700 p-2.5 hover:bg-stone-50 rounded-xl transition-all">
+              <button onclick="promptEditBalance('cash')" title="Cập nhật số dư thực tế" class="text-pastel-subtext hover:text-stone-700 p-2.5 hover:bg-white rounded-xl transition-all shadow-sm">
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
             </div>
           </div>
 
-          <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm">
+          <div class="glass-card rounded-3xl border border-white/80 p-6 shadow-sm">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
               <h3 class="font-bold text-stone-800 text-sm md:text-base">Lịch Sử Giao Dịch</h3>
               <div class="flex items-center gap-2">
-                <select id="filterTxnWallet" onchange="renderAllTransactions()" class="px-3.5 py-2 rounded-xl border border-pastel-border text-xs bg-stone-50/70 focus:outline-none">
+                <select id="filterTxnWallet" onchange="renderAllTransactions()" class="px-3.5 py-2 rounded-xl border border-pastel-border text-xs bg-white/80 focus:outline-none">
                   <option value="all">Tất cả ví</option>
                   <option value="bank">Ngân hàng</option>
                   <option value="cash">Tiền mặt</option>
                 </select>
-                <select id="filterTxnType" onchange="renderAllTransactions()" class="px-3.5 py-2 rounded-xl border border-pastel-border text-xs bg-stone-50/70 focus:outline-none">
+                <select id="filterTxnType" onchange="renderAllTransactions()" class="px-3.5 py-2 rounded-xl border border-pastel-border text-xs bg-white/80 focus:outline-none">
                   <option value="all">Tất cả loại</option>
                   <option value="expense">Chi tiêu</option>
                   <option value="income">Thu nhập</option>
@@ -386,7 +452,7 @@
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs md:text-sm">
                 <thead>
-                  <tr class="text-pastel-subtext border-b border-pastel-border text-[11px] uppercase tracking-wider">
+                  <tr class="text-pastel-subtext border-b border-pastel-border/70 text-[11px] uppercase tracking-wider">
                     <th class="py-3 px-3">Ngày</th>
                     <th class="py-3 px-3">Loại</th>
                     <th class="py-3 px-3">Nội Dung</th>
@@ -395,7 +461,7 @@
                     <th class="py-3 px-3 text-center">Xóa</th>
                   </tr>
                 </thead>
-                <tbody id="allTransactionsTable" class="divide-y divide-pastel-border"></tbody>
+                <tbody id="allTransactionsTable" class="divide-y divide-pastel-border/60"></tbody>
               </table>
               <div id="noAllTxn" class="py-10 text-center text-xs text-pastel-subtext hidden">
                 Không có giao dịch nào khớp với bộ lọc.
@@ -422,7 +488,7 @@
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm flex flex-col justify-between">
+            <div class="glass-card rounded-3xl border border-white/80 p-6 shadow-sm flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-4">
                   <h3 class="font-bold text-stone-800 text-sm md:text-base flex items-center gap-2">
@@ -437,7 +503,7 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm flex flex-col justify-between">
+            <div class="glass-card rounded-3xl border border-white/80 p-6 shadow-sm flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-4">
                   <h3 class="font-bold text-stone-800 text-sm md:text-base flex items-center gap-2">
@@ -462,7 +528,7 @@
               <p class="text-xs md:text-sm text-pastel-subtext">Theo dõi quỹ phép năm, nghỉ bù, thâm niên và hỗ trợ tính 0.5 ngày</p>
             </div>
             <div class="flex items-center gap-2">
-              <button onclick="openModalConfigLeave()" class="px-3.5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-2xl text-xs md:text-sm font-medium transition-all flex items-center gap-2" title="Cài đặt quỹ phép ban đầu">
+              <button onclick="openModalConfigLeave()" class="px-3.5 py-2.5 bg-white/80 hover:bg-white text-stone-700 rounded-2xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 shadow-sm" title="Cài đặt quỹ phép ban đầu">
                 <i class="fa-solid fa-gear"></i> Thiết Lập Quỹ
               </button>
               <button onclick="openModalAddLeave()" class="px-4 py-2.5 bg-pastel-lavender text-white rounded-2xl text-xs md:text-sm font-medium hover:opacity-95 transition-all flex items-center gap-2 shadow-sm">
@@ -472,7 +538,7 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm">
+            <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm">
               <div class="flex justify-between items-start">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pastel-subtext">Phép Năm</span>
                 <span class="w-8 h-8 rounded-xl bg-pastel-primaryLight text-pastel-primary flex items-center justify-center text-sm"><i class="fa-regular fa-calendar"></i></span>
@@ -484,7 +550,7 @@
               <p class="text-[11px] text-pastel-subtext mt-1">Đã dùng: <strong id="leaveAnnualUsed">0</strong> ngày</p>
             </div>
 
-            <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm">
+            <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm">
               <div class="flex justify-between items-start">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pastel-subtext">Nghỉ Bù</span>
                 <span class="w-8 h-8 rounded-xl bg-pastel-goldLight text-pastel-gold flex items-center justify-center text-sm"><i class="fa-solid fa-clock-rotate-left"></i></span>
@@ -496,7 +562,7 @@
               <p class="text-[11px] text-pastel-subtext mt-1">Đã dùng: <strong id="leaveCompUsed">0</strong> ngày</p>
             </div>
 
-            <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm">
+            <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm">
               <div class="flex justify-between items-start">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pastel-subtext">Phép Thâm Niên</span>
                 <span class="w-8 h-8 rounded-xl bg-pastel-lavenderLight text-pastel-lavender flex items-center justify-center text-sm"><i class="fa-solid fa-award"></i></span>
@@ -509,12 +575,12 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm">
+          <div class="glass-card rounded-3xl border border-white/80 p-6 shadow-sm">
             <h3 class="font-bold text-stone-800 text-sm md:text-base mb-4">Lịch Sử Nghỉ Phép Đã Đăng Ký</h3>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs md:text-sm">
                 <thead>
-                  <tr class="text-pastel-subtext border-b border-pastel-border text-[11px] uppercase tracking-wider">
+                  <tr class="text-pastel-subtext border-b border-pastel-border/70 text-[11px] uppercase tracking-wider">
                     <th class="py-3 px-3">Ngày Nghỉ</th>
                     <th class="py-3 px-3">Quỹ Trừ</th>
                     <th class="py-3 px-3">Số Lượng</th>
@@ -522,7 +588,7 @@
                     <th class="py-3 px-3 text-center">Hủy</th>
                   </tr>
                 </thead>
-                <tbody id="leavesTable" class="divide-y divide-pastel-border"></tbody>
+                <tbody id="leavesTable" class="divide-y divide-pastel-border/60"></tbody>
               </table>
               <div id="noLeaves" class="py-10 text-center text-xs text-pastel-subtext">
                 Chưa có đơn nghỉ phép nào được ghi nhận.
@@ -539,7 +605,7 @@
               <p class="text-xs md:text-sm text-pastel-subtext">Thống kê cơ cấu chi tiêu, đối chiếu thu chi và tổng hợp ngày nghỉ</p>
             </div>
             <div class="flex items-center gap-2 no-print">
-              <button onclick="window.print()" class="px-4 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-2xl text-xs md:text-sm font-medium transition-all flex items-center gap-2">
+              <button onclick="window.print()" class="px-4 py-2.5 bg-white/80 hover:bg-white text-stone-700 rounded-2xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 shadow-sm">
                 <i class="fa-solid fa-print"></i> In Báo Cáo
               </button>
               <button onclick="exportCSV()" class="px-4 py-2.5 bg-pastel-primary text-white rounded-2xl text-xs md:text-sm font-medium hover:bg-pastel-primaryHover transition-all flex items-center gap-2 shadow-sm">
@@ -548,56 +614,56 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm flex flex-wrap items-center gap-3 text-xs md:text-sm no-print">
+          <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm flex flex-wrap items-center gap-3 text-xs md:text-sm no-print">
             <span class="font-semibold text-stone-700">Xem theo:</span>
-            <div class="flex items-center gap-1 bg-stone-100 p-1.5 rounded-2xl">
+            <div class="flex items-center gap-1 bg-white/70 p-1.5 rounded-2xl border border-white/80">
               <button id="repBtnMonth" onclick="setReportRange('month')" class="px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white text-pastel-primary shadow-sm">Theo Tháng</button>
               <button id="repBtnYear" onclick="setReportRange('year')" class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-pastel-subtext">Theo Năm</button>
               <button id="repBtnCustom" onclick="setReportRange('custom')" class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-pastel-subtext">Khoảng Ngày</button>
             </div>
 
             <div id="repMonthPicker" class="flex items-center gap-2">
-              <input type="month" id="repMonthInput" onchange="generateReport()" class="px-3.5 py-2 rounded-xl border border-pastel-border bg-stone-50/70 text-xs">
+              <input type="month" id="repMonthInput" onchange="generateReport()" class="px-3.5 py-2 rounded-xl border border-pastel-border bg-white/80 text-xs">
             </div>
             <div id="repYearPicker" class="items-center gap-2 hidden">
-              <select id="repYearSelect" onchange="generateReport()" class="px-3.5 py-2 rounded-xl border border-pastel-border bg-stone-50/70 text-xs"></select>
+              <select id="repYearSelect" onchange="generateReport()" class="px-3.5 py-2 rounded-xl border border-pastel-border bg-white/80 text-xs"></select>
             </div>
             <div id="repCustomPicker" class="items-center gap-2 hidden">
-              <input type="date" id="repCustomStart" class="px-3 py-2 rounded-xl border border-pastel-border bg-stone-50/70 text-xs">
+              <input type="date" id="repCustomStart" class="px-3 py-2 rounded-xl border border-pastel-border bg-white/80 text-xs">
               <span class="text-pastel-subtext">đến</span>
-              <input type="date" id="repCustomEnd" class="px-3 py-2 rounded-xl border border-pastel-border bg-stone-50/70 text-xs">
+              <input type="date" id="repCustomEnd" class="px-3 py-2 rounded-xl border border-pastel-border bg-white/80 text-xs">
               <button onclick="generateReport()" class="px-4 py-2 bg-pastel-primary text-white rounded-xl text-xs font-medium">Lọc</button>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-            <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm">
+            <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm">
               <span class="text-[11px] font-semibold uppercase tracking-wider text-pastel-subtext">Tổng Thu Nhập</span>
               <h4 class="text-xl font-bold text-pastel-primary mt-1" id="repTotalIncome">0 đ</h4>
             </div>
-            <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm">
+            <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm">
               <span class="text-[11px] font-semibold uppercase tracking-wider text-pastel-subtext">Tổng Chi Tiêu</span>
               <h4 class="text-xl font-bold text-pastel-rose mt-1" id="repTotalExpense">0 đ</h4>
             </div>
-            <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm">
+            <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm">
               <span class="text-[11px] font-semibold uppercase tracking-wider text-pastel-subtext">Dòng Tiền Còn Dư</span>
               <h4 class="text-xl font-bold text-stone-800 mt-1" id="repNetSavings">0 đ</h4>
             </div>
-            <div class="bg-white rounded-3xl p-5 border border-pastel-border shadow-sm">
+            <div class="glass-card rounded-3xl p-5 border border-white/80 shadow-sm">
               <span class="text-[11px] font-semibold uppercase tracking-wider text-pastel-subtext">Số Ngày Nghỉ Phép</span>
               <h4 class="text-xl font-bold text-pastel-lavender mt-1" id="repTotalLeaves">0 ngày</h4>
             </div>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm">
+            <div class="glass-card rounded-3xl border border-white/80 p-6 shadow-sm">
               <h3 class="font-bold text-stone-800 text-sm mb-4">So Sánh Thu Nhập - Chi Tiêu</h3>
               <div class="h-64 flex items-center justify-center">
                 <canvas id="chartIncomeExpense"></canvas>
               </div>
             </div>
 
-            <div class="bg-white rounded-3xl border border-pastel-border p-6 shadow-sm">
+            <div class="glass-card rounded-3xl border border-white/80 p-6 shadow-sm">
               <h3 class="font-bold text-stone-800 text-sm mb-4">Cơ Cấu Chi Tiêu Theo Danh Mục</h3>
               <div class="h-64 flex items-center justify-center">
                 <canvas id="chartCategory"></canvas>
@@ -609,19 +675,19 @@
       </main>
     </div>
 
-    <footer class="py-4 text-center text-xs text-pastel-subtext/60 italic border-t border-pastel-border/60">
+    <footer class="py-4 text-center text-xs text-pastel-subtext/60 italic border-t border-white/60">
       Xây dựng bởi Ốc My
     </footer>
   </div>
 
-  <!-- ================= POPUP MODALS ================= -->
+  <!-- ================= POPUP MODALS SƯƠNG MAI PASTEL ================= -->
 
   <!-- Modal Thêm Giao Dịch -->
   <div id="modalTxn" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-lg p-6 md:p-8 border border-pastel-border shadow-modal relative">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-lg p-6 md:p-8 shadow-glass relative">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <div class="flex items-center gap-3">
-          <div id="modalTxnIconBox" class="w-10 h-10 rounded-2xl flex items-center justify-center text-lg">
+          <div id="modalTxnIconBox" class="w-10 h-10 rounded-2xl flex items-center justify-center text-lg shadow-sm">
             <i id="modalTxnIcon" class="fa-solid fa-receipt"></i>
           </div>
           <div>
@@ -629,7 +695,7 @@
             <p class="text-[11px] text-pastel-subtext">Cập nhật ngay vào ví của sếp</p>
           </div>
         </div>
-        <button onclick="closeModal('modalTxn')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalTxn')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
@@ -639,38 +705,38 @@
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Số Tiền (VNĐ)</label>
           <div class="relative">
-            <input type="number" id="txnAmount" required min="1" placeholder="0" class="w-full pl-4 pr-12 py-3 rounded-2xl border border-pastel-border text-lg font-bold text-stone-800 focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-stone-50/50">
+            <input type="number" id="txnAmount" required min="1" placeholder="0" class="w-full pl-4 pr-12 py-3 rounded-2xl border border-pastel-border text-lg font-bold text-stone-800 focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-white/70">
             <span class="absolute right-4 top-1/2 -translate-y-1/2 font-semibold text-pastel-subtext text-xs">VNĐ</span>
           </div>
         </div>
 
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Hạng Mục</label>
-          <input type="text" id="txnCategory" required placeholder="Nhập hoặc bấm chọn nhanh bên dưới" class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-stone-50/50 mb-2">
+          <input type="text" id="txnCategory" required placeholder="Nhập hoặc bấm chọn nhanh bên dưới" class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-white/70 mb-2">
           <div id="quickCategoryChips" class="flex flex-wrap gap-1.5"></div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-pastel-subtext font-semibold mb-1.5">Trích Từ / Nhận Vào Ví</label>
-            <select id="txnWallet" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-stone-50/50">
+            <select id="txnWallet" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-white/70">
               <option value="bank">Ví Ngân Hàng</option>
               <option value="cash">Ví Tiền Mặt</option>
             </select>
           </div>
           <div>
             <label class="block text-pastel-subtext font-semibold mb-1.5">Ngày Thực Hiện</label>
-            <input type="date" id="txnDate" required class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-stone-50/50">
+            <input type="date" id="txnDate" required class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-white/70">
           </div>
         </div>
 
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Ghi Chú Thêm (Nếu có)</label>
-          <input type="text" id="txnNote" placeholder="Ví dụ: Ăn trưa cùng đồng nghiệp..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-stone-50/50">
+          <input type="text" id="txnNote" placeholder="Ví dụ: Ăn trưa cùng đồng nghiệp..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border focus:outline-none focus:ring-2 focus:ring-pastel-primary/30 bg-white/70">
         </div>
 
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalTxn')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50 transition-colors">Hủy</button>
+          <button type="button" onclick="closeModal('modalTxn')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 transition-colors shadow-sm">Hủy</button>
           <button type="submit" id="btnSaveTxnSubmit" class="flex-1 py-3 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20 transition-all">Lưu Giao Dịch</button>
         </div>
       </form>
@@ -679,10 +745,10 @@
 
   <!-- Modal Chuyển Tiền -->
   <div id="modalTransfer" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-md p-6 md:p-8 shadow-glass">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-pastel-lavenderLight text-pastel-lavender flex items-center justify-center text-lg">
+          <div class="w-10 h-10 rounded-2xl bg-pastel-lavenderLight text-pastel-lavender flex items-center justify-center text-lg shadow-sm">
             <i class="fa-solid fa-arrow-right-arrow-left"></i>
           </div>
           <div>
@@ -690,7 +756,7 @@
             <p class="text-[11px] text-pastel-subtext">Luân chuyển nội bộ không ảnh hưởng thu chi</p>
           </div>
         </div>
-        <button onclick="closeModal('modalTransfer')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalTransfer')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
@@ -698,21 +764,21 @@
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Số Tiền Muốn Chuyển</label>
           <div class="relative">
-            <input type="number" id="trAmount" required min="1" placeholder="0" class="w-full pl-4 pr-12 py-3 rounded-2xl border border-pastel-border text-lg font-bold text-stone-800 focus:outline-none focus:ring-2 focus:ring-pastel-lavender/30 bg-stone-50/50">
+            <input type="number" id="trAmount" required min="1" placeholder="0" class="w-full pl-4 pr-12 py-3 rounded-2xl border border-pastel-border text-lg font-bold text-stone-800 focus:outline-none focus:ring-2 focus:ring-pastel-lavender/30 bg-white/70">
             <span class="absolute right-4 top-1/2 -translate-y-1/2 font-semibold text-pastel-subtext text-xs">VNĐ</span>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-pastel-subtext font-semibold mb-1.5">Từ Ví</label>
-            <select id="trFrom" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+            <select id="trFrom" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
               <option value="bank">Ngân Hàng</option>
               <option value="cash">Tiền Mặt</option>
             </select>
           </div>
           <div>
             <label class="block text-pastel-subtext font-semibold mb-1.5">Đến Ví</label>
-            <select id="trTo" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+            <select id="trTo" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
               <option value="cash">Tiền Mặt</option>
               <option value="bank">Ngân Hàng</option>
             </select>
@@ -720,10 +786,10 @@
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Ngày Chuyển</label>
-          <input type="date" id="trDate" required class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="date" id="trDate" required class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalTransfer')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50">Hủy</button>
+          <button type="button" onclick="closeModal('modalTransfer')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 shadow-sm">Hủy</button>
           <button type="submit" class="flex-1 py-3 bg-pastel-lavender hover:opacity-95 text-white rounded-2xl font-medium shadow-md shadow-pastel-lavender/25">Xác Nhận Chuyển</button>
         </div>
       </form>
@@ -732,10 +798,10 @@
 
   <!-- Modal Đăng Ký Nghỉ Phép -->
   <div id="modalLeave" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-md p-6 md:p-8 shadow-glass">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-pastel-lavenderLight text-pastel-lavender flex items-center justify-center text-lg">
+          <div class="w-10 h-10 rounded-2xl bg-pastel-lavenderLight text-pastel-lavender flex items-center justify-center text-lg shadow-sm">
             <i class="fa-solid fa-calendar-check"></i>
           </div>
           <div>
@@ -743,14 +809,14 @@
             <p class="text-[11px] text-pastel-subtext">Hỗ trợ tính 0.5 ngày và trừ quỹ linh hoạt</p>
           </div>
         </div>
-        <button onclick="closeModal('modalLeave')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalLeave')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
       <form onsubmit="handleSaveLeave(event)" class="space-y-4 mt-5 text-xs md:text-sm">
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Trừ Từ Quỹ</label>
-          <select id="leaveFundSelect" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <select id="leaveFundSelect" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
             <option value="annual">Phép Năm</option>
             <option value="comp">Nghỉ Bù</option>
             <option value="senior">Phép Thâm Niên</option>
@@ -760,8 +826,8 @@
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Số Lượng Ngày Nghỉ</label>
           <div class="flex items-center gap-2">
-            <input type="number" id="leaveDays" required step="0.5" min="0.5" value="1" class="flex-1 px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50 font-bold text-stone-800">
-            <div class="flex bg-stone-100 p-1 rounded-2xl border border-pastel-border">
+            <input type="number" id="leaveDays" required step="0.5" min="0.5" value="1" class="flex-1 px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70 font-bold text-stone-800">
+            <div class="flex bg-white/80 p-1 rounded-2xl border border-pastel-border shadow-sm">
               <button type="button" id="btnHalfDay" onclick="setLeaveDayValue(0.5)" class="day-selector-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-pastel-subtext transition-all">0.5 ngày</button>
               <button type="button" id="btnFullDay" onclick="setLeaveDayValue(1)" class="day-selector-btn active px-3 py-1.5 rounded-xl text-xs font-semibold text-pastel-subtext transition-all">1 ngày</button>
             </div>
@@ -770,16 +836,16 @@
 
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Ngày Bắt Đầu Nghỉ</label>
-          <input type="date" id="leaveDate" required class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="date" id="leaveDate" required class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
 
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Lý Do Nghỉ</label>
-          <input type="text" id="leaveReason" required placeholder="Ví dụ: Việc gia đình, khám sức khỏe..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="text" id="leaveReason" required placeholder="Ví dụ: Việc gia đình, khám sức khỏe..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
 
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalLeave')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50">Hủy</button>
+          <button type="button" onclick="closeModal('modalLeave')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 shadow-sm">Hủy</button>
           <button type="submit" class="flex-1 py-3 bg-pastel-lavender hover:opacity-95 text-white rounded-2xl font-medium shadow-md shadow-pastel-lavender/25">Lưu Đơn Nghỉ</button>
         </div>
       </form>
@@ -788,28 +854,28 @@
 
   <!-- Modal Thiết Lập Quỹ Phép -->
   <div id="modalConfigLeave" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-md p-6 md:p-8 shadow-glass">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <h3 class="font-bold text-stone-800 text-base">Thiết Lập Quỹ Phép Ban Đầu</h3>
-        <button onclick="closeModal('modalConfigLeave')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalConfigLeave')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
       <form onsubmit="handleSaveLeaveConfig(event)" class="space-y-4 mt-5 text-xs md:text-sm">
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Hạn Mức Phép Năm (Ngày)</label>
-          <input type="number" id="cfgAnnual" step="0.5" min="0" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="number" id="cfgAnnual" step="0.5" min="0" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Hạn Mức Nghỉ Bù (Ngày)</label>
-          <input type="number" id="cfgComp" step="0.5" min="0" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="number" id="cfgComp" step="0.5" min="0" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Hạn Mức Phép Thâm Niên (Ngày)</label>
-          <input type="number" id="cfgSenior" step="0.5" min="0" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="number" id="cfgSenior" step="0.5" min="0" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalConfigLeave')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50">Hủy</button>
+          <button type="button" onclick="closeModal('modalConfigLeave')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 shadow-sm">Hủy</button>
           <button type="submit" class="flex-1 py-3 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20">Lưu Hạn Mức</button>
         </div>
       </form>
@@ -818,10 +884,10 @@
 
   <!-- Modal Thêm Tiết Kiệm -->
   <div id="modalSaving" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-md p-6 md:p-8 shadow-glass">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-pastel-primaryLight text-pastel-primary flex items-center justify-center text-lg">
+          <div class="w-10 h-10 rounded-2xl bg-pastel-primaryLight text-pastel-primary flex items-center justify-center text-lg shadow-sm">
             <i class="fa-solid fa-piggy-bank"></i>
           </div>
           <div>
@@ -829,28 +895,28 @@
             <p class="text-[11px] text-pastel-subtext">Trích tiền ví vào mục tiêu tích lũy</p>
           </div>
         </div>
-        <button onclick="closeModal('modalSaving')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalSaving')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
       <form onsubmit="handleSaveSaving(event)" class="space-y-4 mt-5 text-xs md:text-sm">
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Tên Khoản / Mục Tiêu Tiết Kiệm</label>
-          <input type="text" id="savTitle" required placeholder="Ví dụ: Quỹ dự phòng khẩn cấp..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="text" id="savTitle" required placeholder="Ví dụ: Quỹ dự phòng khẩn cấp..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Số Tiền Nộp Vào (VNĐ)</label>
-          <input type="number" id="savAmount" required min="1" placeholder="0" class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50 font-bold text-stone-800">
+          <input type="number" id="savAmount" required min="1" placeholder="0" class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70 font-bold text-stone-800">
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Trích Từ Ví</label>
-          <select id="savWallet" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <select id="savWallet" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
             <option value="bank">Ví Ngân Hàng</option>
             <option value="cash">Ví Tiền Mặt</option>
           </select>
         </div>
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalSaving')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50">Hủy</button>
+          <button type="button" onclick="closeModal('modalSaving')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 shadow-sm">Hủy</button>
           <button type="submit" class="flex-1 py-3 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20">Trích Ví & Tích Lũy</button>
         </div>
       </form>
@@ -859,10 +925,10 @@
 
   <!-- Modal Thêm Trả Góp -->
   <div id="modalInstallment" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-md p-6 md:p-8 shadow-glass">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-pastel-roseLight text-pastel-rose flex items-center justify-center text-lg">
+          <div class="w-10 h-10 rounded-2xl bg-pastel-roseLight text-pastel-rose flex items-center justify-center text-lg shadow-sm">
             <i class="fa-solid fa-credit-card"></i>
           </div>
           <div>
@@ -870,27 +936,27 @@
             <p class="text-[11px] text-pastel-subtext">Theo dõi tiến độ trả nợ đúng hạn</p>
           </div>
         </div>
-        <button onclick="closeModal('modalInstallment')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalInstallment')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
       <form onsubmit="handleSaveInstallment(event)" class="space-y-4 mt-5 text-xs md:text-sm">
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Tên Món Hàng Trả Góp</label>
-          <input type="text" id="insTitle" required placeholder="Ví dụ: Laptop mới, Điện thoại..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="text" id="insTitle" required placeholder="Ví dụ: Laptop mới, Điện thoại..." class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-pastel-subtext font-semibold mb-1.5">Tổng Số Tiền Nợ</label>
-            <input type="number" id="insTotal" required min="1" placeholder="0" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50 font-bold">
+            <input type="number" id="insTotal" required min="1" placeholder="0" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70 font-bold">
           </div>
           <div>
             <label class="block text-pastel-subtext font-semibold mb-1.5">Số Kỳ (Tháng)</label>
-            <input type="number" id="insMonths" required min="1" value="6" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+            <input type="number" id="insMonths" required min="1" value="6" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
           </div>
         </div>
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalInstallment')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50">Hủy</button>
+          <button type="button" onclick="closeModal('modalInstallment')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 shadow-sm">Hủy</button>
           <button type="submit" class="flex-1 py-3 bg-pastel-rose hover:bg-pastel-roseHover text-stone-800 rounded-2xl font-medium shadow-md shadow-pastel-rose/20">Lưu Gói Trả Góp</button>
         </div>
       </form>
@@ -899,32 +965,32 @@
 
   <!-- Modal Thanh Toán Trả Góp -->
   <div id="modalPayInstallment" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-md p-6 md:p-8 shadow-glass">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <h3 class="font-bold text-stone-800 text-base">Thanh Toán Kỳ Trả Góp</h3>
-        <button onclick="closeModal('modalPayInstallment')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalPayInstallment')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
       <form onsubmit="handlePayInstallment(event)" class="space-y-4 mt-5 text-xs md:text-sm">
         <input type="hidden" id="payInsId">
-        <div class="p-3 bg-stone-50 rounded-2xl border border-pastel-border">
+        <div class="p-3 bg-white/80 rounded-2xl border border-white shadow-sm">
           <p class="text-[11px] text-pastel-subtext">Đang thanh toán cho gói:</p>
           <p class="font-bold text-stone-800 text-sm mt-0.5" id="payInsTitle">Tên gói trả góp</p>
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Số Tiền Đóng Kỳ Này (VNĐ)</label>
-          <input type="number" id="payInsAmount" required min="1" class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50 font-bold text-stone-800">
+          <input type="number" id="payInsAmount" required min="1" class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70 font-bold text-stone-800">
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Trích Từ Ví</label>
-          <select id="payInsWallet" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <select id="payInsWallet" class="w-full px-3.5 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
             <option value="bank">Ví Ngân Hàng</option>
             <option value="cash">Ví Tiền Mặt</option>
           </select>
         </div>
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalPayInstallment')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50">Hủy</button>
+          <button type="button" onclick="closeModal('modalPayInstallment')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 shadow-sm">Hủy</button>
           <button type="submit" class="flex-1 py-3 bg-pastel-rose hover:bg-pastel-roseHover text-stone-800 rounded-2xl font-medium shadow-md shadow-pastel-rose/20">Trích Ví Đóng Tiền</button>
         </div>
       </form>
@@ -933,25 +999,25 @@
 
   <!-- Modal Đổi Mật Khẩu -->
   <div id="modalChangePass" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-card bg-white rounded-3xl w-full max-w-md p-6 md:p-8 border border-pastel-border shadow-modal">
-      <div class="flex items-center justify-between pb-4 border-b border-pastel-border">
+    <div class="modal-card rounded-3xl w-full max-w-md p-6 md:p-8 shadow-glass">
+      <div class="flex items-center justify-between pb-4 border-b border-pastel-border/70">
         <h3 class="font-bold text-stone-800 text-base">Đổi Mật Khẩu Cá Nhân</h3>
-        <button onclick="closeModal('modalChangePass')" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors">
+        <button onclick="closeModal('modalChangePass')" class="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-500 flex items-center justify-center transition-colors shadow-sm">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
       <form onsubmit="handleChangePassword(event)" class="space-y-4 mt-5 text-xs md:text-sm">
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Mật Khẩu Hiện Tại</label>
-          <input type="password" id="oldPass" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="password" id="oldPass" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div>
           <label class="block text-pastel-subtext font-semibold mb-1.5">Mật Khẩu Mới</label>
-          <input type="password" id="newPass" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-stone-50/50">
+          <input type="password" id="newPass" required class="w-full px-4 py-2.5 rounded-2xl border border-pastel-border bg-white/70">
         </div>
         <div id="changePassMsg" class="hidden text-xs p-3 rounded-2xl"></div>
         <div class="pt-3 flex gap-2.5">
-          <button type="button" onclick="closeModal('modalChangePass')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 hover:bg-stone-50">Hủy</button>
+          <button type="button" onclick="closeModal('modalChangePass')" class="flex-1 py-3 rounded-2xl border border-pastel-border text-stone-600 bg-white hover:bg-stone-50 shadow-sm">Hủy</button>
           <button type="submit" class="flex-1 py-3 bg-pastel-primary hover:bg-pastel-primaryHover text-white rounded-2xl font-medium shadow-md shadow-pastel-primary/20">Lưu Mật Khẩu</button>
         </div>
       </form>
@@ -959,14 +1025,174 @@
   </div>
 
   <!-- Toast Thông Báo Nổi -->
-  <div id="toastNotify" class="fixed bottom-6 right-6 z-50 bg-stone-800 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-xs md:text-sm">
+  <div id="toastNotify" class="fixed bottom-6 right-6 z-50 bg-stone-800/90 backdrop-blur-md text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-xs md:text-sm border border-white/20">
     <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
     <span id="toastMsg">Thao tác thành công!</span>
   </div>
 
-  <!-- ================= JAVASCRIPT KẾT NỐI CLOUD ================= -->
+  <!-- ================= LOGIC CANVAS 20/11 & CLOUD SCRIPT ================= -->
   <script>
-    // ĐÃ GẮN SẴN LINK GOOGLE APPS SCRIPT CỦA SẾP
+    // --- 1. HIỆU ỨNG RƠI 20/11 CHUYỂN ĐỘNG NGHỆ THUẬT ---
+    const canvas = document.getElementById('fallingCanvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    let particles = [];
+    const PARTICLE_COUNT = 24;
+
+    function resizeCanvas() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const types = ['cap', 'book', 'plane', 'pencil', 'flower'];
+
+    class Particle2011 {
+      constructor() {
+        this.reset(true);
+      }
+      reset(initial = false) {
+        this.x = Math.random() * W;
+        this.y = initial ? Math.random() * H : -40;
+        this.type = types[Math.floor(Math.random() * types.length)];
+        this.size = Math.random() * 8 + 20; // 20 - 28px
+        this.speedY = Math.random() * 0.8 + 0.6;
+        this.speedX = Math.random() * 0.4 - 0.2;
+        this.angle = Math.random() * Math.PI * 2;
+        this.spinSpeed = (Math.random() - 0.5) * 0.02;
+        this.sway = Math.random() * 0.02 + 0.01;
+        this.swayCount = Math.random() * 100;
+        this.opacity = Math.random() * 0.4 + 0.45; // Pastel dịu nhẹ
+      }
+      update() {
+        this.y += this.speedY;
+        this.swayCount += this.sway;
+        this.x += Math.sin(this.swayCount) * 0.7 + this.speedX;
+        this.angle += this.spinSpeed;
+
+        if (this.y > H + 50 || this.x < -60 || this.x > W + 60) {
+          this.reset(false);
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.globalAlpha = this.opacity;
+
+        const s = this.size;
+
+        if (this.type === 'cap') {
+          // Mũ cử nhân tròn xinh (Graduation Cap)
+          ctx.fillStyle = '#4A616E';
+          ctx.beginPath();
+          ctx.moveTo(0, -s * 0.45);
+          ctx.lineTo(s * 0.55, 0);
+          ctx.lineTo(0, s * 0.45);
+          ctx.lineTo(-s * 0.55, 0);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = '#374954';
+          ctx.beginPath();
+          ctx.ellipse(0, s * 0.2, s * 0.35, s * 0.18, 0, 0, Math.PI);
+          ctx.fill();
+
+          // Tua rua vàng pastel
+          ctx.strokeStyle = '#F6D27E';
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(s * 0.4, s * 0.35);
+          ctx.stroke();
+          ctx.fillStyle = '#E5B853';
+          ctx.beginPath();
+          ctx.arc(s * 0.4, s * 0.35, 3, 0, Math.PI * 2);
+          ctx.fill();
+
+        } else if (this.type === 'book') {
+          // Quyển sách đang mở trang (Open Book)
+          ctx.fillStyle = '#FDF6E8';
+          ctx.strokeStyle = '#D9897D';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(0, s * 0.25);
+          ctx.quadraticCurveTo(-s * 0.4, -s * 0.1, -s * 0.45, -s * 0.35);
+          ctx.quadraticCurveTo(-s * 0.1, -s * 0.3, 0, -s * 0.15);
+          ctx.quadraticCurveTo(s * 0.1, -s * 0.3, s * 0.45, -s * 0.35);
+          ctx.quadraticCurveTo(s * 0.4, -s * 0.1, 0, s * 0.25);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+
+        } else if (this.type === 'plane') {
+          // Máy bay giấy trắng ước mơ
+          ctx.fillStyle = '#FFFFFF';
+          ctx.strokeStyle = '#A3B4BE';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(-s * 0.4, -s * 0.35);
+          ctx.lineTo(s * 0.45, 0);
+          ctx.lineTo(-s * 0.4, s * 0.35);
+          ctx.lineTo(-s * 0.15, 0);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+
+        } else if (this.type === 'pencil') {
+          // Bút chì chibi mập lùn
+          ctx.fillStyle = '#F5CE7A';
+          ctx.fillRect(-s * 0.15, -s * 0.35, s * 0.3, s * 0.55);
+          // Gôm tẩy hồng
+          ctx.fillStyle = '#EAA6A0';
+          ctx.beginPath();
+          ctx.arc(0, -s * 0.35, s * 0.15, Math.PI, 0);
+          ctx.fill();
+          // Ngòi chì
+          ctx.fillStyle = '#5A626A';
+          ctx.beginPath();
+          ctx.moveTo(-s * 0.15, s * 0.2);
+          ctx.lineTo(0, s * 0.45);
+          ctx.lineTo(s * 0.15, s * 0.2);
+          ctx.closePath();
+          ctx.fill();
+
+        } else if (this.type === 'flower') {
+          // Bông hoa cúc mini xinh xắn
+          ctx.fillStyle = '#FCEAA7';
+          for (let i = 0; i < 5; i++) {
+            const rad = (i * Math.PI * 2) / 5;
+            ctx.beginPath();
+            ctx.arc(Math.cos(rad) * s * 0.25, Math.sin(rad) * s * 0.25, s * 0.18, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.fillStyle = '#DF958B';
+          ctx.beginPath();
+          ctx.arc(0, 0, s * 0.14, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle2011());
+    }
+
+    function animateFalling() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateFalling);
+    }
+    animateFalling();
+
+
+    // --- 2. LOGIC BACKEND CLOUD & DỮ LIỆU ĐỒNG BỘ ---
     const API_URL = "https://script.google.com/macros/s/AKfycbzJtPVaQ7BE-Kheke73x0_y9ztFr3MuVtw0LrYaJf7A1Yp9819C9BhT1be7_nmIRLiL/exec"; 
 
     const STORAGE_KEY = 'lumina_finance_db_v2';
@@ -979,7 +1205,6 @@
     const defaultExpenseCategories = ['Ăn uống', 'Cà phê & Đi chợ', 'Đi lại / Xăng xe', 'Hóa đơn & Tiện ích', 'Mua sắm', 'Y tế & Thuốc'];
     const defaultIncomeCategories = ['Lương cố định', 'Thưởng công việc', 'Thu nhập phụ', 'Lãi tiết kiệm'];
 
-    // ĐỌC DỮ LIỆU TỪ CLOUD (GOOGLE SHEETS)
     async function syncFromCloud() {
       if (!API_URL) {
         loadLocalDB();
@@ -1000,7 +1225,6 @@
       }
     }
 
-    // LƯU DỮ LIỆU LÊN CLOUD (GOOGLE SHEETS)
     async function syncToCloud() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
       if (!API_URL) return;
@@ -1351,7 +1575,7 @@
         currentUser.savings.forEach((s) => {
           totalS += Number(s.amount);
           const div = document.createElement('div');
-          div.className = 'p-4 bg-stone-50/80 rounded-2xl border border-pastel-border flex items-center justify-between hover:bg-stone-50 transition-colors';
+          div.className = 'p-4 bg-white/70 rounded-2xl border border-white/80 flex items-center justify-between hover:bg-white transition-colors shadow-sm';
           div.innerHTML = `
             <div>
               <p class="font-semibold text-stone-800 text-xs md:text-sm">${s.title}</p>
@@ -1378,7 +1602,7 @@
           const pct = Math.min(100, Math.round(((ins.paid || 0) / ins.total) * 100));
 
           const div = document.createElement('div');
-          div.className = 'p-4 bg-stone-50/80 rounded-2xl border border-pastel-border space-y-2.5';
+          div.className = 'p-4 bg-white/70 rounded-2xl border border-white/80 space-y-2.5 shadow-sm';
           div.innerHTML = `
             <div class="flex items-center justify-between">
               <div>
@@ -1526,7 +1750,7 @@
           labels: ['Thu Nhập', 'Chi Tiêu'],
           datasets: [{
             data: [totInc, totExp],
-            backgroundColor: ['#6C8273', '#DFA398'],
+            backgroundColor: ['#5B7E76', '#E5A59B'],
             borderRadius: 10
           }]
         },
@@ -1534,7 +1758,7 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: { y: { beginAtZero: true, grid: { color: '#EFEAE1' } }, x: { grid: { display: false } } }
+          scales: { y: { beginAtZero: true, grid: { color: '#E8EFF4' } }, x: { grid: { display: false } } }
         }
       });
 
@@ -1548,7 +1772,7 @@
           labels: catLabels.length > 0 ? catLabels : ['Chưa có dữ liệu'],
           datasets: [{
             data: catData.length > 0 ? catData : [1],
-            backgroundColor: ['#6C8273', '#DFA398', '#A299C2', '#DFBA88', '#8CA193', '#F3D2C9']
+            backgroundColor: ['#5B7E76', '#E5A59B', '#9B92B8', '#E3C18E', '#7BA098', '#F2C1B8']
           }]
         },
         options: {
@@ -1617,7 +1841,7 @@
       container.innerHTML = '';
       categories.forEach(cat => {
         const span = document.createElement('span');
-        span.className = 'cat-chip px-3 py-1 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-xl text-xs font-medium border border-transparent';
+        span.className = 'cat-chip px-3 py-1 bg-white hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-medium border border-pastel-border shadow-sm';
         span.innerText = cat;
         span.onclick = function() {
           document.getElementById('txnCategory').value = cat;
