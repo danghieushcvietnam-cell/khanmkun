@@ -57,6 +57,8 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 .logo svg{width:84px;height:84px;border-radius:22px;box-shadow:0 6px 18px #0002}#hl svg{width:26px;height:26px;border-radius:8px;vertical-align:-7px}
 .rem{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;border-color:var(--am);background:color-mix(in srgb,var(--am) 20%,var(--cd))}
 [data-th=dark] .pill,[data-th=dark] .btn.bd,[data-th=dark] .btn.gr{color:#07090d}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1.5px solid var(--ln);background:var(--bg);border-radius:99px;padding:5px 11px;font-size:13px;cursor:pointer;color:var(--tx);transition:transform .12s}.chip:active{transform:scale(.94)}
+.chip.on{background:var(--pr);color:#fff;border-color:var(--pr)}[data-th=dark] .chip.on{color:#07090d}.chip.new{border-style:dashed;color:var(--pr);font-weight:600}.mod form{max-height:92vh;overflow:auto}
 </style></head><body><canvas id="fx"></canvas><button id="tg" class="x" title="Sáng / Tối" onclick="toggleTh()">☀️</button>
 
 <div id="auth"><div class="card"><div class="logo" id="lg"></div><h1>Sổ Thu Chi & Phép</h1>
@@ -81,8 +83,8 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 
 <script>
 /* ====== CẤU HÌNH — CHỈ SỬA 2 DÒNG NÀY ====== */
-const REG_ID="DAN_BIN_ID_DANH_BA_VAO_DAY";   // Bin "danh bạ" tài khoản (tạo mới, nội dung {"users":{}})
-const KEY="DAN_KEY_JSONBIN_VAO_DAY";         // Key JSONBin (nên dùng key đã tạo mới, không dùng key cũ)
+const REG_ID="6addd9aeffd5d160538a1eb0";   // Bin "danh bạ" tài khoản (tạo mới, nội dung {"users":{}})
+const KEY="$2a$10$dUDsI6IKzIr.vc9cVgfa7OkmkTl9dqKbca02eAsAbRysnqtgjnxvW";         // Key JSONBin (nên dùng key đã tạo mới, không dùng key cũ)
 /* ============================================ */
 const API="https://api.jsonbin.io/v3/b",H={'X-Master-Key':KEY,'Content-Type':'application/json'};
 const $=s=>document.querySelector(s),E=m=>{throw Error(m)};
@@ -138,8 +140,15 @@ async function rm(k,id){if(!confirm('Xóa mục này? Tiền liên quan sẽ đ�
 const row=t=>{const tr=t.type==='transfer',pos=t.type==='income'||(t.type==='adjust'&&t.amt>0);return`<div class="row"><div><span class="tag t-${t.type}">${L[t.type]}</span><b>${ci(t.cat)} ${esc(t.cat||'')}</b><small>${t.d} · ${tr?WN[t.w]+' → '+WN[t.to]:WN[t.w]}${t.note?' · '+esc(t.note):''}</small></div><div class="r"><b class="${tr?'':pos?'ok':'bad'}">${tr?'':pos?'+':'−'}${vnd(Math.abs(t.amt))}</b><button class="x" onclick="rm('tx','${t.id}')">🗑</button></div></div>`};
 
 /* ---- Hành động ---- */
-function addTx(type){const inc=type==='income';$('#cats').innerHTML=[...new Set([...(inc?['Lương','Thưởng','Thu nhập phụ','Lãi tiết kiệm']:['Ăn uống','Cà phê','Xăng xe','Bóng đá','Gym','Hóa đơn','Mua sắm','Y tế']),...D.tx.filter(t=>t.type===type).map(t=>t.cat)])].map(c=>`<option value="${esc(c)}">`).join('');
- ask(inc?'Ghi thu nhập':'Ghi chi tiêu',[{k:'amt',l:'Số tiền (đ)',t:'number',x:'min="1" inputmode="numeric"'},{k:'cat',l:'Hạng mục',x:'list="cats"'},{k:'w',l:'Ví',t:'select',o:W},{k:'d',l:'Ngày',t:'date',v:today()},{k:'note',l:'Ghi chú',r:0}],v=>{const a=+v.amt;if(!inc&&!enough(v.w,a))return;D.tx.unshift({id:uid(),type,amt:a,cat:v.cat.trim(),w:v.w,d:v.d,note:v.note.trim()});cmt()})}
+function addTx(type){const inc=type==='income',cnt={};D.tx.filter(t=>t.type===type).forEach(t=>cnt[t.cat]=(cnt[t.cat]||0)+1);
+ const base=inc?['Lương','Thưởng','Thu nhập phụ','Lãi tiết kiệm']:['Ăn uống','Cà phê','Xăng xe','Bóng đá','Gym','Hóa đơn','Mua sắm','Y tế'];
+ const names=[...new Set([...Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]),...base])];
+ ask(inc?'Ghi thu nhập':'Ghi chi tiêu',[{k:'cat',l:'Hạng mục',x:'autocomplete="off" placeholder="Chọn bên dưới hoặc gõ tên mới, vd: Tiền nhà"'},{k:'amt',l:'Số tiền (đ)',t:'number',x:'min="1" inputmode="numeric"'},{k:'w',l:'Ví',t:'select',o:W},{k:'d',l:'Ngày',t:'date',v:today()},{k:'note',l:'Ghi chú',r:0}],v=>{const a=+v.amt;if(!inc&&!enough(v.w,a))return;const c=v.cat.trim(),cat=names.find(n=>n.toLowerCase()===c.toLowerCase())||c;D.tx.unshift({id:uid(),type,amt:a,cat,w:v.w,d:v.d,note:v.note.trim()});cmt()});
+ const inp=$('#mb input[name=cat]'),box=document.createElement('div');box.className='chips';
+ box.innerHTML=names.map(n=>`<button type="button" class="chip" data-n="${esc(n.toLowerCase())}">${ci(n)} ${esc(n)}</button>`).join('')+'<button type="button" class="chip new">＋ Hạng mục mới</button>';
+ inp.parentElement.after(box);
+ const mark=()=>box.querySelectorAll('.chip').forEach(b=>b.classList.toggle('on',b.dataset.n===inp.value.trim().toLowerCase()));
+ box.onclick=e=>{const b=e.target.closest('.chip');if(!b)return;if(b.classList.contains('new')){inp.value='';inp.focus()}else{inp.value=names[[...box.children].indexOf(b)];$('#mb input[name=amt]').focus()}mark()};inp.oninput=mark}
 function addTr(){ask('Chuyển tiền giữa ví',[{k:'amt',l:'Số tiền (đ)',t:'number',x:'min="1"'},{k:'w',l:'Từ ví',t:'select',o:W},{k:'to',l:'Đến ví',t:'select',o:[...W].reverse()},{k:'d',l:'Ngày',t:'date',v:today()}],v=>{if(v.w===v.to)E('Ví gửi và ví nhận phải khác nhau');const a=+v.amt;if(!enough(v.w,a))return;D.tx.unshift({id:uid(),type:'transfer',amt:a,cat:'Chuyển tiền nội bộ',w:v.w,to:v.to,d:v.d});cmt()})}
 function editBal(w){ask('Cập nhật số dư '+WN[w],[{k:'v',l:'Số dư thực tế (đ)',t:'number',v:bal()[w],x:'step="1"'}],v=>{const df=+v.v-bal()[w];if(!df)return;D.tx.unshift({id:uid(),type:'adjust',amt:df,cat:'Điều chỉnh số dư',w,d:today()});cmt()})}
 function addSav(){ask('Mục tiêu tiết kiệm mới',[{k:'t',l:'Tên mục tiêu',x:'placeholder="Quỹ khẩn cấp, mua xe…"'}],v=>{D.sav.push({id:uid(),title:v.t.trim()});cmt()},'Tạo')}
@@ -190,7 +199,7 @@ $('#lg').innerHTML=LOGO;$('#hl').innerHTML=LOGO;
 const icon=n=>new Promise(r=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas');c.width=c.height=n;const x=c.getContext('2d');x.fillStyle='#7DBDB3';x.fillRect(0,0,n,n);x.drawImage(i,0,0,n,n);r(c.toDataURL('image/png'))};i.src='data:image/svg+xml,'+encodeURIComponent(LOGO)});
 (async()=>{const a=await icon(180),b=await icon(512);$('#ai').href=a;$('#fv').href=a;$('#mf2').href=URL.createObjectURL(new Blob([JSON.stringify({name:'Sổ Thu Chi & Phép',short_name:'Sổ Thu Chi',display:'standalone',start_url:location.href.split('#')[0],background_color:'#4f7cac',theme_color:'#4f7cac',icons:[{src:a,sizes:'180x180',type:'image/png'},{src:b,sizes:'512x512',type:'image/png'}]})],{type:'application/manifest+json'}))})().catch(()=>{});
 const SKY='<svg class="sky" viewBox="0 0 400 100" preserveAspectRatio="none"><path d="M0 100V62h22V40h18v22h14V28h20v34h16V50h24V30h18v32h12V44h22v18h16V22h22v40h14V48h26V34h16v28h20V52h20v48z"/></svg>';
-const CI=[[/cà phê|cafe|coffee/i,'☕'],[/\bxe\b|xăng|đi lại|grab/i,'🏍️'],[/ăn|nhậu|cơm|phở/i,'🍜'],[/bóng|thể thao/i,'⚽'],[/gym|tập/i,'🏋️'],[/đồng hồ/i,'⌚'],[/tai nghe|nhạc/i,'🎧'],[/laptop|điện thoại|công nghệ/i,'💻'],[/hóa đơn|điện|nước/i,'🧾'],[/mua sắm|quần áo/i,'🛍️'],[/y tế|thuốc/i,'💊'],[/lương|thưởng|thu nhập/i,'💼'],[/tiết kiệm/i,'🐷'],[/trả góp/i,'💳'],[/chuyển|điều chỉnh/i,'🔁']];
+const CI=[[/cà phê|cafe|coffee/i,'☕'],[/\bxe\b|xăng|đi lại|grab/i,'🏍️'],[/ăn|nhậu|cơm|phở/i,'🍜'],[/bóng|thể thao/i,'⚽'],[/gym|tập/i,'🏋️'],[/đồng hồ/i,'⌚'],[/tai nghe|nhạc/i,'🎧'],[/laptop|điện thoại|công nghệ/i,'💻'],[/hóa đơn|điện|nước/i,'🧾'],[/mua sắm|quần áo/i,'🛍️'],[/y tế|thuốc/i,'💊'],[/lương|thưởng|thu nhập/i,'💼'],[/tiết kiệm/i,'🐷'],[/trả góp/i,'💳'],[/nhà|thuê|trọ/i,'🏠'],[/chuyển|điều chỉnh/i,'🔁']];
 const ci=c=>(CI.find(r=>r[0].test(c||''))||[0,'🧩'])[1];
 /* Sáng/tối: tối từ 17h, sáng từ 6h. Bấm tay chỉ có hiệu lực đến mốc giờ tiếp theo */
 let TH='',manual=null;const autoTh=()=>{const h=new Date().getHours();return h>=17||h<6?'dark':'light'},per=()=>new Date(Date.now()-216e5).toDateString()+autoTh();
