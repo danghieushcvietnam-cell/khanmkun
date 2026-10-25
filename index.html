@@ -2118,5 +2118,41 @@
       syncFromCloud();
     };
   </script>
+  // 1. TẢI DỮ LIỆU TỪ GOOGLE SHEET VỀ THIẾT BỊ (ĐIỆN THOẠI / LAPTOP)
+    async function syncFromCloud() {
+      if (!API_URL) return;
+      try {
+        const res = await fetch(API_URL + "?t=" + new Date().getTime(), {
+          method: 'GET',
+          redirect: 'follow'
+        });
+        const text = await res.text();
+        const data = JSON.parse(text);
+        if (data && data.users) {
+          // Hợp nhất dữ liệu Cloud vào thiết bị hiện tại
+          db.users = Object.assign({}, db.users, data.users);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+        }
+      } catch (err) {
+        console.warn("Không thể kéo dữ liệu từ Cloud:", err);
+      }
+    }
+
+    // 2. ĐẨY DỮ LIỆU LÊN Ô A1 TRÊN GOOGLE SHEET
+    async function syncToCloud() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+      if (!API_URL) return;
+      try {
+        // Gửi chuỗi JSON dưới dạng Text để Google Apps Script doPost đọc chuẩn 100%
+        await fetch(API_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(db)
+        });
+      } catch (err) {
+        console.warn("Lỗi gửi dữ liệu lên Cloud:", err);
+      }
+    }
 </body>
 </html>
