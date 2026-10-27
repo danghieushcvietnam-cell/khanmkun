@@ -120,7 +120,7 @@ input[type=range]{width:100%;accent-color:var(--pr)}
 /* ====== CẤU HÌNH — CHỈ SỬA 2 DÒNG NÀY ====== */
 const REG_ID="6addd9aeffd5d160538a1eb0";   // Bin "danh bạ" tài khoản (tạo mới, nội dung {"users":{}})
 const KEY="$2a$10$dUDsI6IKzIr.vc9cVgfa7OkmkTl9dqKbca02eAsAbRysnqtgjnxvW";         // Key JSONBin (nên dùng key đã tạo mới, không dùng key cũ)
-const MUSIC_URL="";   // (Tùy chọn) Dán link YouTube vào đây để làm nhạc nền mặc định cho mọi tài khoản. Để trống = dùng nhạc Lofi Piano có sẵn
+const MUSIC_URL="https://www.youtube.com/watch?v=_aghWPzkB7M";   // (Tùy chọn) Dán link YouTube vào đây để làm nhạc nền mặc định cho mọi tài khoản. Để trống = dùng nhạc Lofi Piano có sẵn
 /* ============================================ */
 const API="https://api.jsonbin.io/v3/b",H={'X-Master-Key':KEY,'Content-Type':'application/json'};
 const $=s=>document.querySelector(s),E=m=>{throw Error(m)};
@@ -192,9 +192,9 @@ const GEN=(()=>{let ctx,out,tm=0,next=0,step=0,on=false,vol=.6;const BT=60/72,f=
    step++;next+=BT/2}}
  return{play(){if(!ctx)init();ctx.resume();if(!on){on=true;next=Math.max(next,ctx.currentTime+.1);sched();tm=setInterval(sched,250)}return Promise.resolve()},
   pause(){on=false;clearInterval(tm);ctx&&ctx.suspend()},vol(v){vol=v;out&&(out.gain.value=v*1.8)}}})();
-const MUK=()=>'stc_mu_'+S.u,muCfg=()=>{let c={};try{c=JSON.parse(localStorage.getItem(MUK()))||{}}catch(e){}if(!('src' in c)){const y=MUSIC_URL&&ytId(MUSIC_URL);Object.assign(c,y?{src:'yt',...y,url:MUSIC_URL}:{src:'gen'})}return c},muSet=c=>{try{localStorage.setItem(MUK(),JSON.stringify(c))}catch(e){}};
+const MUK=()=>'stc_mu_'+S.u,muRaw=()=>{try{return JSON.parse(localStorage.getItem(MUK()))||{}}catch(e){return{}}},muCfg=()=>{const c=muRaw();if(!('src' in c)){const y=MUSIC_URL&&ytId(MUSIC_URL);Object.assign(c,y?{src:'yt',...y,url:MUSIC_URL}:{src:'gen'})}return c},muSet=c=>{try{localStorage.setItem(MUK(),JSON.stringify(c))}catch(e){}};
 let au=null,yt=null,ytOk=false,gn=false,MUON=false,ytApiP=null;
-const ytId=u=>{const v=(u.match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/|live\/)([\w-]{11})/)||[])[1],l=(u.match(/[?&]list=([\w-]+)/)||[])[1];return v||l?{v,l}:null};
+const ytId=u=>{const v=(u.match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/|live\/)([\w-]{11})/)||[])[1],l=(u.match(/[?&]list=((?!RD)[\w-]+)/)||[])[1];return v||l?{v,l}:null};
 const ytApi=()=>ytApiP??=new Promise((ok,no)=>{window.onYouTubeIframeAPIReady=ok;const x=document.createElement('script');x.src='https://www.youtube.com/iframe_api';x.onerror=()=>{ytApiP=null;no(Error('Không tải được YouTube'))};document.head.append(x)});
 function muStop(){MUON=false;if(gn){GEN.pause();gn=false}if(au){au.pause();URL.revokeObjectURL(au.src);au=null}if(yt){try{yt.destroy()}catch(e){}yt=null}ytOk=false;$('#ytw').innerHTML='';muUI()}
 function muUI(){const c=S?muCfg():{};$('#mu').hidden=!c.src;$('#mu').className=MUON?'on':'';$('#mu').textContent=MUON?'⏸':'🎵';$('#ytw').hidden=!(yt&&MUON)}
@@ -216,14 +216,14 @@ function muMenu(){const c=muCfg(),st=c.src==='gen'?'🎹 Lofi Piano (có sẵn, 
  <label>Hoặc dán link YouTube của bạn (bài hát / playlist)<input id="yl" type="url" placeholder="vd: link playlist BIGBANG trên YouTube" value="${c.src==='yt'?esc(c.url||''):''}"></label><button type="button" class="btn" onclick="muYt()">▶️ Dùng link YouTube này</button>
  <button type="button" class="btn g" onclick="muFile()">🎵 Chọn file nhạc trong máy</button>
  <label>Âm lượng<input type="range" min="0" max="100" value="${c.vol??60}" oninput="muVol(+this.value)"></label>
- <label class="mi" style="padding:6px 0;border:0"><b>Tự phát khi mở app <small class="mu">bắt đầu ở lần chạm đầu tiên</small></b><input type="checkbox" class="sw" ${c.auto!==false?'checked':''} onchange="muSet({...muCfg(),auto:this.checked})"></label>
+ <label class="mi" style="padding:6px 0;border:0"><b>Tự phát khi mở app <small class="mu">bắt đầu ở lần chạm đầu tiên</small></b><input type="checkbox" class="sw" ${c.auto!==false?'checked':''} onchange="muSet({...muRaw(),auto:this.checked})"></label>
  ${c.src?'<button type="button" class="btn g" style="border-color:var(--bad);color:var(--bad)" onclick="muOff()">Tắt nhạc nền</button>':''}<small>Nhạc nền lưu riêng trên thiết bị này. Nhạc YouTube cần mạng và sẽ hiện khung video nhỏ ở góc khi phát.</small>`;
  $('#ok').textContent='Xong';$('#mod').hidden=false;$('#mf').onsubmit=e=>{e.preventDefault();$('#mod').hidden=true}}
-async function muGen(){muSet({...muCfg(),src:'gen'});await muLoad();muPlay();muMenu();show();toast('Đang phát Lofi Piano 🎹')}
-async function muYt(){const u=$('#yl').value.trim(),id=ytId(u);if(!id)return toast('Link YouTube không hợp lệ',1);muSet({...muCfg(),src:'yt',v:id.v,l:id.l,url:u});try{await muLoad();muPlay();muMenu();show();toast('Đã đặt nhạc nền ✓')}catch(e){toast(e.message,1)}}
-function muFile(){const f=$('#fa');f.value='';f.onchange=async()=>{const x=f.files[0];if(!x)return;try{await idb('readwrite',s=>s.put(x,'mu_'+S.u));muSet({...muCfg(),src:'file',name:x.name});await muLoad();muPlay();muMenu();show();toast('Đã đặt nhạc nền ✓')}catch(e){toast('Không lưu được file nhạc (có thể do file quá lớn)',1)}};f.click()}
-function muVol(v){muSet({...muCfg(),vol:v});gn&&GEN.vol(v/100);au&&(au.volume=v/100);yt&&ytOk&&yt.setVolume(v)}
-async function muOff(){muSet({...muCfg(),src:''});await idb('readwrite',s=>s.delete('mu_'+S.u)).catch(()=>{});muStop();muMenu();show();toast('Đã tắt nhạc nền')}
+async function muGen(){muSet({...muRaw(),src:'gen'});await muLoad();muPlay();muMenu();show();toast('Đang phát Lofi Piano 🎹')}
+async function muYt(){const u=$('#yl').value.trim(),id=ytId(u);if(!id)return toast('Link YouTube không hợp lệ',1);muSet({...muRaw(),src:'yt',v:id.v,l:id.l,url:u});try{await muLoad();muPlay();muMenu();show();toast('Đã đặt nhạc nền ✓')}catch(e){toast(e.message,1)}}
+function muFile(){const f=$('#fa');f.value='';f.onchange=async()=>{const x=f.files[0];if(!x)return;try{await idb('readwrite',s=>s.put(x,'mu_'+S.u));muSet({...muRaw(),src:'file',name:x.name});await muLoad();muPlay();muMenu();show();toast('Đã đặt nhạc nền ✓')}catch(e){toast('Không lưu được file nhạc (có thể do file quá lớn)',1)}};f.click()}
+function muVol(v){muSet({...muRaw(),vol:v});gn&&GEN.vol(v/100);au&&(au.volume=v/100);yt&&ytOk&&yt.setVolume(v)}
+async function muOff(){muSet({...muRaw(),src:''});await idb('readwrite',s=>s.delete('mu_'+S.u)).catch(()=>{});muStop();muMenu();show();toast('Đã tắt nhạc nền')}
 function logout(){localStorage.removeItem('stc_s');sessionStorage.removeItem('stc_s');location.reload()}
 function chPass(){ask('Đổi mật khẩu',[{k:'o',l:'Mật khẩu hiện tại',t:'password'},{k:'n',l:'Mật khẩu mới (≥ 6 ký tự)',t:'password'}],async v=>{if(v.n.length<6)E('Mật khẩu mới tối thiểu 6 ký tự');const R=await get(REG_ID),x=R.users[S.u];if(x.h!==await hash(x.s,v.o))E('Mật khẩu hiện tại không đúng');x.s=uid()+uid();x.h=await hash(x.s,v.n);await put(REG_ID,R);toast('Đã đổi mật khẩu ✓')})}
 
