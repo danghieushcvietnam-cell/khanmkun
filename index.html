@@ -193,10 +193,10 @@ const GEN=(()=>{let ctx,out,tm=0,next=0,step=0,on=false,vol=.6;const BT=60/72,f=
  return{play(){if(!ctx)init();ctx.resume();if(!on){on=true;next=Math.max(next,ctx.currentTime+.1);sched();tm=setInterval(sched,250)}return Promise.resolve()},
   pause(){on=false;clearInterval(tm);ctx&&ctx.suspend()},vol(v){vol=v;out&&(out.gain.value=v*1.8)}}})();
 const MUK=()=>'stc_mu_'+S.u,muRaw=()=>{try{return JSON.parse(localStorage.getItem(MUK()))||{}}catch(e){return{}}},muCfg=()=>{const c=muRaw();if(!('src' in c)){const y=MUSIC_URL&&ytId(MUSIC_URL);Object.assign(c,y?{src:'yt',...y,url:MUSIC_URL}:{src:'gen'})}return c},muSet=c=>{try{localStorage.setItem(MUK(),JSON.stringify(c))}catch(e){}};
-let au=null,yt=null,ytOk=false,ytTap=false,ytChk=0,gn=false,MUON=false,ytApiP=null;
+let au=null,yt=null,ytOk=false,ytTap=false,ytPlayed=false,ytChk=0,gn=false,MUON=false,ytApiP=null;
 const ytId=u=>{const v=(u.match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/|live\/)([\w-]{11})/)||[])[1],l=(u.match(/[?&]list=((?!RD)[\w-]+)/)||[])[1];return v||l?{v,l}:null};
 const ytApi=()=>ytApiP??=new Promise((ok,no)=>{window.onYouTubeIframeAPIReady=ok;const x=document.createElement('script');x.src='https://www.youtube.com/iframe_api';x.onerror=()=>{ytApiP=null;no(Error('Không tải được YouTube'))};document.head.append(x);setTimeout(()=>{if(!(window.YT&&YT.Player)){ytApiP=null;no(Error('YouTube tải quá lâu'))}},15e3)});
-function muStop(){MUON=false;ytTap=false;clearTimeout(ytChk);if(gn){GEN.pause();gn=false}if(au){au.pause();URL.revokeObjectURL(au.src);au=null}if(yt){try{yt.destroy()}catch(e){}yt=null}ytOk=false;$('#ytw').innerHTML='';muUI()}
+function muStop(){MUON=false;ytTap=false;ytPlayed=false;clearTimeout(ytChk);if(gn){GEN.pause();gn=false}if(au){au.pause();URL.revokeObjectURL(au.src);au=null}if(yt){try{yt.destroy()}catch(e){}yt=null}ytOk=false;$('#ytw').innerHTML='';muUI()}
 function muUI(){const c=S?muCfg():{};$('#mu').hidden=!c.src;$('#mu').className=MUON?'on':'';$('#mu').textContent=MUON?'⏸':'🎵';const w=$('#ytw');w.hidden=!yt;w.classList.toggle('off',!ytTap);const h=$('#yth');h&&(h.hidden=!ytTap)}
 /* YouTube không phát được (video cấm nhúng, bị xóa, mất mạng…) → báo rõ lý do và chuyển sang Lofi Piano */
 function ytFail(m){const on=MUON;muStop();gn=true;GEN.vol((muCfg().vol??60)/100);toast(m+' → đang phát Lofi Piano',1);on&&muPlay()}
@@ -209,12 +209,13 @@ async function muLoad(){muStop();const c=muCfg(),vol=c.vol??60;
  else if(c.src==='yt'){try{await ytApi()}catch(e){return ytFail(e.message)}$('#ytw').innerHTML='<div id="ytp"></div><small id="yth" hidden>👆 Chạm vào video 1 lần để bật nhạc</small>';
   yt=new YT.Player('ytp',{width:'100%',height:'100%',...(c.v?{videoId:c.v}:{}),playerVars:{playsinline:1,loop:1,rel:0,origin:location.origin,...(c.l?{listType:'playlist',list:c.l}:{playlist:c.v})},
    events:{onReady:e=>{ytOk=true;e.target.setVolume(vol);if(MUON){e.target.playVideo();ytWatch()}},onError:e=>ytFail(YTE[e.data]||'YouTube lỗi '+e.data),
-    onStateChange:e=>{if(e.data===1){MUON=true;if(ytTap){ytTap=false;toast('Đã phát nhạc 🎵 — bấm nút tròn để dừng / phát')}}else if(e.data===2)MUON=false;muUI()}}})}
+    onStateChange:e=>{if(e.data===1){MUON=true;ytPlayed=true;if(ytTap){ytTap=false;toast('Đã phát nhạc 🎵 — bấm nút tròn để dừng / phát')}}else if(e.data===2||e.data===5){if(!ytPlayed&&MUON)ytTap=true;else if(e.data===2)MUON=false}muUI()}}})}
  muUI()}
-function muPlay(){MUON=true;gn&&GEN.play();if(au)au.play().catch(()=>{MUON=false;muUI();toast('Bấm 🎵 để phát nhạc')});if(yt&&ytOk){yt.playVideo();ytWatch()}muUI()}
+const touch=matchMedia('(pointer:coarse)').matches,inApp=/Zalo|FBAN|FBAV|FB_IAB|Messenger|Instagram|Line\//i.test(navigator.userAgent);
+function muPlay(){MUON=true;if(yt&&!ytPlayed&&touch)ytTap=true;gn&&GEN.play();if(au)au.play().catch(()=>{MUON=false;muUI();toast('Bấm 🎵 để phát nhạc')});if(yt&&ytOk){yt.playVideo();ytWatch()}muUI()}
 function muPause(){MUON=false;ytTap=false;gn&&GEN.pause();au&&au.pause();yt&&ytOk&&yt.pauseVideo();muUI()}
 function muToggle(){MUON?muPause():muPlay()}
-async function muStart(){const c=muCfg();if(c.src&&c.auto!==false){const f=e=>{if(e.target.closest&&e.target.closest('#mu,#ytw'))return;removeEventListener('pointerdown',f,true);removeEventListener('keydown',f,true);MUON||muPlay()};addEventListener('pointerdown',f,true);addEventListener('keydown',f,true)}
+async function muStart(){const c=muCfg();if(c.src==='yt'&&inApp)setTimeout(()=>toast('Đang mở trong Zalo/Facebook: nhạc YouTube có thể không phát. Hãy mở web bằng Safari / Chrome',1),1500);if(c.src&&c.auto!==false){const f=e=>{if(e.target.closest&&e.target.closest('#mu,#ytw'))return;removeEventListener('pointerdown',f,true);removeEventListener('keydown',f,true);MUON||muPlay()};addEventListener('pointerdown',f,true);addEventListener('keydown',f,true)}
  try{await muLoad()}catch(e){}}
 function muMenu(){const c=muCfg(),st=c.src==='gen'?'🎹 Lofi Piano (có sẵn, không lời)':c.src==='yt'?'▶️ YouTube'+(c.l?' (playlist)':''):c.src==='file'?'🎵 '+esc(c.name||'File nhạc'):'Chưa chọn nhạc';$('#mt').textContent='Nhạc nền';
  $('#mb').innerHTML=`<div class="card" style="text-align:center"><small>Đang chọn</small><b style="display:block">${st}</b></div>
