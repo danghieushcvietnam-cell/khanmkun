@@ -79,6 +79,12 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 .sw:checked{background:linear-gradient(90deg,#8fb8e3,var(--pr))}.sw:checked::after{transform:translateX(22px)}
 .bgp{height:150px;border-radius:16px;border:1px solid var(--ln);background:linear-gradient(180deg,#7cbcf0,#b6dcf8 55%,#eaf5fd) center/cover;display:grid;place-items:end start;padding:10px;color:#1f2d3d;font-size:13px;font-weight:600}
 #un{display:flex;align-items:center;gap:6px;background:none;border:0;cursor:pointer;color:var(--mu);font-size:12.5px;padding:2px}#un .mav{width:26px;height:26px;font-size:12px;border-width:0;box-shadow:none}
+/* Nhạc nền */
+#mu{position:fixed;right:14px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:15;width:46px;height:46px;border-radius:50%;border:1px solid var(--ln);background:var(--cd);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 6px 18px #0002;font-size:20px;cursor:pointer;display:grid;place-items:center}
+#mu.on{background:linear-gradient(135deg,#8fb8e3,var(--pr));animation:pl 1.6s ease-out infinite}@keyframes pl{from{box-shadow:0 0 0 0 color-mix(in srgb,var(--pr) 60%,transparent)}to{box-shadow:0 0 0 14px transparent}}
+#ytw{position:fixed;right:14px;bottom:calc(134px + env(safe-area-inset-bottom));z-index:15;width:200px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px #0004;background:#000}#ytw iframe{width:100%;height:100%;border:0;display:block}
+@media(min-width:800px){#mu{bottom:24px;right:24px}#ytw{bottom:82px;right:24px;width:240px}}
+input[type=range]{width:100%;accent-color:var(--pr)}
 @keyframes dr{from{transform:translateX(-25vw)}to{transform:translateX(110vw)}}#auth,.wrap{position:relative;z-index:1}
 #tg{position:fixed;top:calc(env(safe-area-inset-top) + 8px);right:12px;z-index:40;font-size:20px;opacity:1;width:38px;height:38px;border-radius:50%;background:var(--cd);border:1px solid var(--ln)}header div{padding-right:60px}
 .logo svg{width:84px;height:84px;border-radius:22px;box-shadow:0 6px 18px #0002}#hl svg{width:26px;height:26px;border-radius:8px;vertical-align:-7px}
@@ -108,7 +114,7 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 
 <div id="mod" class="mod" hidden onclick="if(event.target===this)this.hidden=true"><form id="mf"><h2 id="mt"></h2><div id="mb" style="display:grid;gap:12px"></div>
 <div class="ac"><button type="button" class="btn g" onclick="$('#mod').hidden=true">Hủy</button><button class="btn" id="ok">Lưu</button></div></form></div>
-<input id="fi" type="file" accept="image/*" hidden><datalist id="cats"></datalist><div id="toast"></div>
+<input id="fi" type="file" accept="image/*" hidden><input id="fa" type="file" accept="audio/*" hidden><button id="mu" type="button" hidden title="Bật / tắt nhạc nền" onclick="muToggle()">🎵</button><div id="ytw" hidden></div><datalist id="cats"></datalist><div id="toast"></div>
 
 <script>
 /* ====== CẤU HÌNH — CHỈ SỬA 2 DÒNG NÀY ====== */
@@ -151,7 +157,7 @@ $('#af').onsubmit=async e=>{e.preventDefault();const u=$('#u').value.trim().toLo
   localStorage.removeItem('stc_s');sessionStorage.removeItem('stc_s');($('#rm').checked?localStorage:sessionStorage).setItem('stc_s',JSON.stringify(s));await enter(s)}
  catch(x){$('#err').textContent=x.message||'Không kết nối được'}b.disabled=false};
 async function enter(s){S=s;$('#auth').hidden=true;$('#app').hidden=false;$('#view').innerHTML='<p class="c mu">Đang tải dữ liệu…</p>';
- try{D=norm(await get(s.bin));sync('ok');go('home')}catch(e){sync('err');$('#view').innerHTML='<p class="c">Không tải được dữ liệu.<br><br><button class="btn" onclick="enter(S)">Thử lại</button></p>'}}
+ try{D=norm(await get(s.bin));sync('ok');go('home');muStart()}catch(e){sync('err');$('#view').innerHTML='<p class="c">Không tải được dữ liệu.<br><br><button class="btn" onclick="enter(S)">Thử lại</button></p>'}}
 /* ---- Cài đặt tài khoản ---- */
 const avH=(n,c='')=>{const a=D&&D.prof&&D.prof.av;return`<span class="av ${c}" style="width:${n}px;height:${n}px">${a?`<img src="${esc(a)}" alt="">`:esc((S.name||S.u||'?').trim().charAt(0).toUpperCase())}</span>`};
 function hdr(){$('#un').innerHTML=avH(26,'mav')+'<span>'+esc(S.name)+'</span>'}
@@ -168,6 +174,37 @@ function bgMenu(){const u=myBg();$('#mt').textContent='Hình nền';
 function setBg(u){try{u?localStorage.setItem(BGK(),u):localStorage.removeItem(BGK())}catch(e){return toast('Ảnh quá lớn, thử ảnh khác',1)}scene();bgMenu();show();toast(u?'Đã đổi hình nền ✓':'Đã dùng hình nền tự đổi theo giờ')}
 function upBg(){pick(i=>{let u=shrink(i,1920,0);if(u.length>3e6)u=shrink(i,1440,0,.7);setBg(u)})}
 function setFx(on){FXON=on;try{localStorage.setItem('stc_fx',on?'1':'0')}catch(e){}fxRun()}
+/* ---- Nhạc nền: link YouTube hoặc file nhạc trong máy (lưu trên thiết bị này) ---- */
+const idb=(mode,fn)=>new Promise((ok,no)=>{const r=indexedDB.open('stc',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onerror=()=>no(r.error);r.onsuccess=()=>{const t=r.result.transaction('f',mode),q=fn(t.objectStore('f'));t.oncomplete=()=>ok(q&&q.result);t.onerror=()=>no(t.error)}});
+const MUK=()=>'stc_mu_'+S.u,muCfg=()=>{try{return JSON.parse(localStorage.getItem(MUK()))||{}}catch(e){return{}}},muSet=c=>{try{localStorage.setItem(MUK(),JSON.stringify(c))}catch(e){}};
+let au=null,yt=null,ytOk=false,MUON=false,ytApiP=null;
+const ytId=u=>{const v=(u.match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/|live\/)([\w-]{11})/)||[])[1],l=(u.match(/[?&]list=([\w-]+)/)||[])[1];return v||l?{v,l}:null};
+const ytApi=()=>ytApiP??=new Promise((ok,no)=>{window.onYouTubeIframeAPIReady=ok;const x=document.createElement('script');x.src='https://www.youtube.com/iframe_api';x.onerror=()=>{ytApiP=null;no(Error('Không tải được YouTube'))};document.head.append(x)});
+function muStop(){MUON=false;if(au){au.pause();URL.revokeObjectURL(au.src);au=null}if(yt){try{yt.destroy()}catch(e){}yt=null}ytOk=false;$('#ytw').innerHTML='';muUI()}
+function muUI(){const c=S?muCfg():{};$('#mu').hidden=!c.src;$('#mu').className=MUON?'on':'';$('#mu').textContent=MUON?'⏸':'🎵';$('#ytw').hidden=!(yt&&MUON)}
+async function muLoad(){muStop();const c=muCfg(),vol=c.vol??60;
+ if(c.src==='file'){const b=await idb('readonly',x=>x.get('mu_'+S.u)).catch(()=>null);if(!b)return;au=new Audio(URL.createObjectURL(b));au.loop=true;au.volume=vol/100;au.onplay=()=>{MUON=true;muUI()};au.onpause=()=>{MUON=false;muUI()}}
+ else if(c.src==='yt'){await ytApi();$('#ytw').innerHTML='<div id="ytp"></div>';
+  yt=new YT.Player('ytp',{width:'100%',height:'100%',...(c.v?{videoId:c.v}:{}),playerVars:{playsinline:1,loop:1,rel:0,...(c.l?{listType:'playlist',list:c.l}:{playlist:c.v})},
+   events:{onReady:e=>{ytOk=true;e.target.setVolume(vol);MUON&&e.target.playVideo()},onStateChange:e=>{if(e.data===1)MUON=true;else if(e.data===2)MUON=false;muUI()}}})}
+ muUI()}
+function muPlay(){MUON=true;if(au)au.play().catch(()=>{MUON=false;muUI();toast('Bấm 🎵 để phát nhạc')});if(yt&&ytOk)yt.playVideo();muUI()}
+function muPause(){MUON=false;au&&au.pause();yt&&ytOk&&yt.pauseVideo();muUI()}
+function muToggle(){MUON?muPause():muPlay()}
+async function muStart(){try{await muLoad()}catch(e){return}const c=muCfg();if(!c.src||c.auto===false)return;
+ const f=e=>{if(e.target.closest&&e.target.closest('#mu'))return;removeEventListener('pointerdown',f,true);removeEventListener('keydown',f,true);MUON||muPlay()};addEventListener('pointerdown',f,true);addEventListener('keydown',f,true)}
+function muMenu(){const c=muCfg(),st=c.src==='yt'?'▶️ YouTube'+(c.l?' (playlist)':''):c.src==='file'?'🎵 '+esc(c.name||'File nhạc'):'Chưa chọn nhạc';$('#mt').textContent='Nhạc nền';
+ $('#mb').innerHTML=`<div class="card" style="text-align:center"><small>Đang chọn</small><b style="display:block">${st}</b></div>
+ <label>Link YouTube (bài hát hoặc playlist)<input id="yl" type="url" placeholder="vd: link playlist BIGBANG trên YouTube" value="${c.src==='yt'?esc(c.url||''):''}"></label><button type="button" class="btn" onclick="muYt()">▶️ Dùng link YouTube này</button>
+ <button type="button" class="btn g" onclick="muFile()">🎵 Chọn file nhạc trong máy</button>
+ <label>Âm lượng<input type="range" min="0" max="100" value="${c.vol??60}" oninput="muVol(+this.value)"></label>
+ <label class="mi" style="padding:6px 0;border:0"><b>Tự phát khi mở app <small class="mu">bắt đầu ở lần chạm đầu tiên</small></b><input type="checkbox" class="sw" ${c.auto!==false?'checked':''} onchange="muSet({...muCfg(),auto:this.checked})"></label>
+ ${c.src?'<button type="button" class="btn g" style="border-color:var(--bad);color:var(--bad)" onclick="muOff()">Tắt nhạc nền</button>':''}<small>Nhạc nền lưu riêng trên thiết bị này. Nhạc YouTube cần mạng và sẽ hiện khung video nhỏ ở góc khi phát.</small>`;
+ $('#ok').textContent='Xong';$('#mod').hidden=false;$('#mf').onsubmit=e=>{e.preventDefault();$('#mod').hidden=true}}
+async function muYt(){const u=$('#yl').value.trim(),id=ytId(u);if(!id)return toast('Link YouTube không hợp lệ',1);muSet({...muCfg(),src:'yt',v:id.v,l:id.l,url:u});try{await muLoad();muPlay();muMenu();show();toast('Đã đặt nhạc nền ✓')}catch(e){toast(e.message,1)}}
+function muFile(){const f=$('#fa');f.value='';f.onchange=async()=>{const x=f.files[0];if(!x)return;try{await idb('readwrite',s=>s.put(x,'mu_'+S.u));muSet({...muCfg(),src:'file',name:x.name});await muLoad();muPlay();muMenu();show();toast('Đã đặt nhạc nền ✓')}catch(e){toast('Không lưu được file nhạc (có thể do file quá lớn)',1)}};f.click()}
+function muVol(v){muSet({...muCfg(),vol:v});au&&(au.volume=v/100);yt&&ytOk&&yt.setVolume(v)}
+async function muOff(){muSet({...muCfg(),src:''});await idb('readwrite',s=>s.delete('mu_'+S.u)).catch(()=>{});muStop();muMenu();show();toast('Đã tắt nhạc nền')}
 function logout(){localStorage.removeItem('stc_s');sessionStorage.removeItem('stc_s');location.reload()}
 function chPass(){ask('Đổi mật khẩu',[{k:'o',l:'Mật khẩu hiện tại',t:'password'},{k:'n',l:'Mật khẩu mới (≥ 6 ký tự)',t:'password'}],async v=>{if(v.n.length<6)E('Mật khẩu mới tối thiểu 6 ký tự');const R=await get(REG_ID),x=R.users[S.u];if(x.h!==await hash(x.s,v.o))E('Mật khẩu hiện tại không đúng');x.s=uid()+uid();x.h=await hash(x.s,v.n);await put(REG_ID,R);toast('Đã đổi mật khẩu ✓')})}
 
@@ -214,6 +251,7 @@ const mi=(i,t,f,x='',c='')=>`<button type="button" class="mi ${c}" onclick="${f}
  ms=(i,t,x,on,f)=>`<label class="mi"><i>${i}</i><b>${t} <small class="mu">${x}</small></b><input type="checkbox" class="sw" ${on?'checked':''} onchange="${f}"></label>`;
 V.set=()=>`<h1>Tài khoản 👤</h1><div class="card prof"><button type="button" class="avw" onclick="chAv()" title="Đổi ảnh đại diện">${avH(96)}<span class="cam">📷</span></button><h2>${esc(S.name)}</h2><small>@${esc(S.u)}</small><span class="tag">Tên đăng nhập & mật khẩu</span></div>
 <div class="card menu">${mi('✏️','Đổi tên hiển thị','chName()')}${mi('📷','Đổi ảnh đại diện','chAv()')}${mi('🔑','Đổi mật khẩu','chPass()')}${mi('🖼️','Hình nền','bgMenu()',myBg()?'ảnh của bạn':'tự đổi theo giờ')}
+${mi('🎵','Nhạc nền','muMenu()',(c=>c.src==='yt'?'YouTube':c.src==='file'?esc(c.name||'file nhạc'):'chưa chọn')(muCfg()))}
 ${ms('🌙','Chế độ tối','tự bật 17h–6h',TH==='dark','toggleTh()')}${ms('✨','Hiệu ứng','hoa rơi, tuyết rơi',FXON,'setFx(this.checked)')}${mi('🔔','Nhắc ghi chi tiêu','ics()','20h mỗi ngày')}${mi('🚪','Đăng xuất','logout()','','bad')}</div>`;
 V.home=()=>{const b=bal(),t=today(),x=D.tx.filter(i=>i.d===t).sort(newest),sm=ty=>x.filter(i=>i.type===ty).reduce((a,i)=>a+ +i.amt,0),rem=remNeed(x);remShown=rem;
  return`<h1>Xin chào, ${esc(S.name)}</h1><p class="mu">${new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p>
