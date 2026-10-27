@@ -85,6 +85,8 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 #ytw{position:fixed;right:14px;bottom:calc(134px + env(safe-area-inset-bottom));z-index:15;width:200px;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px #0004;background:#000}#ytw iframe{width:100%;height:auto;aspect-ratio:16/9;border:0;display:block}#ytw.off{left:-9999px;right:auto;opacity:0;pointer-events:none}#yth{display:block;padding:7px 10px;background:var(--pr);color:#fff;font-size:12.5px;font-weight:600;text-align:center}
 @media(min-width:800px){#mu{bottom:24px;right:24px}#ytw{bottom:82px;right:24px;width:240px}}
 input[type=range]{width:100%;accent-color:var(--pr)}
+#hi{position:fixed;inset:0;z-index:45;display:grid;place-items:center;padding:20px;background:color-mix(in srgb,var(--bg) 40%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);cursor:pointer;animation:fd .35s ease}
+#hi .card{display:grid;justify-items:center;gap:6px;padding:30px 40px;border-radius:28px;text-align:center;box-shadow:0 12px 40px #0002}#hi h2{font-size:22px;font-weight:800;margin-top:8px}#hi p{color:var(--pr);font-weight:700;animation:pu 1.8s infinite}
 @keyframes dr{from{transform:translateX(-25vw)}to{transform:translateX(110vw)}}#auth,.wrap{position:relative;z-index:1}
 #tg{position:fixed;top:calc(env(safe-area-inset-top) + 8px);right:12px;z-index:40;font-size:20px;opacity:1;width:38px;height:38px;border-radius:50%;background:var(--cd);border:1px solid var(--ln)}header div{padding-right:60px}
 .logo svg{width:84px;height:84px;border-radius:22px;box-shadow:0 6px 18px #0002}#hl svg{width:26px;height:26px;border-radius:8px;vertical-align:-7px}
@@ -114,7 +116,7 @@ input[type=range]{width:100%;accent-color:var(--pr)}
 
 <div id="mod" class="mod" hidden onclick="if(event.target===this)this.hidden=true"><form id="mf"><h2 id="mt"></h2><div id="mb" style="display:grid;gap:12px"></div>
 <div class="ac"><button type="button" class="btn g" onclick="$('#mod').hidden=true">Hủy</button><button class="btn" id="ok">Lưu</button></div></form></div>
-<input id="fi" type="file" accept="image/*" hidden><input id="fa" type="file" accept="audio/*" hidden><button id="mu" type="button" hidden title="Bật / tắt nhạc nền" onclick="muToggle()">🎵</button><div id="ytw" hidden></div><datalist id="cats"></datalist><div id="toast"></div>
+<input id="fi" type="file" accept="image/*" hidden><input id="fa" type="file" accept="audio/*" hidden><button id="mu" type="button" hidden title="Bật / tắt nhạc nền" onclick="muToggle()">🎵</button><div id="ytw" hidden></div><div id="hi" hidden></div><datalist id="cats"></datalist><div id="toast"></div>
 
 <script>
 /* ====== CẤU HÌNH — CHỈ SỬA 2 DÒNG NÀY ====== */
@@ -196,7 +198,8 @@ const MUK=()=>'stc_mu_'+S.u,muRaw=()=>{try{return JSON.parse(localStorage.getIte
 /* Một thẻ <audio> dùng chung: được "mở khóa" ngay lúc bấm Đăng nhập → vào app là phát luôn */
 const AU=new Audio(),SIL='data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==';let muTapF=null;
 AU.onplay=()=>{if(au===AU){MUON=true;muUI()}};AU.onpause=()=>{if(au===AU){MUON=false;muUI()}};AU.onerror=()=>{if(au===AU&&AU.src!==SIL)ytFail(muCfg().src==='url'?'Link không phải file nhạc mp3 trực tiếp':'Không mở được file nhạc')};
-function muUnlock(){try{GEN.unlock()}catch(e){}if(au)return;AU.src=SIL;AU.play().catch(()=>{})}
+let muFresh=false;
+function muUnlock(){muFresh=true;try{GEN.unlock()}catch(e){}if(au)return;AU.src=SIL;AU.play().catch(()=>{})}
 let au=null,yt=null,ytOk=false,ytTap=false,ytPlayed=false,ytChk=0,gn=false,MUON=false,ytApiP=null;
 const ytId=u=>{const v=(u.match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/|live\/)([\w-]{11})/)||[])[1],l=(u.match(/[?&]list=((?!RD)[\w-]+)/)||[])[1];return v||l?{v,l}:null};
 const ytApi=()=>ytApiP??=new Promise((ok,no)=>{window.onYouTubeIframeAPIReady=ok;const x=document.createElement('script');x.src='https://www.youtube.com/iframe_api';x.onerror=()=>{ytApiP=null;no(Error('Không tải được YouTube'))};document.head.append(x);setTimeout(()=>{if(!(window.YT&&YT.Player)){ytApiP=null;no(Error('YouTube tải quá lâu'))}},15e3)});
@@ -216,14 +219,18 @@ async function muLoad(){muStop();const c=muCfg(),vol=c.vol??60;
     onStateChange:e=>{if(e.data===1){MUON=true;ytPlayed=true;if(ytTap){ytTap=false;toast('Đã phát nhạc 🎵 — bấm nút tròn để dừng / phát')}}else if(e.data===2||e.data===5){if(!ytPlayed&&MUON)ytTap=true;else if(e.data===2)MUON=false}muUI()}}})}
  muUI()}
 const touch=matchMedia('(pointer:coarse)').matches,inApp=/Zalo|FBAN|FBAV|FB_IAB|Messenger|Instagram|Line\//i.test(navigator.userAgent);
-function muPlay(q){muUntap();MUON=true;if(yt&&!ytPlayed&&touch)ytTap=true;gn&&GEN.play();if(au)au.play().catch(()=>{MUON=false;muUI();q||toast('Bấm 🎵 để phát nhạc')});if(yt&&ytOk){yt.playVideo();ytWatch()}muUI()}
-function muUntap(){if(muTapF){removeEventListener('pointerdown',muTapF,true);removeEventListener('keydown',muTapF,true);muTapF=null}}
+function muPlay(q){muUntap();MUON=true;if(yt&&!ytPlayed&&touch)ytTap=true;gn&&GEN.play();if(au)au.play().catch(()=>{MUON=false;muUI();q?muWait(1):toast('Bấm 🎵 để phát nhạc')});if(yt&&ytOk){yt.playVideo();ytWatch()}muUI()}
+function muUntap(){$('#hi').hidden=true;if(muTapF){removeEventListener('pointerdown',muTapF,true);removeEventListener('keydown',muTapF,true);muTapF=null}}
 function muPause(){MUON=false;ytTap=false;gn&&GEN.pause();au&&au.pause();yt&&ytOk&&yt.pauseVideo();muUI()}
 function muToggle(){MUON?muPause():muPlay()}
 async function muStart(){const c=muCfg();if(c.src==='yt'&&inApp)setTimeout(()=>toast('Đang mở trong Zalo/Facebook: nhạc YouTube có thể không phát. Hãy mở web bằng Safari / Chrome',1),1500);if(!c.src||c.auto===false)return muLoad().catch(()=>{});
- muTapF=e=>{if(e.target.closest&&e.target.closest('#mu,#ytw'))return;MUON?muUntap():muPlay()};addEventListener('pointerdown',muTapF,true);addEventListener('keydown',muTapF,true);
- try{await muLoad()}catch(e){}if(c.src==='yt'||!muTapF)return;
- if(gn){if(GEN.running())muPlay(1)}else if(au)au.play().then(()=>muUntap(),()=>{})}
+ /* Thử phát ngay: vừa bấm Đăng nhập thì luôn được; mở lại app (đã ghi nhớ đăng nhập) thì tùy trình duyệt có cho tự phát không */
+ let ok=muFresh;if(!ok){AU.src=SIL;ok=await AU.play().then(()=>(AU.pause(),true),()=>false)}
+ try{await muLoad()}catch(e){}
+ if(ok&&!(c.src==='yt'&&touch))muPlay(1);else muWait(!ok)}
+/* Trình duyệt chặn tự phát → màn hình chào "Chạm để vào": chạm 1 lần là vào app và nhạc phát luôn */
+function muWait(hi){if(muTapF)return;muTapF=e=>{if(e.target.closest&&e.target.closest('#mu,#ytw'))return;$('#hi').hidden=true;MUON?muUntap():muPlay()};addEventListener('pointerdown',muTapF,true);addEventListener('keydown',muTapF,true);
+ if(hi){$('#hi').innerHTML=`<div class="card">${avH(88)}<h2>Chào ${esc(S.name)} 👋</h2><p>Chạm để vào app 🎵</p></div>`;$('#hi').hidden=false}}
 function muMenu(){const c=muCfg(),st=c.src==='gen'?'🎹 Lofi Piano (có sẵn, không lời)':c.src==='yt'?'▶️ YouTube'+(c.l?' (playlist)':''):c.src==='file'?'🎵 '+esc(c.name||'File nhạc'):c.src==='url'?'🔗 Link mp3':'Chưa chọn nhạc';$('#mt').textContent='Nhạc nền';
  $('#mb').innerHTML=`<div class="card" style="text-align:center"><small>Đang chọn</small><b style="display:block">${st}</b></div>
  <button type="button" class="btn${c.src==='gen'?' g':''}" onclick="muGen()">🎹 Nhạc có sẵn: Lofi Piano không lời</button>
