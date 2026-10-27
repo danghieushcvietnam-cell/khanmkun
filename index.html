@@ -4,14 +4,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
 <style>
-:root{--bg:#eaf3fb;--cd:#ffffffee;--tx:#1f2d3d;--mu:#6b7f93;--ln:#d6e4f0;--pr:#4f7cac;--pr2:#3b6290;--ok:#3f9d86;--bad:#e0775a;--am:#e9b949;--r:18px;--sky:linear-gradient(180deg,#d8eafb 0%,#eaf3fb 50%,#fdf1c9 100%);--hero:radial-gradient(circle at 90% 22%,#f9e08f 0 24px,#f9e08f66 25px 48px,transparent 50px),linear-gradient(135deg,#5f8fc4,#8fb8e3)}
-[data-th=dark]{--bg:#07090d;--cd:#11161d;--tx:#e6edf5;--mu:#8795a6;--ln:#1f2733;--pr:#7fb3ff;--pr2:#a9ccff;--ok:#5ed0a8;--bad:#ff8f73;--am:#f2c94c;--sky:none;--hero:radial-gradient(circle at 90% 22%,#e8eef7 0 20px,#e8eef733 21px 40px,transparent 42px),linear-gradient(135deg,#1c2a3d,#101927)}
-*{box-sizing:border-box;margin:0}body{font:15px/1.5 'Be Vietnam Pro',system-ui,sans-serif;background:var(--bg);background-image:var(--sky);background-attachment:fixed;color:var(--tx);padding:env(safe-area-inset-top) 0 0}
+:root{--bg:#eaf3fb;--cd:#ffffffdd;--tx:#1f2d3d;--mu:#6b7f93;--ln:#d6e4f0;--pr:#4f7cac;--pr2:#3b6290;--ok:#3f9d86;--bad:#e0775a;--am:#e9b949;--r:18px;--sky:linear-gradient(180deg,#d8eafb 0%,#eaf3fb 50%,#fdf1c9 100%);--hero:radial-gradient(circle at 90% 22%,#f9e08f 0 24px,#f9e08f66 25px 48px,transparent 50px),linear-gradient(135deg,#5f8fc4,#8fb8e3)}
+[data-th=dark]{--bg:#07090d;--cd:#11161ddd;--tx:#e6edf5;--mu:#8795a6;--ln:#1f2733;--pr:#7fb3ff;--pr2:#a9ccff;--ok:#5ed0a8;--bad:#ff8f73;--am:#f2c94c;--sky:none;--hero:radial-gradient(circle at 90% 22%,#e8eef7 0 20px,#e8eef733 21px 40px,transparent 42px),linear-gradient(135deg,#1c2a3d,#101927)}
+*{box-sizing:border-box;margin:0}body{font:15px/1.5 'Be Vietnam Pro',system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:env(safe-area-inset-top) 0 0}
 [hidden]{display:none!important}button,input,select{font:inherit;color:inherit}
 h1{font-size:22px;font-weight:800;letter-spacing:-.3px}h2{font-size:16px;font-weight:700}small,.mu{color:var(--mu);font-size:12.5px}
 .ok{color:var(--ok)}.bad{color:var(--bad)}
 .wrap{max-width:760px;margin:0 auto;padding:16px 16px 96px}
-.card{background:var(--cd);border:1px solid var(--ln);border-radius:var(--r);padding:14px}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:var(--r);padding:14px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.list{padding:2px 14px;margin:8px 0 12px}.list .row:last-child{border:0}.list .empty{padding:20px 0}
+.wrap>h1,.wrap>h2,.wrap>p,.bar h1,.bar h2{text-shadow:0 1px 10px color-mix(in srgb,var(--bg) 80%,transparent)}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.grid3 .card{display:flex;flex-direction:column;gap:2px}.grid3 b{font-size:15px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
 .hero{background:var(--hero);color:#fff;border-radius:26px;padding:22px;margin:14px 0;position:relative;overflow:hidden}.hero>*{position:relative}.hero>.sky{position:absolute;left:0;right:0;bottom:0;width:100%;height:55%;opacity:.2;fill:currentColor}
@@ -38,7 +40,8 @@ header div{max-width:760px;margin:0 auto;padding:10px 16px;display:flex;align-it
 #sd{width:9px;height:9px;border-radius:9px;background:var(--ok)}#sd.err{background:var(--bad)}#sd.busy{background:var(--am);animation:pu 1s infinite}@keyframes pu{50%{opacity:.3}}
 #nav{position:fixed;bottom:0;left:0;right:0;background:var(--cd);border-top:1px solid var(--ln);display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:6}
 #nav button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:0;font-size:11px;color:var(--mu);cursor:pointer;padding:4px 8px;border-radius:12px;font-weight:500}#nav button span{font-size:20px}#nav .on{color:var(--pr);font-weight:700;background:color-mix(in srgb,var(--pr) 12%,transparent)}
-@media(min-width:800px){#nav{top:54px;bottom:auto;border:0;background:none;justify-content:center;gap:8px;padding:4px}.wrap{padding-top:60px}}
+@media(min-width:800px){#nav{top:58px;bottom:auto;left:50%;right:auto;transform:translateX(-50%);border:1px solid var(--ln);border-radius:99px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);gap:4px;padding:4px 6px;box-shadow:0 6px 20px #0001}#nav button{flex-direction:row;gap:6px;font-size:13px;padding:7px 14px;border-radius:99px}#nav button span{font-size:16px}.wrap{padding-top:76px;padding-bottom:48px}#toast{bottom:32px}}
+@media(min-width:1100px){.wrap,header div{max-width:860px}}
 .fade{animation:fd .35s ease}@keyframes fd{from{opacity:0;transform:translateY(8px)}}
 #auth{min-height:100vh;display:grid;place-items:center;padding:20px}#auth .card{width:100%;max-width:400px;padding:26px;border-radius:26px}
 #auth .logo{font-size:44px;text-align:center}#auth h1{text-align:center}#auth form{display:grid;gap:12px;margin-top:14px}
@@ -52,14 +55,29 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 #toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,30px);background:#14211f;color:#fff;padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:.3s;z-index:30;font-size:13px}#toast.show{opacity:1;transform:translate(-50%,0)}#toast.bad{background:var(--bad)}
 .cv{height:240px;position:relative;margin-top:8px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}#auth,.wrap{position:relative;z-index:1}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+/* Hình nền phong cảnh tự đổi theo giờ: bình minh / ban ngày / chiều / hoàng hôn / đêm */
+@property --s1{syntax:'<color>';inherits:true;initial-value:#7cbcf0}@property --s2{syntax:'<color>';inherits:true;initial-value:#b6dcf8}@property --s3{syntax:'<color>';inherits:true;initial-value:#eaf5fd}
+@property --h1{syntax:'<color>';inherits:true;initial-value:#cfe5c8}@property --h2{syntax:'<color>';inherits:true;initial-value:#a8d0a8}@property --h3{syntax:'<color>';inherits:true;initial-value:#7fb894}
+#bg{position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;z-index:0;pointer-events:none;overflow:hidden;background:linear-gradient(180deg,var(--s1),var(--s2) 55%,var(--s3));transition:--s1 3s,--s2 3s,--s3 3s,--h1 3s,--h2 3s,--h3 3s}
+#bg[data-sc=dawn]{--s1:#f6bfa6;--s2:#fde0c2;--s3:#e6f1fb;--h1:#d3dfcb;--h2:#b2cbb3;--h3:#8fb39f;--orb:#ffcf7a;--co:.75}
+#bg[data-sc=day]{--s1:#7cbcf0;--s2:#b6dcf8;--s3:#eaf5fd;--h1:#cfe5c8;--h2:#a8d0a8;--h3:#7fb894;--orb:#fff0a8;--co:.95}
+#bg[data-sc=aft]{--s1:#f1a676;--s2:#f8cf9a;--s3:#fcebd0;--h1:#e8d3ad;--h2:#ccb48f;--h3:#a78d70;--orb:#ffb45e;--co:.6}
+#bg[data-sc=dusk]{--s1:#1f2546;--s2:#5e4573;--s3:#d9806a;--h1:#3d3757;--h2:#2b2742;--h3:#1a1829;--orb:#f3ead2;--co:.06}
+#bg[data-sc=night]{--s1:#03050a;--s2:#0a1120;--s3:#15223a;--h1:#111a2a;--h2:#0b121e;--h3:#060a12;--orb:#e8eef7;--co:0}
+#bg .orb{position:absolute;left:var(--ox,70%);top:var(--oy,20%);width:clamp(46px,7vw,84px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:var(--orb);box-shadow:0 0 40px 12px color-mix(in srgb,var(--orb) 55%,transparent),0 0 120px 40px color-mix(in srgb,var(--orb) 25%,transparent);transition:left 2s,top 2s,background 3s}
+#bg .hills{position:absolute;left:0;bottom:0;width:100%;height:clamp(150px,30vh,320px)}#bg .hills .a{fill:var(--h1)}#bg .hills .b{fill:var(--h2)}#bg .hills .c{fill:var(--h3)}
+#bg .cl{position:absolute;left:0;fill:#fff;opacity:var(--co,.9);transition:opacity 3s;animation:dr linear infinite}#bg .cl.k1{top:12%;width:clamp(90px,14vw,190px);animation-duration:110s;animation-delay:-40s}#bg .cl.k2{top:26%;width:clamp(60px,9vw,130px);animation-duration:150s;animation-delay:-100s}#bg .cl.k3{top:6%;width:clamp(70px,10vw,150px);animation-duration:190s;animation-delay:-10s}
+@keyframes dr{from{transform:translateX(-25vw)}to{transform:translateX(110vw)}}#auth,.wrap{position:relative;z-index:1}
 #tg{position:fixed;top:calc(env(safe-area-inset-top) + 8px);right:12px;z-index:40;font-size:20px;opacity:1;width:38px;height:38px;border-radius:50%;background:var(--cd);border:1px solid var(--ln)}header div{padding-right:60px}
 .logo svg{width:84px;height:84px;border-radius:22px;box-shadow:0 6px 18px #0002}#hl svg{width:26px;height:26px;border-radius:8px;vertical-align:-7px}
 .rem{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;border-color:var(--am);background:color-mix(in srgb,var(--am) 20%,var(--cd))}
 [data-th=dark] .pill,[data-th=dark] .btn.bd,[data-th=dark] .btn.gr{color:#07090d}
 .chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1.5px solid var(--ln);background:var(--bg);border-radius:99px;padding:5px 11px;font-size:13px;cursor:pointer;color:var(--tx);transition:transform .12s}.chip:active{transform:scale(.94)}
 .chip.on{background:var(--pr);color:#fff;border-color:var(--pr)}[data-th=dark] .chip.on{color:#07090d}.chip.new{border-style:dashed;color:var(--pr);font-weight:600}.mod form{max-height:92vh;overflow:auto}
-</style></head><body><canvas id="fx"></canvas><button id="tg" class="x" title="Sáng / Tối" onclick="toggleTh()">☀️</button>
+</style></head><body><div id="bg" aria-hidden="true"><i class="orb"></i>
+<svg class="cl k1" viewBox="0 0 120 50"><path d="M18 46a17 17 0 0 1 3-33 24 24 0 0 1 45-5 18 18 0 0 1 31 12 13 13 0 0 1 4 26z"/></svg><svg class="cl k2" viewBox="0 0 120 50"><path d="M18 46a17 17 0 0 1 3-33 24 24 0 0 1 45-5 18 18 0 0 1 31 12 13 13 0 0 1 4 26z"/></svg><svg class="cl k3" viewBox="0 0 120 50"><path d="M18 46a17 17 0 0 1 3-33 24 24 0 0 1 45-5 18 18 0 0 1 31 12 13 13 0 0 1 4 26z"/></svg>
+<svg class="hills" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice"><path class="a" d="M0 150C180 90 320 100 480 140S820 70 1000 120 1300 100 1440 130V320H0Z"/><path class="b" d="M0 210C200 160 380 190 560 220S900 160 1100 200 1340 190 1440 205V320H0Z"/><path class="c" d="M0 265C240 235 420 255 640 275S1000 235 1220 260 1400 255 1440 258V320H0Z"/></svg></div><canvas id="fx"></canvas><button id="tg" class="x" title="Sáng / Tối" onclick="toggleTh()">☀️</button>
 
 <div id="auth"><div class="card"><div class="logo" id="lg"></div><h1>Sổ Thu Chi & Phép</h1>
 <div class="tabs"><button id="tl" class="on" type="button" onclick="setMode('login')">Đăng nhập</button><button id="tr" type="button" onclick="setMode('reg')">Tạo tài khoản</button></div>
@@ -134,10 +152,13 @@ function toast(m,bad){const t=$('#toast');t.textContent=m;t.className='show'+(ba
 const L={income:'Thu nhập',expense:'Chi tiêu',transfer:'Chuyển ví',save:'Tiết kiệm',pay:'Trả góp',adjust:'Điều chỉnh'},WN={bank:'Ngân hàng',cash:'Tiền mặt'},W=[['bank','Ngân hàng'],['cash','Tiền mặt']];
 function bal(){const b={...D.open};D.tx.forEach(t=>{const a=+t.amt;if(t.type==='income')b[t.w]+=a;else if(t.type==='transfer'){b[t.w]-=a;b[t.to]+=a}else if(t.type==='adjust')b[t.w]+=a;else b[t.w]-=a});return b}
 const enough=(w,a)=>bal()[w]>=a||confirm('Số dư ví không đủ cho khoản này. Vẫn tiếp tục?');
+/* Mới nhất lên đầu: theo ngày, cùng ngày thì theo thời điểm ghi (lấy từ id) */
+const tsOf=t=>parseInt(String(t.id).slice(0,8),36)||0,newest=(a,b)=>b.d.localeCompare(a.d)||tsOf(b)-tsOf(a);
+const hm=t=>{const z=new Date(tsOf(t)),p=n=>String(n).padStart(2,'0');return new Date(z-z.getTimezoneOffset()*6e4).toISOString().slice(0,10)===t.d?' '+p(z.getHours())+':'+p(z.getMinutes()):''};
 const sv=id=>D.tx.filter(t=>t.ref===id).reduce((a,t)=>a+ +t.amt,0);
 const used=f=>D.lv.filter(l=>l.fund===f&&l.d.startsWith(String(new Date().getFullYear()))).reduce((a,l)=>a+ +l.days,0),left=f=>D.cfg[f]-used(f);
 async function rm(k,id){if(!confirm('Xóa mục này? Tiền liên quan sẽ được hoàn lại vào ví.'))return;const ids=[id];if(k!=='tx')D.tx.filter(t=>t.ref===id).forEach(t=>ids.push(t.id));D.del.push(...ids);D[k]=D[k].filter(x=>x.id!==id);D.tx=D.tx.filter(t=>!ids.includes(t.id));cmt()}
-const row=t=>{const tr=t.type==='transfer',pos=t.type==='income'||(t.type==='adjust'&&t.amt>0);return`<div class="row"><div><span class="tag t-${t.type}">${L[t.type]}</span><b>${ci(t.cat)} ${esc(t.cat||'')}</b><small>${t.d} · ${tr?WN[t.w]+' → '+WN[t.to]:WN[t.w]}${t.note?' · '+esc(t.note):''}</small></div><div class="r"><b class="${tr?'':pos?'ok':'bad'}">${tr?'':pos?'+':'−'}${vnd(Math.abs(t.amt))}</b><button class="x" onclick="rm('tx','${t.id}')">🗑</button></div></div>`};
+const row=t=>{const tr=t.type==='transfer',pos=t.type==='income'||(t.type==='adjust'&&t.amt>0);return`<div class="row"><div><span class="tag t-${t.type}">${L[t.type]}</span><b>${ci(t.cat)} ${esc(t.cat||'')}</b><small>${t.d}${hm(t)} · ${tr?WN[t.w]+' → '+WN[t.to]:WN[t.w]}${t.note?' · '+esc(t.note):''}</small></div><div class="r"><b class="${tr?'':pos?'ok':'bad'}">${tr?'':pos?'+':'−'}${vnd(Math.abs(t.amt))}</b><button class="x" onclick="rm('tx','${t.id}')">🗑</button></div></div>`};
 
 /* ---- Hành động ---- */
 function addTx(type){const inc=type==='income',cnt={};D.tx.filter(t=>t.type===type).forEach(t=>cnt[t.cat]=(cnt[t.cat]||0)+1);
@@ -162,25 +183,25 @@ function csv(){let c='\uFEFFNgày,Loại,Hạng mục,Ví,Số tiền,Ghi chú\n
 
 /* ---- Giao diện ---- */
 const V={},A={};
-V.home=()=>{const b=bal(),t=today(),x=D.tx.filter(i=>i.d===t),sm=ty=>x.filter(i=>i.type===ty).reduce((a,i)=>a+ +i.amt,0),rem=remNeed(x);remShown=rem;
+V.home=()=>{const b=bal(),t=today(),x=D.tx.filter(i=>i.d===t).sort(newest),sm=ty=>x.filter(i=>i.type===ty).reduce((a,i)=>a+ +i.amt,0),rem=remNeed(x);remShown=rem;
  return`<h1>Xin chào, ${esc(S.name)}</h1><p class="mu">${new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p>
 ${rem?'<div class="card rem"><span>🔔 Hôm nay bạn chưa ghi khoản chi nào.</span><button class="btn s" onclick="addTx(\'expense\')">Ghi ngay</button></div>':''}<div class="hero">${SKY}<small style="color:inherit;opacity:.8">Tổng số dư</small><div class="big" data-n="${b.bank+b.cash}">${vnd(b.bank+b.cash)}</div><div class="two"><span>Ngân hàng ${vnd(b.bank)}</span><span>Tiền mặt ${vnd(b.cash)}</span></div></div>
 <div class="acts"><button class="btn bd" onclick="addTx('expense')">− Chi tiêu</button><button class="btn gr" onclick="addTx('income')">+ Thu nhập</button></div>
 <div class="grid3"><div class="card"><small>Chi hôm nay</small><b class="bad">${vnd(sm('expense'))}</b></div><div class="card"><small>Thu hôm nay</small><b class="ok">${vnd(sm('income'))}</b></div><div class="card"><small>Phép năm còn</small><b>${left('annual')} ngày</b></div></div>
-<h2>Giao dịch hôm nay</h2>${x.map(row).join('')||'<p class="empty">Chưa có giao dịch nào hôm nay. Bấm “Chi tiêu” hoặc “Thu nhập” để ghi.</p>'}`};
-V.wallet=()=>{const b=bal(),x=D.tx.filter(t=>(F.w==='all'||t.w===F.w||t.to===F.w)&&(F.t==='all'||t.type===F.t)).sort((a,c)=>c.d.localeCompare(a.d));
+<h2>Giao dịch hôm nay</h2><div class="card list">${x.map(row).join('')||'<p class="empty">Chưa có giao dịch nào hôm nay. Bấm “Chi tiêu” hoặc “Thu nhập” để ghi.</p>'}</div>`};
+V.wallet=()=>{const b=bal(),x=D.tx.filter(t=>(F.w==='all'||t.w===F.w||t.to===F.w)&&(F.t==='all'||t.type===F.t)).sort(newest);
  const wc=(k,i)=>`<div class="card wc"><span class="ic">${i}</span><div><small>${WN[k]}</small><b class="big2" data-n="${b[k]}">${vnd(b[k])}</b></div><button class="x" title="Cập nhật số dư" onclick="editBal('${k}')">✎</button></div>`;
  const sel=(id,o,v)=>`<select onchange="F.${id}=this.value;show()">${o.map(([a,c])=>`<option value="${a}"${a===v?' selected':''}>${c}</option>`).join('')}</select>`;
  return`<h1>Ví & giao dịch</h1><div class="grid2">${wc('bank','🏦')}${wc('cash','💵')}</div><button class="btn" onclick="addTr()">⇄ Chuyển tiền giữa ví</button>
-<div class="bar"><h2>Lịch sử</h2><div>${sel('w',[['all','Mọi ví'],...W],F.w)}${sel('t',[['all','Mọi loại'],...Object.entries(L)],F.t)}</div></div>${x.map(row).join('')||'<p class="empty">Không có giao dịch khớp bộ lọc.</p>'}`};
+<div class="bar"><h2>Lịch sử</h2><div>${sel('w',[['all','Mọi ví'],...W],F.w)}${sel('t',[['all','Mọi loại'],...Object.entries(L)],F.t)}</div></div><div class="card list">${x.map(row).join('')||'<p class="empty">Không có giao dịch khớp bộ lọc.</p>'}</div>`};
 V.save=()=>{const ts=D.sav.reduce((a,s)=>a+sv(s.id),0),debt=D.ins.reduce((a,i)=>a+Math.max(0,i.total-sv(i.id)),0);
  return`<h1>Tiết kiệm & trả góp</h1><div class="bar"><h2>Tiết kiệm <span class="pill">${vnd(ts)}</span></h2><button class="btn s" onclick="addSav()">+ Mục tiêu</button></div>
-${D.sav.map(s=>`<div class="row"><div><b>${esc(s.title)}</b><small>Đã tích lũy ${vnd(sv(s.id))}</small></div><div class="r"><button class="btn s" onclick="dep('${s.id}')">Gửi thêm</button><button class="x" onclick="rm('sav','${s.id}')">🗑</button></div></div>`).join('')||'<p class="empty">Chưa có mục tiêu tiết kiệm nào.</p>'}
+<div class="card list">${D.sav.map(s=>`<div class="row"><div><b>${esc(s.title)}</b><small>Đã tích lũy ${vnd(sv(s.id))}</small></div><div class="r"><button class="btn s" onclick="dep('${s.id}')">Gửi thêm</button><button class="x" onclick="rm('sav','${s.id}')">🗑</button></div></div>`).join('')||'<p class="empty">Chưa có mục tiêu tiết kiệm nào.</p>'}</div>
 <div class="bar"><h2>Trả góp <span class="pill o">Còn nợ ${vnd(debt)}</span></h2><button class="btn s" onclick="addIns()">+ Gói</button></div>
 ${D.ins.map(i=>{const p=sv(i.id),pc=Math.min(100,Math.round(p/i.total*100));return`<div class="card" style="margin-bottom:10px"><div class="row n"><div><b>${esc(i.title)}</b><small>${vnd(i.total)} trong ${i.months} kỳ</small></div><div class="r"><button class="btn s" onclick="payIns('${i.id}')">Đóng tiền</button><button class="x" onclick="rm('ins','${i.id}')">🗑</button></div></div><div class="prog"><i style="width:${pc}%"></i></div><small>Đã trả ${vnd(p)} (${pc}%) · còn ${vnd(Math.max(0,i.total-p))}</small></div>`}).join('')||'<p class="empty">Chưa có gói trả góp nào.</p>'}`};
 V.leave=()=>`<div class="bar" style="margin-top:0"><h1>Nghỉ phép ${new Date().getFullYear()}</h1><div><button class="btn g s" onclick="cfgLv()">Hạn mức</button> <button class="btn s" onclick="addLv()">+ Đăng ký nghỉ</button></div></div>
 <div class="grid3">${FN.map(([k,l])=>`<div class="card"><small>${l}</small><b style="font-size:22px">${left(k)}<small> / ${D.cfg[k]}</small></b><small>Đã dùng ${used(k)}</small></div>`).join('')}</div>
-<h2>Lịch sử nghỉ</h2>${[...D.lv].sort((a,b)=>b.d.localeCompare(a.d)).map(l=>`<div class="row"><div><b>${esc(l.reason)}</b><small>${l.d} · ${FN.find(f=>f[0]===l.fund)[1]}</small></div><div class="r"><b>${l.days} ngày</b><button class="x" onclick="rm('lv','${l.id}')">🗑</button></div></div>`).join('')||'<p class="empty">Chưa có đơn nghỉ nào.</p>'}`;
+<h2>Lịch sử nghỉ</h2><div class="card list">${[...D.lv].sort(newest).map(l=>`<div class="row"><div><b>${esc(l.reason)}</b><small>${l.d} · ${FN.find(f=>f[0]===l.fund)[1]}</small></div><div class="r"><b>${l.days} ngày</b><button class="x" onclick="rm('lv','${l.id}')">🗑</button></div></div>`).join('')||'<p class="empty">Chưa có đơn nghỉ nào.</p>'}</div>`;
 V.rep=()=>{const t=D.tx.filter(x=>x.d.startsWith(M)),inc=t.filter(x=>x.type==='income').reduce((a,x)=>a+ +x.amt,0),ex=t.filter(x=>x.type==='expense'||x.type==='pay').reduce((a,x)=>a+ +x.amt,0),lv=D.lv.filter(l=>l.d.startsWith(M)).reduce((a,l)=>a+ +l.days,0);
  return`<div class="bar" style="margin-top:0"><h1>Báo cáo</h1><div style="display:flex;gap:8px"><input type="month" value="${M}" onchange="M=this.value||M;show()"><button class="btn g s" onclick="csv()">Tải CSV</button></div></div>
 <div class="grid3"><div class="card"><small>Thu</small><b class="ok">${vnd(inc)}</b></div><div class="card"><small>Chi</small><b class="bad">${vnd(ex)}</b></div><div class="card"><small>Còn dư</small><b>${vnd(inc-ex)}</b></div></div><p class="mu">Ngày nghỉ trong tháng: ${lv}</p>
@@ -198,12 +219,15 @@ const LOGO=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect 
 $('#lg').innerHTML=LOGO;$('#hl').innerHTML=LOGO;
 const icon=n=>new Promise(r=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas');c.width=c.height=n;const x=c.getContext('2d');x.fillStyle='#7DBDB3';x.fillRect(0,0,n,n);x.drawImage(i,0,0,n,n);r(c.toDataURL('image/png'))};i.src='data:image/svg+xml,'+encodeURIComponent(LOGO)});
 (async()=>{const a=await icon(180),b=await icon(512);$('#ai').href=a;$('#fv').href=a;$('#mf2').href=URL.createObjectURL(new Blob([JSON.stringify({name:'Sổ Thu Chi & Phép',short_name:'Sổ Thu Chi',display:'standalone',start_url:location.href.split('#')[0],background_color:'#4f7cac',theme_color:'#4f7cac',icons:[{src:a,sizes:'180x180',type:'image/png'},{src:b,sizes:'512x512',type:'image/png'}]})],{type:'application/manifest+json'}))})().catch(()=>{});
-const SKY='<svg class="sky" viewBox="0 0 400 100" preserveAspectRatio="none"><path d="M0 100V62h22V40h18v22h14V28h20v34h16V50h24V30h18v32h12V44h22v18h16V22h22v40h14V48h26V34h16v28h20V52h20v48z"/></svg>';
+const SKY='<svg class="sky" viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M0 100V62h22V40h18v22h14V28h20v34h16V50h24V30h18v32h12V44h22v18h16V22h22v40h14V48h26V34h16v28h20V52h20v48z"/></svg>';
 const CI=[[/cà phê|cafe|coffee/i,'☕'],[/\bxe\b|xăng|đi lại|grab/i,'🏍️'],[/ăn|nhậu|cơm|phở/i,'🍜'],[/bóng|thể thao/i,'⚽'],[/gym|tập/i,'🏋️'],[/đồng hồ/i,'⌚'],[/tai nghe|nhạc/i,'🎧'],[/laptop|điện thoại|công nghệ/i,'💻'],[/hóa đơn|điện|nước/i,'🧾'],[/mua sắm|quần áo/i,'🛍️'],[/y tế|thuốc/i,'💊'],[/lương|thưởng|thu nhập/i,'💼'],[/tiết kiệm/i,'🐷'],[/trả góp/i,'💳'],[/nhà|thuê|trọ/i,'🏠'],[/chuyển|điều chỉnh/i,'🔁']];
 const ci=c=>(CI.find(r=>r[0].test(c||''))||[0,'🧩'])[1];
 /* Sáng/tối: tối từ 17h, sáng từ 6h. Bấm tay chỉ có hiệu lực đến mốc giờ tiếp theo */
 let TH='',manual=null;const autoTh=()=>{const h=new Date().getHours();return h>=17||h<6?'dark':'light'},per=()=>new Date(Date.now()-216e5).toDateString()+autoTh();
-function applyTh(){let t=autoTh();if(manual&&manual.p===per())t=manual.t;else manual=null;if(t===TH)return;TH=t;document.documentElement.dataset.th=t;$('#tg').textContent=t==='dark'?'🌙':'☀️';$('meta[name=theme-color]').content=t==='dark'?'#07090d':'#4f7cac';fxInit();fxRun();if(D&&tab==='rep')show()}
+function applyTh(){let t=autoTh();if(manual&&manual.p===per())t=manual.t;else manual=null;if(t===TH)return scene();TH=t;scene();document.documentElement.dataset.th=t;$('#tg').textContent=t==='dark'?'🌙':'☀️';$('meta[name=theme-color]').content=t==='dark'?'#07090d':'#4f7cac';fxInit();fxRun();if(D&&tab==='rep')show()}
+function scene(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,dk=TH==='dark',b=$('#bg');
+ let s=h>=19||h<5?'night':h<8?'dawn':h<15?'day':h<17?'aft':'dusk';if(dk&&!['dusk','night'].includes(s))s='night';if(!dk&&['dusk','night'].includes(s))s='day';
+ const p=Math.min(1,Math.max(0,dk?((h+7)%24)/13:(h-5)/14));b.dataset.sc=s;b.style.setProperty('--ox',(8+84*p).toFixed(1)+'%');b.style.setProperty('--oy',(60-46*Math.sin(Math.PI*p)).toFixed(1)+'%')}
 function toggleTh(){manual={t:TH==='dark'?'light':'dark',p:per()};applyTh();$('#tg').animate([{transform:'rotate(-120deg) scale(.4)'},{transform:'none'}],{duration:350,easing:'ease-out'})}
 /* Hiệu ứng rơi: sáng = icon 20/11, tối = tuyết */
 const fx=$('#fx'),cx=fx.getContext('2d'),EM=['🎓','📚','✏️','🌼','🌸','📖'];let P=[],raf=0;
