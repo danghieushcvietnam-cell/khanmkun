@@ -27,7 +27,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.3px}h2{font-size:16px;font-we
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 2px;border-bottom:1px solid var(--ln)}.row>div:first-child{display:flex;flex-direction:column;min-width:0}.row.n{border:0;padding:0 0 8px}
 .r{display:flex;align-items:center;gap:8px;white-space:nowrap}.x{background:none;border:0;cursor:pointer;opacity:.45;font-size:15px}.x:hover{opacity:1}
 .tag{font-size:11px;font-weight:600;padding:1px 8px;border-radius:99px;background:var(--ln);width:max-content}
-.t-expense,.t-pay,.t-save{background:#e0775a26;color:var(--bad)}.t-income{background:#3f9d8626;color:var(--ok)}
+.t-expense,.t-pay,.t-save,.t-lend,.t-repay{background:#e0775a26;color:var(--bad)}.t-income,.t-borrow,.t-collect{background:#3f9d8626;color:var(--ok)}
 .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:20px 0 6px;flex-wrap:wrap}.bar select{margin-left:6px}
 .pill{font-size:12px;background:var(--pr);color:#fff;border-radius:99px;padding:2px 10px;margin-left:6px}.pill.o{background:var(--am)}
 .prog{height:8px;background:var(--ln);border-radius:9px;overflow:hidden;margin:4px 0}.prog i{display:block;height:100%;background:var(--am);border-radius:9px;transition:width .6s}
@@ -51,7 +51,7 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 .mod{position:fixed;inset:0;background:#0008;z-index:20;display:flex;align-items:flex-end;justify-content:center}
 .mod form{background:var(--cd);width:100%;max-width:460px;border-radius:26px 26px 0 0;padding:22px;display:grid;gap:12px;animation:up .28s cubic-bezier(.2,.9,.3,1)}@keyframes up{from{transform:translateY(60%);opacity:0}}
 @media(min-width:800px){.mod{align-items:center}.mod form{border-radius:26px}}
-.mod .ac{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mod .ac{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px}
 #toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,30px);background:#14211f;color:#fff;padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:.3s;z-index:30;font-size:13px}#toast.show{opacity:1;transform:translate(-50%,0)}#toast.bad{background:var(--bad)}
 .cv{height:240px;position:relative;margin-top:8px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -87,6 +87,14 @@ label{display:grid;gap:4px;font-size:13px;color:var(--mu);font-weight:500}.chk{d
 input[type=range]{width:100%;accent-color:var(--pr)}
 #hi{position:fixed;inset:0;z-index:45;display:grid;place-items:center;padding:20px;background:color-mix(in srgb,var(--bg) 40%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);cursor:pointer;animation:fd .35s ease}
 #hi .card{display:grid;justify-items:center;gap:6px;padding:30px 40px;border-radius:28px;text-align:center;box-shadow:0 12px 40px #0002}#hi h2{font-size:22px;font-weight:800;margin-top:8px}#hi p{color:var(--pr);font-weight:700;animation:pu 1.8s infinite}
+/* Vay mượn */
+@media(max-width:480px){#nav button{padding:4px 2px;font-size:10px;flex:1;min-width:0}#nav button span{font-size:19px}}
+.sm{display:flex;flex-direction:column;gap:2px}.dc{margin-bottom:10px;cursor:pointer;transition:transform .12s}.dc:active{transform:scale(.98)}.dc .row.n{padding-bottom:4px}
+.ims{display:flex;gap:8px;flex-wrap:wrap}.im{position:relative;width:84px;height:84px;border-radius:12px;overflow:hidden;border:1px solid var(--ln);background:var(--ln);flex:none}
+.im img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;display:block}.im>button{position:absolute;top:3px;right:3px;width:22px;height:22px;border-radius:50%;border:0;background:#000a;color:#fff;font-size:11px;cursor:pointer;padding:0}
+.im.add{display:grid;place-items:center;align-content:center;gap:2px;cursor:pointer;border:1.5px dashed var(--pr);background:var(--bg);font-size:22px;color:var(--pr)}.im.add small{font-size:11px;color:var(--pr)}
+#pv{position:fixed;inset:0;z-index:60;background:#000e;display:grid;place-items:center;padding:16px;cursor:zoom-out}#pv img{max-width:100%;max-height:100%;border-radius:10px}
+details>summary{cursor:pointer;padding:12px 2px;list-style:none}details>summary::-webkit-details-marker{display:none}
 @keyframes dr{from{transform:translateX(-25vw)}to{transform:translateX(110vw)}}#auth,.wrap{position:relative;z-index:1}
 #tg{position:fixed;top:calc(env(safe-area-inset-top) + 8px);right:12px;z-index:40;font-size:20px;opacity:1;width:38px;height:38px;border-radius:50%;background:var(--cd);border:1px solid var(--ln)}header div{padding-right:60px}
 .logo svg{width:84px;height:84px;border-radius:22px;box-shadow:0 6px 18px #0002}#hl svg{width:26px;height:26px;border-radius:8px;vertical-align:-7px}
@@ -111,12 +119,12 @@ input[type=range]{width:100%;accent-color:var(--pr)}
 <header><div><b><span id="hl"></span> Sổ Thu Chi</b><i id="sd" title="Trạng thái đồng bộ"></i><button id="un" title="Tài khoản" onclick="go('set')"></button>
 <button class="x" title="Nhắc 20h mỗi ngày" onclick="ics()">🔔</button><button class="x" title="Tải lại từ cloud" onclick="pull(1)">↻</button></div></header>
 <main class="wrap" id="view"></main>
-<nav id="nav"><button data-t="home" onclick="go('home')"><span>🏠</span>Hôm nay</button><button data-t="wallet" onclick="go('wallet')"><span>👛</span>Ví</button><button data-t="save" onclick="go('save')"><span>🐷</span>Tích lũy</button><button data-t="leave" onclick="go('leave')"><span>🌴</span>Nghỉ phép</button><button data-t="rep" onclick="go('rep')"><span>📊</span>Báo cáo</button><button data-t="set" onclick="go('set')"><span>⚙️</span>Cài đặt</button></nav>
+<nav id="nav"><button data-t="home" onclick="go('home')"><span>🏠</span>Hôm nay</button><button data-t="wallet" onclick="go('wallet')"><span>👛</span>Ví</button><button data-t="save" onclick="go('save')"><span>🐷</span>Tích lũy</button><button data-t="debt" onclick="go('debt')"><span>🤝</span>Vay mượn</button><button data-t="leave" onclick="go('leave')"><span>🌴</span>Nghỉ phép</button><button data-t="rep" onclick="go('rep')"><span>📊</span>Báo cáo</button><button data-t="set" onclick="go('set')"><span>⚙️</span>Cài đặt</button></nav>
 </div>
 
 <div id="mod" class="mod" hidden onclick="if(event.target===this)this.hidden=true"><form id="mf"><h2 id="mt"></h2><div id="mb" style="display:grid;gap:12px"></div>
-<div class="ac"><button type="button" class="btn g" onclick="$('#mod').hidden=true">Hủy</button><button class="btn" id="ok">Lưu</button></div></form></div>
-<input id="fi" type="file" accept="image/*" hidden><input id="fa" type="file" accept="audio/*" hidden><button id="mu" type="button" hidden title="Bật / tắt nhạc nền" onclick="muToggle()">🎵</button><div id="ytw" hidden></div><div id="hi" hidden></div><datalist id="cats"></datalist><div id="toast"></div>
+<div class="ac"><button type="button" id="cx" class="btn g" onclick="$('#mod').hidden=true">Hủy</button><button class="btn" id="ok">Lưu</button></div></form></div>
+<input id="fi" type="file" accept="image/*" hidden><input id="fa" type="file" accept="audio/*" hidden><button id="mu" type="button" hidden title="Bật / tắt nhạc nền" onclick="muToggle()">🎵</button><div id="ytw" hidden></div><div id="hi" hidden></div><div id="pv" hidden onclick="this.hidden=true"><img alt=""></div><datalist id="cats"></datalist><div id="toast"></div>
 
 <script>
 /* ====== CẤU HÌNH — CHỈ SỬA 2 DÒNG NÀY ====== */
@@ -137,10 +145,10 @@ async function create(d,name){const r=await fetch(API,{method:'POST',headers:{..
 async function hash(s,p){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s+':'+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
 /* ---- Dữ liệu: số dư ví được TÍNH từ giao dịch → gộp 2 thiết bị không bao giờ lệch ---- */
-const blank=()=>({rev:0,open:{bank:0,cash:0},cfg:{annual:12,comp:0,senior:0},tx:[],sav:[],ins:[],lv:[],del:[],prof:{}});
+const blank=()=>({rev:0,open:{bank:0,cash:0},cfg:{annual:12,comp:0,senior:0},tx:[],sav:[],ins:[],lv:[],debt:[],del:[],prof:{}});
 const norm=d=>Object.assign(blank(),d||{});
 function merge(a,b){const del=[...new Set([...(a.del||[]),...(b.del||[])])],o=new Set(del),m={...a,...b};
- ['tx','sav','ins','lv'].forEach(k=>{const mp=new Map();[...(a[k]||[]),...(b[k]||[])].forEach(x=>{if(!o.has(x.id))mp.set(x.id,x)});m[k]=[...mp.values()]});
+ ['tx','sav','ins','lv','debt'].forEach(k=>{const mp=new Map();[...(a[k]||[]),...(b[k]||[])].forEach(x=>{if(!o.has(x.id))mp.set(x.id,x)});m[k]=[...mp.values()]});
  m.del=del.slice(-600);m.rev=Math.max(a.rev||0,b.rev||0)+1;return m}
 let S=null,D=null,q=Promise.resolve(),tab='home',F={w:'all',t:'all'},M=today().slice(0,7),CH=[];
 function sync(s){$('#sd').className=s==='ok'?'':s}
@@ -249,12 +257,13 @@ function logout(){localStorage.removeItem('stc_s');sessionStorage.removeItem('st
 function chPass(){ask('Đổi mật khẩu',[{k:'o',l:'Mật khẩu hiện tại',t:'password'},{k:'n',l:'Mật khẩu mới (≥ 6 ký tự)',t:'password'}],async v=>{if(v.n.length<6)E('Mật khẩu mới tối thiểu 6 ký tự');const R=await get(REG_ID),x=R.users[S.u];if(x.h!==await hash(x.s,v.o))E('Mật khẩu hiện tại không đúng');x.s=uid()+uid();x.h=await hash(x.s,v.n);await put(REG_ID,R);toast('Đã đổi mật khẩu ✓')})}
 
 /* ---- Modal & tiện ích ---- */
-function ask(title,f,ok,okT='Lưu'){$('#mt').textContent=title;$('#mb').innerHTML=f.map(i=>`<label>${i.l}${i.t==='select'?`<select name="${i.k}">${i.o.map(o=>`<option value="${o[0]}"${o[0]==i.v?' selected':''}>${o[1]}</option>`).join('')}</select>`:`<input name="${i.k}" type="${i.t||'text'}" value="${esc(i.v??'')}" ${i.r===0?'':'required'} ${i.x||''}>`}</label>`).join('');
+function ask(title,f,ok,okT='Lưu'){$('#cx').hidden=false;$('#mt').textContent=title;$('#mb').innerHTML=f.map(i=>`<label>${i.l}${i.t==='select'?`<select name="${i.k}">${i.o.map(o=>`<option value="${o[0]}"${o[0]==i.v?' selected':''}>${o[1]}</option>`).join('')}</select>`:`<input name="${i.k}" type="${i.t||'text'}" value="${esc(i.v??'')}" ${i.r===0?'':'required'} ${i.x||''}>`}</label>`).join('');
  $('#ok').textContent=okT;$('#mod').hidden=false;const first=$('#mb input,#mb select');first&&first.focus();
- $('#mf').onsubmit=async e=>{e.preventDefault();try{await ok(Object.fromEntries(new FormData(e.target)));$('#mod').hidden=true}catch(x){toast(x.message||'Lỗi',1)}}}
+ $('#mf').onsubmit=async e=>{e.preventDefault();try{if(await ok(Object.fromEntries(new FormData(e.target)))!=='keep')$('#mod').hidden=true}catch(x){toast(x.message||'Lỗi',1)}}}
 function toast(m,bad){const t=$('#toast');t.textContent=m;t.className='show'+(bad?' bad':'');clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',2400)}
-const L={income:'Thu nhập',expense:'Chi tiêu',transfer:'Chuyển ví',save:'Tiết kiệm',pay:'Trả góp',adjust:'Điều chỉnh'},WN={bank:'Ngân hàng',cash:'Tiền mặt'},W=[['bank','Ngân hàng'],['cash','Tiền mặt']];
-function bal(){const b={...D.open};D.tx.forEach(t=>{const a=+t.amt;if(t.type==='income')b[t.w]+=a;else if(t.type==='transfer'){b[t.w]-=a;b[t.to]+=a}else if(t.type==='adjust')b[t.w]+=a;else b[t.w]-=a});return b}
+const L={income:'Thu nhập',expense:'Chi tiêu',transfer:'Chuyển ví',save:'Tiết kiệm',pay:'Trả góp',adjust:'Điều chỉnh',borrow:'Đi mượn',lend:'Cho vay',repay:'Trả nợ',collect:'Thu nợ'},WN={bank:'Ngân hàng',cash:'Tiền mặt'},W=[['bank','Ngân hàng'],['cash','Tiền mặt']];
+const IN=['income','borrow','collect'];
+function bal(){const b={...D.open};D.tx.forEach(t=>{const a=+t.amt;if(!t.w)return;if(IN.includes(t.type))b[t.w]+=a;else if(t.type==='transfer'){b[t.w]-=a;b[t.to]+=a}else if(t.type==='adjust')b[t.w]+=a;else b[t.w]-=a});return b}
 const enough=(w,a)=>bal()[w]>=a||confirm('Số dư ví không đủ cho khoản này. Vẫn tiếp tục?');
 /* Mới nhất lên đầu: theo ngày, cùng ngày thì theo thời điểm ghi (lấy từ id) */
 const tsOf=t=>parseInt(String(t.id).slice(0,8),36)||0,newest=(a,b)=>b.d.localeCompare(a.d)||tsOf(b)-tsOf(a);
@@ -262,7 +271,7 @@ const hm=t=>{const z=new Date(tsOf(t)),p=n=>String(n).padStart(2,'0');return new
 const sv=id=>D.tx.filter(t=>t.ref===id).reduce((a,t)=>a+ +t.amt,0);
 const used=f=>D.lv.filter(l=>l.fund===f&&l.d.startsWith(String(new Date().getFullYear()))).reduce((a,l)=>a+ +l.days,0),left=f=>D.cfg[f]-used(f);
 async function rm(k,id){if(!confirm('Xóa mục này? Tiền liên quan sẽ được hoàn lại vào ví.'))return;const ids=[id];if(k!=='tx')D.tx.filter(t=>t.ref===id).forEach(t=>ids.push(t.id));D.del.push(...ids);D[k]=D[k].filter(x=>x.id!==id);D.tx=D.tx.filter(t=>!ids.includes(t.id));cmt()}
-const row=t=>{const tr=t.type==='transfer',pos=t.type==='income'||(t.type==='adjust'&&t.amt>0);return`<div class="row"><div><span class="tag t-${t.type}">${L[t.type]}</span><b>${ci(t.cat)} ${esc(t.cat||'')}</b><small>${t.d}${hm(t)} · ${tr?WN[t.w]+' → '+WN[t.to]:WN[t.w]}${t.note?' · '+esc(t.note):''}</small></div><div class="r"><b class="${tr?'':pos?'ok':'bad'}">${tr?'':pos?'+':'−'}${vnd(Math.abs(t.amt))}</b><button class="x" onclick="rm('tx','${t.id}')">🗑</button></div></div>`};
+const row=t=>{const tr=t.type==='transfer',pos=IN.includes(t.type)||(t.type==='adjust'&&t.amt>0);return`<div class="row"><div><span class="tag t-${t.type}">${L[t.type]}</span><b>${ci(t.cat)} ${esc(t.cat||'')}</b><small>${t.d}${hm(t)} · ${tr?WN[t.w]+' → '+WN[t.to]:WN[t.w]||'Không qua ví'}${t.note?' · '+esc(t.note):''}</small></div><div class="r"><b class="${tr?'':pos?'ok':'bad'}">${tr?'':pos?'+':'−'}${vnd(Math.abs(t.amt))}</b><button class="x" onclick="rm('tx','${t.id}')">🗑</button></div></div>`};
 
 /* ---- Hành động ---- */
 function addTx(type){const inc=type==='income',cnt={};D.tx.filter(t=>t.type===type).forEach(t=>cnt[t.cat]=(cnt[t.cat]||0)+1);
@@ -283,7 +292,50 @@ function payIns(id){const i=D.ins.find(x=>x.id===id),rem=i.total-sv(id);if(rem<=
 const FN=[['annual','Phép năm'],['comp','Nghỉ bù'],['senior','Phép thâm niên']];
 function addLv(){ask('Đăng ký nghỉ',[{k:'f',l:'Trừ từ quỹ',t:'select',o:FN},{k:'days',l:'Số ngày (0.5 = nửa ngày)',t:'number',v:1,x:'step="0.5" min="0.5"'},{k:'d',l:'Ngày bắt đầu',t:'date',v:today()},{k:'r',l:'Lý do'}],v=>{if(+v.days>left(v.f)&&!confirm('Quỹ này không đủ số ngày. Vẫn ghi?'))return;D.lv.unshift({id:uid(),fund:v.f,days:+v.days,d:v.d,reason:v.r.trim()});cmt()})}
 function cfgLv(){ask('Hạn mức phép mỗi năm',FN.map(([k,l])=>({k,l:l+' (ngày)',t:'number',v:D.cfg[k],x:'step="0.5" min="0"'})),v=>{D.cfg={annual:+v.annual,comp:+v.comp,senior:+v.senior};cmt()})}
-function csv(){let c='\uFEFFNgày,Loại,Hạng mục,Ví,Số tiền,Ghi chú\n';[...D.tx].sort((a,b)=>a.d.localeCompare(b.d)).forEach(t=>c+=[t.d,L[t.type],t.cat,WN[t.w],t.amt,t.note||''].map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')+'\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/csv'}));a.download='thu-chi-'+S.u+'.csv';a.click()}
+function csv(){let c='\uFEFFNgày,Loại,Hạng mục,Ví,Số tiền,Ghi chú\n';[...D.tx].sort((a,b)=>a.d.localeCompare(b.d)).forEach(t=>c+=[t.d,L[t.type],t.cat,WN[t.w]||'Không qua ví',t.amt,t.note||''].map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')+'\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/csv'}));a.download='thu-chi-'+S.u+'.csv';a.click()}
+
+/* ---- Vay mượn: khoản gốc + các lần trả/thu là giao dịch (ref = id khoản) → ví tự cộng trừ, xóa khoản là hoàn lại ví ---- */
+const DK={borrow:['Tôi mượn','🙋','repay','Trả nợ','Mượn'],lend:['Tôi cho vay','🤲','collect','Thu nợ','Cho vay']},WX=[...W,['','Không qua ví']];
+const dPaid=id=>D.tx.filter(t=>t.ref===id&&(t.type==='repay'||t.type==='collect')).reduce((a,t)=>a+ +t.amt,0),dLeft=x=>Math.max(0,x.amt-dPaid(x.id)),dTx=x=>D.tx.find(t=>t.ref===x.id&&t.type===x.kind);
+/* Ảnh: nén nhỏ (vẫn đọc rõ biên nhận), mỗi ảnh 1 bin riêng trên JSONBin để không làm nặng dữ liệu thu chi */
+const IMG={};let NEWIMG=[];
+function imgPack(i){let u;for(const [m,q] of [[1280,.8],[1100,.7],[960,.62],[800,.55],[640,.5]]){u=shrink(i,m,0,q);if(u.length<95e3)break}return u}
+async function imgUp(list){const ids=[];for(const u of list){const id=await create({img:u},'stc_img_'+S.u);IMG[id]=Promise.resolve(u);ids.push(id)}return ids}
+const imgGet=id=>IMG[id]??=get(id).then(r=>r.img).catch(e=>{delete IMG[id];throw e});
+const imgDel=ids=>(ids||[]).forEach(id=>{delete IMG[id];fetch(`${API}/${id}`,{method:'DELETE',headers:H}).catch(()=>{})});
+const pv=u=>{if(!u)return;$('#pv img').src=u;$('#pv').hidden=false};
+const imsHTML=(xs,del,add)=>`<div class="ims">${xs.map((x,i)=>`<div class="im"><img ${x.id?`data-id="${x.id}"`:`src="${x.src}"`} alt="" onclick="pv(this.src)">${del?`<button type="button" title="Xóa ảnh" onclick="${del}(${i})">✕</button>`:''}</div>`).join('')}${add&&xs.length<3?`<button type="button" class="im add" onclick="${add}()">📷<small>Thêm ảnh</small></button>`:''}</div>`;
+function nRen(){const b=$('#nimg');b&&(b.innerHTML=imsHTML(NEWIMG.map(src=>({src})),'nDel','nAdd'))}
+const nAdd=()=>pick(i=>{NEWIMG.push(imgPack(i));nRen()}),nDel=i=>{NEWIMG.splice(i,1);nRen()};
+function addDebt(kind){const k=DK[kind],bo=kind==='borrow';NEWIMG=[];
+ ask(bo?'🙋 Ghi khoản mượn':'🤲 Ghi khoản cho vay',[{k:'who',l:bo?'Mượn của ai':'Cho ai vay',x:'placeholder="Tên người" autocomplete="off"'},{k:'amt',l:'Số tiền (đ)',t:'number',x:'min="1" inputmode="numeric"'},{k:'d',l:'Ngày mượn',t:'date',v:today()},{k:'w',l:bo?'Tiền nhận vào ví':'Lấy tiền từ ví',t:'select',o:WX,v:'bank'},{k:'note',l:'Ghi chú',r:0,x:'placeholder="vd: hẹn cuối tháng trả"'}],async v=>{
+  const a=+v.amt,who=v.who.trim();if(!bo&&v.w&&!enough(v.w,a))return;let imgs=[];
+  if(NEWIMG.length){toast('Đang tải ảnh lên…');try{imgs=await imgUp(NEWIMG)}catch(e){E('Chưa tải được ảnh lên, thử lại nhé')}}
+  const id=uid();D.debt.unshift({id,kind,who,amt:a,d:v.d,note:v.note.trim(),imgs});D.tx.unshift({id:uid(),type:kind,amt:a,cat:k[4]+': '+who,w:v.w,d:v.d,ref:id});cmt()});
+ const b=document.createElement('div');b.style.cssText='display:grid;gap:6px;font-size:13px;color:var(--mu);font-weight:500';b.innerHTML='Ảnh đính kèm (tối đa 3: biên nhận, chuyển khoản…)<div id="nimg"></div>';$('#mb').append(b);nRen()}
+function dOpen(id){const x=D.debt.find(y=>y.id===id);if(!x){$('#mod').hidden=true;return}const k=DK[x.kind],bo=x.kind==='borrow',p=dPaid(id),l=dLeft(x),pc=Math.min(100,Math.round(p/x.amt*100)),t0=dTx(x),ps=D.tx.filter(t=>t.ref===id&&t.type===k[2]).sort(newest),im=x.imgs||[];
+ $('#mt').textContent=k[1]+' '+x.who;
+ $('#mb').innerHTML=`<div class="card"><small>${k[0]} · ${x.d} · ${t0&&t0.w?WN[t0.w]:'Không qua ví'}</small><b class="big2" style="display:block">${vnd(x.amt)}</b><div class="prog"><i style="width:${pc}%"></i></div>
+ <small>${l?`Đã ${bo?'trả':'thu'} ${vnd(p)} · còn <b class="${bo?'bad':'ok'}">${vnd(l)}</b>`:`✅ Đã ${bo?'trả':'thu'} đủ`}</small>${x.note?`<p style="margin-top:6px">${esc(x.note)}</p>`:''}</div>
+ <h2>Ảnh (${im.length}/3)</h2>${imsHTML(im.map(id=>({id})),'dImgDel','dImgAdd')}
+ <h2>Lịch sử ${k[3].toLowerCase()}</h2><div>${ps.map(t=>`<div class="row"><div><b>${vnd(t.amt)}</b><small>${t.d} · ${WN[t.w]||'Không qua ví'}</small></div><button type="button" class="x" onclick="rmPay('${t.id}')">🗑</button></div>`).join('')||'<p class="empty" style="padding:8px 0">Chưa có lần nào.</p>'}</div>
+ <div class="ac">${l?`<button type="button" class="btn" onclick="dPay()">${bo?'💸':'💰'} ${k[3]}</button>`:''}<button type="button" class="btn g" onclick="dEdit()">✎ Sửa</button></div>
+ <button type="button" class="btn g" style="border-color:var(--bad);color:var(--bad)" onclick="dDel()">🗑 Xóa khoản này</button>`;
+ dOpen.id=id;$('#cx').hidden=true;$('#ok').textContent='Đóng';$('#mod').hidden=false;$('#mf').onsubmit=e=>{e.preventDefault();$('#mod').hidden=true};
+ $('#mb').querySelectorAll('img[data-id]').forEach(el=>imgGet(el.dataset.id).then(u=>el.src=u,()=>el.alt='⚠️'))}
+const dCur=()=>D.debt.find(y=>y.id===dOpen.id);
+function dPay(){const x=dCur(),k=DK[x.kind],bo=x.kind==='borrow',l=dLeft(x),t0=dTx(x);
+ ask(k[3]+': '+x.who,[{k:'amt',l:'Số tiền (đ)',t:'number',v:l,x:`min="1" max="${l}" inputmode="numeric"`},{k:'w',l:bo?'Trả từ ví':'Nhận vào ví',t:'select',o:WX,v:t0?t0.w:'bank'},{k:'d',l:'Ngày',t:'date',v:today()}],v=>{
+  const a=+v.amt;if(a>l)E('Vượt quá số còn lại');if(bo&&v.w&&!enough(v.w,a))return;D.tx.unshift({id:uid(),type:k[2],amt:a,cat:k[3]+': '+x.who,w:v.w,d:v.d,ref:x.id});cmt();if(a===l)toast(bo?'Đã trả hết nợ 🎉':'Đã thu đủ 🎉');dOpen(x.id);return'keep'})}
+function dEdit(){const x=dCur(),t0=dTx(x),p=dPaid(x.id);
+ ask('Sửa khoản',[{k:'who',l:'Tên người',v:x.who},{k:'amt',l:'Số tiền (đ)',t:'number',v:x.amt,x:`min="${Math.max(1,p)}"`},{k:'d',l:'Ngày mượn',t:'date',v:x.d},{k:'w',l:'Ví',t:'select',o:WX,v:t0?t0.w:''},{k:'note',l:'Ghi chú',r:0,v:x.note}],v=>{
+  Object.assign(x,{who:v.who.trim(),amt:+v.amt,d:v.d,note:v.note.trim()});const c=DK[x.kind][4]+': '+x.who;if(t0)Object.assign(t0,{amt:+v.amt,d:v.d,w:v.w,cat:c});else D.tx.unshift({id:uid(),type:x.kind,amt:+v.amt,cat:c,w:v.w,d:v.d,ref:x.id});
+  D.tx.filter(t=>t.ref===x.id&&t!==t0).forEach(t=>t.cat=DK[x.kind][3]+': '+x.who);cmt();dOpen(x.id);return'keep'})}
+function dDel(){const x=dCur();if(!confirm('Xóa khoản này? Tiền liên quan sẽ được hoàn lại vào ví và ảnh sẽ bị xóa.'))return;const ids=[x.id,...D.tx.filter(t=>t.ref===x.id).map(t=>t.id)];
+ D.del.push(...ids);D.debt=D.debt.filter(y=>y.id!==x.id);D.tx=D.tx.filter(t=>!ids.includes(t.id));imgDel(x.imgs);$('#mod').hidden=true;cmt()}
+function rmPay(tid){if(!confirm('Xóa lần này? Tiền sẽ được hoàn lại vào ví.'))return;D.del.push(tid);D.tx=D.tx.filter(t=>t.id!==tid);cmt();dOpen(dOpen.id)}
+const dImgAdd=()=>pick(async i=>{const x=dCur();toast('Đang tải ảnh lên…');try{const [id]=await imgUp([imgPack(i)]);x.imgs=[...(x.imgs||[]),id];cmt();dOpen(x.id)}catch(e){toast('Chưa tải được ảnh lên, thử lại nhé',1)}});
+function dImgDel(i){const x=dCur();if(!confirm('Xóa ảnh này?'))return;imgDel([x.imgs[i]]);x.imgs=x.imgs.filter((_,j)=>j!==i);cmt();dOpen(x.id)}
 
 /* ---- Giao diện ---- */
 const V={},A={};
@@ -309,6 +361,14 @@ V.save=()=>{const ts=D.sav.reduce((a,s)=>a+sv(s.id),0),debt=D.ins.reduce((a,i)=>
 <div class="card list">${D.sav.map(s=>`<div class="row"><div><b>${esc(s.title)}</b><small>Đã tích lũy ${vnd(sv(s.id))}</small></div><div class="r"><button class="btn s" onclick="dep('${s.id}')">Gửi thêm</button><button class="x" onclick="rm('sav','${s.id}')">🗑</button></div></div>`).join('')||'<p class="empty">Chưa có mục tiêu tiết kiệm nào.</p>'}</div>
 <div class="bar"><h2>Trả góp <span class="pill o">Còn nợ ${vnd(debt)}</span></h2><button class="btn s" onclick="addIns()">+ Gói</button></div>
 ${D.ins.map(i=>{const p=sv(i.id),pc=Math.min(100,Math.round(p/i.total*100));return`<div class="card" style="margin-bottom:10px"><div class="row n"><div><b>${esc(i.title)}</b><small>${vnd(i.total)} trong ${i.months} kỳ</small></div><div class="r"><button class="btn s" onclick="payIns('${i.id}')">Đóng tiền</button><button class="x" onclick="rm('ins','${i.id}')">🗑</button></div></div><div class="prog"><i style="width:${pc}%"></i></div><small>Đã trả ${vnd(p)} (${pc}%) · còn ${vnd(Math.max(0,i.total-p))}</small></div>`}).join('')||'<p class="empty">Chưa có gói trả góp nào.</p>'}`};
+V.debt=()=>{const act=D.debt.filter(x=>dLeft(x)>0),done=D.debt.filter(x=>dLeft(x)<=0).sort(newest),sum=k=>act.filter(x=>x.kind===k).reduce((a,x)=>a+dLeft(x),0);
+ const card=x=>{const p=dPaid(x.id),pc=Math.min(100,Math.round(p/x.amt*100)),bo=x.kind==='borrow';return`<div class="card dc" onclick="dOpen('${x.id}')"><div class="row n"><div><b>${DK[x.kind][1]} ${esc(x.who)}</b><small>${x.d}${x.note?' · '+esc(x.note):''}${x.imgs&&x.imgs.length?' · 📎 '+x.imgs.length+' ảnh':''}</small></div><div class="r"><b class="${bo?'bad':'ok'}">${vnd(dLeft(x))}</b></div></div>${p?`<div class="prog"><i style="width:${pc}%"></i></div><small>Đã ${bo?'trả':'thu'} ${vnd(p)} / ${vnd(x.amt)}</small>`:''}</div>`};
+ const sec=(k,t)=>{const xs=act.filter(x=>x.kind===k).sort(newest);return`<div class="bar"><h2>${t} <span class="pill${k==='borrow'?' o':''}">${xs.length}</span></h2><button class="btn s" onclick="addDebt('${k}')">+ Ghi</button></div>${xs.map(card).join('')||`<p class="empty">${k==='borrow'?'Không nợ ai 🎉':'Không ai nợ bạn.'}</p>`}`};
+ return`<h1>Vay mượn 🤝</h1><div class="grid2"><div class="card sm"><small>Mình đang nợ</small><b class="big2 bad" data-n="${sum('borrow')}">${vnd(sum('borrow'))}</b></div><div class="card sm"><small>Người khác nợ mình</small><b class="big2 ok" data-n="${sum('lend')}">${vnd(sum('lend'))}</b></div></div>
+<div class="acts"><button class="btn" onclick="addDebt('borrow')">🙋 Tôi mượn</button><button class="btn g" onclick="addDebt('lend')">🤲 Tôi cho vay</button></div>
+${sec('borrow','🙋 Tôi đang mượn')}${sec('lend','🤲 Tôi cho vay')}
+${done.length?`<details class="card list" style="margin-top:18px"><summary><b>✅ Đã xong (${done.length})</b> <small class="mu">bấm để xem</small></summary>${done.map(x=>`<div class="row" style="cursor:pointer" onclick="dOpen('${x.id}')"><div><b>${DK[x.kind][1]} ${esc(x.who)}</b><small>${x.d} · ${DK[x.kind][0]}</small></div><b>${vnd(x.amt)}</b></div>`).join('')}</details>`:''}`};
+A.debt=cu;
 V.leave=()=>`<div class="bar" style="margin-top:0"><h1>Nghỉ phép ${new Date().getFullYear()}</h1><div><button class="btn g s" onclick="cfgLv()">Hạn mức</button> <button class="btn s" onclick="addLv()">+ Đăng ký nghỉ</button></div></div>
 <div class="grid3">${FN.map(([k,l])=>`<div class="card"><small>${l}</small><b style="font-size:22px">${left(k)}<small> / ${D.cfg[k]}</small></b><small>Đã dùng ${used(k)}</small></div>`).join('')}</div>
 <h2>Lịch sử nghỉ</h2><div class="card list">${[...D.lv].sort(newest).map(l=>`<div class="row"><div><b>${esc(l.reason)}</b><small>${l.d} · ${FN.find(f=>f[0]===l.fund)[1]}</small></div><div class="r"><b>${l.days} ngày</b><button class="x" onclick="rm('lv','${l.id}')">🗑</button></div></div>`).join('')||'<p class="empty">Chưa có đơn nghỉ nào.</p>'}</div>`;
@@ -330,7 +390,7 @@ $('#lg').innerHTML=LOGO;$('#hl').innerHTML=LOGO;
 const icon=n=>new Promise(r=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas');c.width=c.height=n;const x=c.getContext('2d');x.fillStyle='#7DBDB3';x.fillRect(0,0,n,n);x.drawImage(i,0,0,n,n);r(c.toDataURL('image/png'))};i.src='data:image/svg+xml,'+encodeURIComponent(LOGO)});
 (async()=>{const a=await icon(180),b=await icon(512);$('#ai').href=a;$('#fv').href=a;$('#mf2').href=URL.createObjectURL(new Blob([JSON.stringify({name:'Sổ Thu Chi & Phép',short_name:'Sổ Thu Chi',display:'standalone',start_url:location.href.split('#')[0],background_color:'#4f7cac',theme_color:'#4f7cac',icons:[{src:a,sizes:'180x180',type:'image/png'},{src:b,sizes:'512x512',type:'image/png'}]})],{type:'application/manifest+json'}))})().catch(()=>{});
 const SKY='<svg class="sky" viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M0 100V62h22V40h18v22h14V28h20v34h16V50h24V30h18v32h12V44h22v18h16V22h22v40h14V48h26V34h16v28h20V52h20v48z"/></svg>';
-const CI=[[/cà phê|cafe|coffee/i,'☕'],[/\bxe\b|xăng|đi lại|grab/i,'🏍️'],[/ăn|nhậu|cơm|phở/i,'🍜'],[/bóng|thể thao/i,'⚽'],[/gym|tập/i,'🏋️'],[/đồng hồ/i,'⌚'],[/tai nghe|nhạc/i,'🎧'],[/laptop|điện thoại|công nghệ/i,'💻'],[/hóa đơn|điện|nước/i,'🧾'],[/mua sắm|quần áo/i,'🛍️'],[/y tế|thuốc/i,'💊'],[/lương|thưởng|thu nhập/i,'💼'],[/tiết kiệm/i,'🐷'],[/trả góp/i,'💳'],[/nhà|thuê|trọ/i,'🏠'],[/chuyển|điều chỉnh/i,'🔁']];
+const CI=[[/mượn|cho vay|trả nợ|thu nợ/i,'🤝'],[/cà phê|cafe|coffee/i,'☕'],[/\bxe\b|xăng|đi lại|grab/i,'🏍️'],[/ăn|nhậu|cơm|phở/i,'🍜'],[/bóng|thể thao/i,'⚽'],[/gym|tập/i,'🏋️'],[/đồng hồ/i,'⌚'],[/tai nghe|nhạc/i,'🎧'],[/laptop|điện thoại|công nghệ/i,'💻'],[/hóa đơn|điện|nước/i,'🧾'],[/mua sắm|quần áo/i,'🛍️'],[/y tế|thuốc/i,'💊'],[/lương|thưởng|thu nhập/i,'💼'],[/tiết kiệm/i,'🐷'],[/trả góp/i,'💳'],[/nhà|thuê|trọ/i,'🏠'],[/chuyển|điều chỉnh/i,'🔁']];
 const ci=c=>(CI.find(r=>r[0].test(c||''))||[0,'🧩'])[1];
 /* Sáng/tối: tối từ 17h, sáng từ 6h. Bấm tay chỉ có hiệu lực đến mốc giờ tiếp theo */
 let TH='',manual=null;const autoTh=()=>{const h=new Date().getHours();return h>=17||h<6?'dark':'light'},per=()=>new Date(Date.now()-216e5).toDateString()+autoTh();
